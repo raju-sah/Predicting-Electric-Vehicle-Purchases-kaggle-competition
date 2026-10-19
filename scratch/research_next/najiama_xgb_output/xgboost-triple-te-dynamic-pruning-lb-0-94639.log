@@ -1,0 +1,94 @@
+[{"stream_name":"stderr","time":10.483227453,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":10.48331939,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":10.483328151,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":10.483332389,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":11.428478912,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":11.428560555,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":11.428569633,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":11.428575386,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":88.662552745,"data":"   -\u003e Dropping 85 redundant/constant features: ['Environmental_Concern_Level_digit-4_cat_fe', 'Charging_Stations_Near_Home_digit3', 'Environmental_Concern_Level_digit-3_cat_fe', 'Age_digit2_cat_fe', 'Charging_Stations_Near_Home_digit2_cat_fe', 'Charging_Stations_Near_Work_digit2_cat', 'Age_digit-1_cat', 'Charging_Stations_Near_Work_digit3', 'Age_digit-3_cat', 'Daily_Commute_km_digit2_cat_fe', 'Age_digit3', 'Environmental_Concern_Level_digit-2_cat', 'Environmental_Concern_Level_digit1_cat', 'Age_digit-3_cat_fe', 'Charging_Stations_Near_Home_digit-1_cat_fe', 'Age_digit-4_cat', 'Age_digit-2_cat_fe', 'Age_digit3_cat', 'Charging_Stations_Near_Home_digit-3', 'Environmental_Concern_Level_digit0', 'Annual_Income_USD_digit-4', 'Charging_Stations_Near_Home_digit3_cat_fe', 'Charging_Stations_Near_Work_digit-3_cat_fe', 'Charging_Stations_Near_Home_digit-2', 'Environmental_Concern_Level_digit-1_cat_fe', 'Daily_Commute_km_digit3_cat', 'Environmental_Concern_Level_digit-3_cat', 'Charging_Stations_Near_Home_digit2_cat', 'Age_digit-3', 'Age_digit-4_cat_fe', 'Daily_Commute_km_digit2', 'Charging_Stations_Near_Work_digit2', 'Environmental_Concern_Level_digit2_cat_fe', 'Age_digit-4', 'Age_digit2_cat', 'Charging_Stations_Near_Home_digit3_cat', 'Annual_Income_USD_digit-4_cat', 'Environmental_Concern_Level_digit3_cat', 'Charging_Stations_Near_Work_digit-2_cat_fe', 'Daily_Commute_km_digit-2_cat_fe', 'Environmental_Concern_Level_digit0_cat_fe', 'Environmental_Concern_Level_digit-2_cat_fe', 'Annual_Income_USD_digit-3_cat', 'Daily_Commute_km_digit3_cat_fe', 'Environmental_Concern_Level_digit2_cat', 'Age_digit-2', 'Charging_Stations_Near_Home_digit-2_cat_fe', 'Annual_Income_USD_digit-4_cat_fe', 'Charging_Stations_Near_Home_digit-1', 'Charging_Stations_Near_Work_digit-1', 'Annual_Income_USD_digit-2_cat', 'Charging_Stations_Near_Work_digit-3', 'Charging_Stations_Near_Work_digit-1_cat_fe', 'Environmental_Concern_Level_digit-3', 'Annual_Income_USD_digit-3', 'Daily_Commute_km_digit-2', 'Age_digit2', 'Annual_Income_USD_digit-3_cat_fe', 'Environmental_Concern_Level_digit1', 'Charging_Stations_Near_Work_digit3_cat_fe', 'Charging_Stations_Near_Home_digit-3_cat_fe', 'Environmental_Concern_Level_digit1_cat_fe', 'Age_digit-1', 'Charging_Stations_Near_Home_digit2', 'Age_digit-1_cat_fe', 'Environmental_Concern_Level_digit3_cat_fe', 'Environmental_Concern_Level_digit3', 'Environmental_Concern_Level_digit-1', 'Daily_Commute_km_digit2_cat', 'Charging_Stations_Near_Work_digit-2', 'Age_digit-2_cat', 'Annual_Income_USD_digit-1', 'Annual_Income_USD_digit-1_cat_fe', 'Daily_Commute_km_digit3', 'Charging_Stations_Near_Work_digit3_cat', 'Environmental_Concern_Level_digit-4_cat', 'Environmental_Concern_Level_digit-1_cat', 'Environmental_Concern_Level_digit-4', 'Annual_Income_USD_digit-2', 'Annual_Income_USD_digit-1_cat', 'Age_digit3_cat_fe', 'Annual_Income_USD_digit-2_cat_fe', 'Charging_Stations_Near_Work_digit2_cat_fe', 'Environmental_Concern_Level_digit-2', 'Environmental_Concern_Level_digit2']\n"}
+,{"stream_name":"stdout","time":89.53747014,"data":"✅ Total Features: 106\n"}
+,{"stream_name":"stdout","time":89.53751578,"data":"✅ Columns to Target Encode: 41\n"}
+,{"stream_name":"stdout","time":89.556201859,"data":"✂️ Feature for dynamic pruning (Dropping 88 low-gain features)...\n"}
+,{"stream_name":"stdout","time":89.744631885,"data":"\n"}
+,{"stream_name":"stdout","time":89.744675704,"data":"🚀 Training XGBoost with 5 Folds...\n"}
+,{"stream_name":"stdout","time":176.946907455,"data":"   -\u003e Successfully pruned 85 features.\n"}
+,{"stream_name":"stdout","time":181.321051738,"data":"[0]\tvalidation_0-auc:0.92588\n"}
+,{"stream_name":"stdout","time":297.435093844,"data":"[1000]\tvalidation_0-auc:0.94485\n"}
+,{"stream_name":"stdout","time":403.092201346,"data":"[2000]\tvalidation_0-auc:0.94515\n"}
+,{"stream_name":"stdout","time":501.214906501,"data":"[3000]\tvalidation_0-auc:0.94521\n"}
+,{"stream_name":"stdout","time":593.440909135,"data":"[4000]\tvalidation_0-auc:0.94522\n"}
+,{"stream_name":"stdout","time":684.133781474,"data":"[5000]\tvalidation_0-auc:0.94523\n"}
+,{"stream_name":"stdout","time":743.460778385,"data":"[5671]\tvalidation_0-auc:0.94523\n"}
+,{"stream_name":"stdout","time":757.822944754,"data":"   --\u003e Fold 1 CONVERGED at Tree #5171 | ROC-AUC: 0.94523\n"}
+,{"stream_name":"stdout","time":847.551377227,"data":"[0]\tvalidation_0-auc:0.92707\n"}
+,{"stream_name":"stdout","time":962.945784567,"data":"[1000]\tvalidation_0-auc:0.94548\n"}
+,{"stream_name":"stdout","time":1066.533713526,"data":"[2000]\tvalidation_0-auc:0.94573\n"}
+,{"stream_name":"stdout","time":1163.864198896,"data":"[3000]\tvalidation_0-auc:0.94577\n"}
+,{"stream_name":"stdout","time":1254.651812401,"data":"[4000]\tvalidation_0-auc:0.94578\n"}
+,{"stream_name":"stdout","time":1267.813385701,"data":"[4149]\tvalidation_0-auc:0.94578\n"}
+,{"stream_name":"stdout","time":1278.730872235,"data":"   --\u003e Fold 2 CONVERGED at Tree #3649 | ROC-AUC: 0.94578\n"}
+,{"stream_name":"stdout","time":1372.693159243,"data":"[0]\tvalidation_0-auc:0.92842\n"}
+,{"stream_name":"stdout","time":1488.000076838,"data":"[1000]\tvalidation_0-auc:0.94662\n"}
+,{"stream_name":"stdout","time":1591.19176125,"data":"[2000]\tvalidation_0-auc:0.94693\n"}
+,{"stream_name":"stdout","time":1687.604318734,"data":"[3000]\tvalidation_0-auc:0.94700\n"}
+,{"stream_name":"stdout","time":1780.565291686,"data":"[4000]\tvalidation_0-auc:0.94703\n"}
+,{"stream_name":"stdout","time":1869.754231455,"data":"[5000]\tvalidation_0-auc:0.94704\n"}
+,{"stream_name":"stdout","time":1919.06841951,"data":"[5565]\tvalidation_0-auc:0.94704\n"}
+,{"stream_name":"stdout","time":1933.001267339,"data":"   --\u003e Fold 3 CONVERGED at Tree #5065 | ROC-AUC: 0.94704\n"}
+,{"stream_name":"stdout","time":2031.819832514,"data":"[0]\tvalidation_0-auc:0.92737\n"}
+,{"stream_name":"stdout","time":2149.039810602,"data":"[1000]\tvalidation_0-auc:0.94617\n"}
+,{"stream_name":"stdout","time":2254.687233103,"data":"[2000]\tvalidation_0-auc:0.94641\n"}
+,{"stream_name":"stdout","time":2352.276045413,"data":"[3000]\tvalidation_0-auc:0.94644\n"}
+,{"stream_name":"stdout","time":2413.334715764,"data":"[3656]\tvalidation_0-auc:0.94643\n"}
+,{"stream_name":"stdout","time":2423.165553177,"data":"   --\u003e Fold 4 CONVERGED at Tree #3156 | ROC-AUC: 0.94644\n"}
+,{"stream_name":"stdout","time":2521.491268081,"data":"[0]\tvalidation_0-auc:0.92755\n"}
+,{"stream_name":"stdout","time":2635.996812336,"data":"[1000]\tvalidation_0-auc:0.94587\n"}
+,{"stream_name":"stdout","time":2739.605020489,"data":"[2000]\tvalidation_0-auc:0.94616\n"}
+,{"stream_name":"stdout","time":2834.868830216,"data":"[3000]\tvalidation_0-auc:0.94622\n"}
+,{"stream_name":"stdout","time":2925.068777558,"data":"[4000]\tvalidation_0-auc:0.94624\n"}
+,{"stream_name":"stdout","time":2932.887804265,"data":"[4090]\tvalidation_0-auc:0.94624\n"}
+,{"stream_name":"stdout","time":2943.66967863,"data":"   --\u003e Fold 5 CONVERGED at Tree #3590 | ROC-AUC: 0.94624\n"}
+,{"stream_name":"stdout","time":2944.104384299,"data":"\n"}
+,{"stream_name":"stdout","time":2944.104435529,"data":"=============================================\n"}
+,{"stream_name":"stdout","time":2944.104441798,"data":"🏆 XGBOOST FINAL OOF ROC-AUC: 0.94614\n"}
+,{"stream_name":"stdout","time":2944.104447716,"data":"=============================================\n"}
+,{"stream_name":"stdout","time":2944.827455307,"data":"💾 Saved 'submission_XGBOOST.csv'\n"}
+,{"stream_name":"stdout","time":2945.522654748,"data":"💾 Saved 'test_XGBOOST.csv'\n"}
+,{"stream_name":"stdout","time":2946.991730444,"data":"💾 Saved 'oof_XGBOOST.csv'\n"}
+,{"stream_name":"stdout","time":2946.991779113,"data":"💾 Saved 'feature_importance_XGBOOST.csv'\n"}
+,{"stream_name":"stdout","time":2946.991788132,"data":"\n"}
+,{"stream_name":"stdout","time":2946.991795303,"data":"🔥 Top 10 Features:\n"}
+,{"stream_name":"stdout","time":2946.991810084,"data":"                                        feature  importance\n"}
+,{"stream_name":"stdout","time":2946.991815499,"data":"0                    Subsidy_Available_org_mean    0.128446\n"}
+,{"stream_name":"stdout","time":2946.991820101,"data":"1                      Subsidy_Available_TE_100    0.124500\n"}
+,{"stream_name":"stdout","time":2946.991824667,"data":"2                          Subsidy_Available_fe    0.120118\n"}
+,{"stream_name":"stdout","time":2946.991828889,"data":"3                       Subsidy_Available_TE_10    0.092120\n"}
+,{"stream_name":"stdout","time":2946.991833069,"data":"4          Environmental_Concern_Level_org_mean    0.090913\n"}
+,{"stream_name":"stdout","time":2946.991837143,"data":"5                     Subsidy_Available_TE_auto    0.085244\n"}
+,{"stream_name":"stdout","time":2946.991841217,"data":"6                   Environmental_Concern_Level    0.075130\n"}
+,{"stream_name":"stdout","time":2946.991845309,"data":"7  Environmental_Concern_Level_digit0_cat_TE_10    0.041106\n"}
+,{"stream_name":"stdout","time":2946.991849457,"data":"8        Environmental_Concern_Level_cat_TE_100    0.035859\n"}
+,{"stream_name":"stdout","time":2946.991853616,"data":"9       Environmental_Concern_Level_cat_TE_auto    0.033702\n"}
+,{"stream_name":"stdout","time":2946.991857789,"data":"\n"}
+,{"stream_name":"stdout","time":2946.991861777,"data":"🧊 Bottom 10 Features (Candidates for Pruning):\n"}
+,{"stream_name":"stdout","time":2946.991865996,"data":"                                             feature  importance\n"}
+,{"stream_name":"stdout","time":2946.991870195,"data":"93                           Daily_Commute_km_digit0    0.000327\n"}
+,{"stream_name":"stdout","time":2946.991874288,"data":"94                   Annual_Income_USD_digit2_cat_fe    0.000326\n"}
+,{"stream_name":"stdout","time":2946.991878446,"data":"95                 Daily_Commute_km_digit1_cat_TE_10    0.000323\n"}
+,{"stream_name":"stdout","time":2946.991882643,"data":"96      Charging_Stations_Near_Work_digit1_cat_TE_10    0.000323\n"}
+,{"stream_name":"stdout","time":2946.991886747,"data":"97   Charging_Stations_Near_Work_digit-4_cat_TE_auto    0.000320\n"}
+,{"stream_name":"stdout","time":2946.991890821,"data":"98        Charging_Stations_Near_Work_digit-4_cat_fe    0.000318\n"}
+,{"stream_name":"stdout","time":2946.991911845,"data":"99     Charging_Stations_Near_Home_digit-4_cat_TE_10    0.000316\n"}
+,{"stream_name":"stdout","time":2946.991915283,"data":"100    Charging_Stations_Near_Work_digit-4_cat_TE_10    0.000316\n"}
+,{"stream_name":"stdout","time":2946.991918185,"data":"101             Daily_Commute_km_digit-2_cat_TE_auto    0.000313\n"}
+,{"stream_name":"stdout","time":2946.991921126,"data":"102               Charging_Stations_Near_Work_digit1    0.000307\n"}
+,{"stream_name":"stderr","time":2953.78300083,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":2953.783043391,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":2954.044046176,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":2954.044080665,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":2955.051774796,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":2955.454262473,"data":"[NbConvertApp] Writing 33857 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":2958.792292412,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":2960.022416146,"data":"[NbConvertApp] Writing 352894 bytes to __results__.html\n"}
+]

@@ -1,0 +1,1292 @@
+# Feature Engineering Deep Dive | PS S6E9 - What Actually Moves the Score?
+
+**Playground Series Season 6 Episode 9 - Predicting EV Purchases**
+
+> 📖 **If you want the full modeling notebook** — the complete pipeline, stacking experiments, and what actually hit the leaderboard — it's right here: **[0.94590 LB | Stacking Failed, This Didn't →](https://www.kaggle.com/code/rugvedbane/0-94590-lb-stacking-failed-this-didn-t)**. This notebook is the feature-engineering deep-dive that feeds into it.
+
+## Approach
+
+Most feature engineering notebooks add features and report the final score. This notebook measures feature contribution in three stages.
+
+1. Each candidate is tested independently against a fixed 13-feature baseline.
+2. The strongest candidates are tested across multiple CV seeds to measure stability.
+3. A greedy forward-selection experiment adds the best remaining candidate at each step and measures marginal gain after previously selected features are already present.
+
+| Component | Choice |
+|---|---|
+| **Baseline** | Raw 13 features with fixed encoding |
+| **Model** | Fixed LightGBM with lr=0.05, 2000 trees, early stopping |
+| **Validation** | 5-Fold Stratified CV, OOF AUC |
+| **Candidates** | 13 standard FE + Digit Decomposition + Triple Target Encoding |
+| **Stability test** | 3 CV seeds for the top 5 standalone candidates |
+| **Forward selection** | Greedy selection from the top 6 standalone candidates |
+
+> A fixed model is used throughout the ablation experiments so that changes in validation score are attributed to the feature set rather than to changing model hyperparameters.
+
+> **Note on the CV vs leaderboard gap:** This notebook scores ~0.94328 OOF. The [modeling notebook](https://www.kaggle.com/code/rugvedbane/0-94590-lb-stacking-failed-this-didn-t) scores **0.94590 LB** — the difference comes from a lower learning rate, higher n_estimators, 10-fold CV, and a stronger final pipeline, all detailed there. This notebook's job is feature selection, not score maximisation.
+
+
+## 1. Setup & Libraries
+
+import numpy as np
+import pandas as pd
+import warnings
+import lightgbm as lgb
+import matplotlib.pyplot as plt
+import matplotlib.patches as mpatches
+
+from lightgbm import LGBMClassifier
+from sklearn.model_selection import StratifiedKFold
+from sklearn.metrics import roc_auc_score
+
+warnings.filterwarnings('ignore')
+
+BUY    = '#27ae60'
+NO_BUY = '#e74c3c'
+ACCENT = '#3498db'
+GOLD   = '#f39c12'
+PURPLE = '#9b59b6'
+TEAL   = '#1abc9c'
+DARK   = '#2c3e50'
+PINK   = '#e91e8c'
+LIME   = '#8bc34a'
+
+GROUP_COLORS = {
+    'Interaction':   ACCENT,
+    'Arithmetic':    GOLD,
+    'Composite':     PURPLE,
+    'Binning':       TEAL,
+    'Digit Decomp':  PINK,
+    'Triple TE':     LIME,
+}
+
+plt.rcParams.update({
+    'figure.facecolor': 'white',
+    'axes.facecolor':   '#f8f9fa',
+    'axes.grid':        True,
+    'grid.color':       'white',
+    'grid.linewidth':   1.5,
+    'font.size':        11,
+})
+
+print('Libraries loaded ')
+
+## 2. Data Loading
+
+The dataset has **668,665 training rows** with 13 raw features and a binary target (`Will_Buy_EV`).
+Class imbalance: ~82.5% No vs 17.5% Yes.
+
+df   = pd.read_csv('/kaggle/input/competitions/playground-series-s6e9/train.csv')
+test = pd.read_csv('/kaggle/input/competitions/playground-series-s6e9/test.csv')
+
+df       = df.drop('id', axis=1)
+test_ids = test['id']
+test     = test.drop('id', axis=1)
+
+df['Will_Buy_EV'] = df['Will_Buy_EV'].map({'Yes': 1, 'No': 0})
+
+y         = df['Will_Buy_EV']
+raw_train = df.drop('Will_Buy_EV', axis=1)
+raw_test  = test.copy()
+
+print(f'Train shape  : {raw_train.shape}')
+print(f'Test shape   : {raw_test.shape}')
+print(f'Positive rate: {y.mean():.4f}  ({y.sum():,} buyers / {len(y):,} total)')
+print(f'Class ratio  : {(y==0).sum()/(y==1).sum():.2f}:1  (non-buyer:buyer)')
+
+###  Visualization 1 - EV Buyer Profile
+
+Before writing a single feature, it helps to see *who* buys EVs. These four panels summarise
+the raw dataset: how imbalanced the target is, and how three key binary/ordinal predictors (`Subsidy_Available`, `Home_Charging_Possible`, `Range_Anxiety_Level`) split across classes. Note: `Environmental_Concern_Level` is actually the strongest correlator (r = +0.4641) but as a 1–5 ordinal scale it is visualised separately in Visualization 2.
+
+df_viz = raw_train.copy()
+df_viz['target'] = y.values
+
+fig, axes = plt.subplots(2, 2, figsize=(16, 10))
+fig.suptitle('EV Purchase Dataset - Buyer Profile Overview', fontsize=15, fontweight='bold', y=1.01)
+
+ax = axes[0, 0]
+sizes  = [y.sum(), (y == 0).sum()]
+labels = [f'Will Buy EV\n{y.mean()*100:.1f}%', f"Won't Buy\n{(1-y.mean())*100:.1f}%"]
+wedge_colors = [BUY, NO_BUY]
+wedges, texts = ax.pie(sizes, colors=wedge_colors, startangle=90,
+                       wedgeprops=dict(width=0.52, edgecolor='white', linewidth=3))
+ax.legend(wedges, labels, loc='lower center', fontsize=11, framealpha=0.9)
+ax.set_title('Class Distribution', fontweight='bold', fontsize=12)
+centre = plt.Circle((0, 0), 0.48, fc='white')
+ax.add_patch(centre)
+ax.text(0, 0, f'{len(y):,}\nsamples', ha='center', va='center',
+        fontsize=11, fontweight='bold', color=DARK)
+
+ax2 = axes[0, 1]
+sub_buy  = (df_viz[df_viz['target']==1]['Subsidy_Available'] == 'Yes').mean()
+sub_nbuy = (df_viz[df_viz['target']==0]['Subsidy_Available'] == 'Yes').mean()
+bars2 = ax2.bar(["Won't Buy", 'Will Buy'], [sub_nbuy, sub_buy],
+                color=[NO_BUY, BUY], edgecolor='white', width=0.45)
+for bar, val in zip(bars2, [sub_nbuy, sub_buy]):
+    ax2.text(bar.get_x()+bar.get_width()/2, val + 0.01,
+             f'{val*100:.1f}%', ha='center', va='bottom', fontweight='bold', fontsize=12)
+ax2.set_ylabel('% with Subsidy Available', fontsize=11)
+ax2.set_ylim(0, 1.1)
+ax2.yaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: f'{x*100:.0f}%'))
+ax2.set_title('Subsidy Available by Class', fontweight='bold', fontsize=12)
+
+ax3 = axes[1, 0]
+hc_buy  = (df_viz[df_viz['target']==1]['Home_Charging_Possible'] == 'Yes').mean()
+hc_nbuy = (df_viz[df_viz['target']==0]['Home_Charging_Possible'] == 'Yes').mean()
+bars3 = ax3.bar(["Won't Buy", 'Will Buy'], [hc_nbuy, hc_buy],
+                color=[NO_BUY, BUY], edgecolor='white', width=0.45)
+for bar, val in zip(bars3, [hc_nbuy, hc_buy]):
+    ax3.text(bar.get_x()+bar.get_width()/2, val + 0.01,
+             f'{val*100:.1f}%', ha='center', va='bottom', fontweight='bold', fontsize=12)
+ax3.set_ylabel('% with Home Charging Possible', fontsize=11)
+ax3.set_ylim(0, 1.1)
+ax3.yaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: f'{x*100:.0f}%'))
+ax3.set_title('Home Charging Possible by Class', fontweight='bold', fontsize=12)
+
+ax4 = axes[1, 1]
+ra_labels = ['Low', 'Medium', 'High']
+ra_map    = {'Low': 0, 'Medium': 1, 'High': 2}
+ra_vals   = df_viz['Range_Anxiety_Level']
+
+buy_ra   = [( df_viz[df_viz['target']==1]['Range_Anxiety_Level'] == lv).mean() for lv in ra_labels]
+nbuy_ra  = [( df_viz[df_viz['target']==0]['Range_Anxiety_Level'] == lv).mean() for lv in ra_labels]
+
+x     = np.arange(3)
+width = 0.35
+b1 = ax4.bar(x - width/2, nbuy_ra, width, label="Won't Buy", color=NO_BUY, edgecolor='white')
+b2 = ax4.bar(x + width/2, buy_ra,  width, label='Will Buy',  color=BUY,    edgecolor='white')
+
+for bars, vals in [(b1, nbuy_ra), (b2, buy_ra)]:
+    for bar, val in zip(bars, vals):
+        ax4.text(bar.get_x()+bar.get_width()/2, val + 0.005,
+                 f'{val*100:.0f}%', ha='center', va='bottom', fontsize=9, fontweight='bold')
+
+ax4.set_xticks(x)
+ax4.set_xticklabels(ra_labels, fontsize=11)
+ax4.set_ylabel('Proportion within Class', fontsize=11)
+ax4.set_title('Range Anxiety Level by Class', fontweight='bold', fontsize=12)
+ax4.legend(fontsize=10, framealpha=0.9)
+ax4.set_ylim(0, max(max(buy_ra), max(nbuy_ra)) * 1.25)
+
+plt.tight_layout()
+plt.savefig('buyer_profile.png', dpi=150, bbox_inches='tight')
+plt.show()
+
+print(f'Key insight: Buyers are {sub_buy/sub_nbuy:.1f}x more likely to have Subsidy Available')
+print(f'Key insight: Buyers are {hc_buy/hc_nbuy:.1f}x more likely to have Home Charging Possible')
+
+## 3. Baseline Encoding
+
+Ordinal encoding for `Home_Charging_Possible`, `Subsidy_Available`, `Range_Anxiety_Level`.
+One-Hot Encoding for `Gender`, `City_Type`, `Current_Car_Type`.
+No FE - this is the clean starting point.
+
+def encode_baseline(train_df, test_df):
+    tr = train_df.copy()
+    te = test_df.copy()
+    for df_ in [tr, te]:
+        df_['Home_Charging_Possible'] = df_['Home_Charging_Possible'].map({'Yes': 1, 'No': 0})
+        df_['Subsidy_Available']      = df_['Subsidy_Available'].map({'Yes': 1, 'No': 0})
+        df_['Range_Anxiety_Level']    = df_['Range_Anxiety_Level'].map({'Low': 0, 'Medium': 1, 'High': 2})
+    tr = pd.get_dummies(tr, columns=['Gender', 'City_Type', 'Current_Car_Type'], drop_first=True)
+    te = pd.get_dummies(te, columns=['Gender', 'City_Type', 'Current_Car_Type'], drop_first=True)
+    tr, te = tr.align(te, join='left', axis=1, fill_value=0)
+    return tr.astype('float32'), te.astype('float32')
+
+baseline_train, baseline_test = encode_baseline(raw_train, raw_test)
+print(f'Baseline feature count : {baseline_train.shape[1]}')
+print(f'Columns: {list(baseline_train.columns)}')
+
+## 4. Fixed Model & Baseline CV
+
+Same model for every single ablation run - lr=0.05, 2000 trees, early_stopping(50), 5-fold CV.
+
+This is **intentionally not our best model** - we want to isolate feature value, not model value.
+
+def get_model():
+    return LGBMClassifier(
+        n_estimators=2000,
+        learning_rate=0.05,
+        num_leaves=64,
+        min_child_samples=50,
+        subsample=0.8,
+        colsample_bytree=0.8,
+        is_unbalance=True,
+        device='gpu',
+        verbose=-1,
+        random_state=42,
+        metric='auc',
+    )
+
+def run_cv(X, y, n_splits=5, verbose=False):
+    kf  = StratifiedKFold(n_splits=n_splits, shuffle=True, random_state=42)
+    oof = np.zeros(len(y))
+    for fold, (tr_idx, val_idx) in enumerate(kf.split(X, y), 1):
+        X_tr, X_val = X.iloc[tr_idx], X.iloc[val_idx]
+        y_tr, y_val = y.iloc[tr_idx], y.iloc[val_idx]
+        model = get_model()
+        model.fit(X_tr, y_tr, eval_set=[(X_val, y_val)],
+                  callbacks=[lgb.early_stopping(50, first_metric_only=True, verbose=False),
+                              lgb.log_evaluation(0)])
+        oof[val_idx] = model.predict_proba(X_val)[:, 1]
+        if verbose:
+            print(f'  Fold {fold} | AUC: {roc_auc_score(y_val, oof[val_idx]):.5f} | '
+                  f'Best iter: {model.best_iteration_}')
+    return roc_auc_score(y, oof), oof
+
+print('Running baseline CV...')
+baseline_auc, baseline_oof = run_cv(baseline_train, y, verbose=True)
+print(f'\n Baseline OOF AUC : {baseline_auc:.5f}')
+
+###  Visualization 2 - Raw Feature Correlations with Target
+
+Which baseline features are most correlated with `Will_Buy_EV`?
+This directly motivates which interactions and ratios are worth engineering.
+
+corr_df  = baseline_train.copy()
+corr_df['target'] = y.values
+corrs    = corr_df.corr()['target'].drop('target').sort_values()
+
+fig, ax = plt.subplots(figsize=(11, 8))
+
+bar_colors = [BUY if c > 0 else NO_BUY for c in corrs.values]
+bars = ax.barh(corrs.index, corrs.values,
+               color=bar_colors, edgecolor='white', height=0.72)
+
+ax.axvline(0, color=DARK, linewidth=1.5, linestyle='--', alpha=0.7)
+ax.set_xlabel('Pearson Correlation with Will_Buy_EV', fontsize=12)
+ax.set_title('Baseline Feature Correlations with Target\n'
+             '(motivates which interactions and ratios to engineer)',
+             fontsize=13, fontweight='bold')
+
+max_abs = corrs.abs().max()
+for bar, val in zip(ax.patches, corrs.values):
+    offset = max_abs * 0.012
+    ha = 'left' if val >= 0 else 'right'
+    ax.text(val + (offset if val >= 0 else -offset),
+            bar.get_y() + bar.get_height() / 2,
+            f'{val:+.4f}', va='center', ha=ha, fontsize=9,
+            fontweight='bold', color=BUY if val > 0 else NO_BUY)
+
+top3 = corrs.tail(3).index.tolist()
+bot3 = corrs.head(3).index.tolist()
+for feat in top3 + bot3:
+    bar_y = list(corrs.index).index(feat)
+    ax.get_yticklabels()
+
+ax.legend(handles=[
+    mpatches.Patch(color=BUY,    label='Positively correlated - EV buyers have more'),
+    mpatches.Patch(color=NO_BUY, label='Negatively correlated - EV buyers have less'),
+], fontsize=10, framealpha=0.9, loc='lower right')
+
+plt.tight_layout()
+plt.savefig('feature_correlations.png', dpi=150, bbox_inches='tight')
+plt.show()
+
+print('Top 3 positive correlations:')
+for feat, val in corrs.tail(3)[::-1].items():
+    print(f'  {feat:<35} r = {val:+.4f}')
+print('\nTop 3 negative correlations:')
+for feat, val in corrs.head(3).items():
+    print(f'  {feat:<35} r = {val:+.4f}')
+
+## 5. Feature Candidates - All 15
+
+**Group A - Interaction:** Multiply two signals to expose joint effects.
+
+| Feature | Formula | Reasoning |
+|---------|---------|-----------|
+| `subsidy_x_home_charging` | Subsidy × Home Charging | Two strongest binary signals combined |
+| `subsidy_x_range_anxiety` | Subsidy × Range Anxiety | Does subsidy neutralise range anxiety? |
+| `subsidy_x_income` | Subsidy × Annual Income | Richer buyer + subsidy = amplified motivation |
+| `subsidy_x_concern` | Subsidy × Env. Concern | Eco-conscious buyer who also gets subsidy |
+| `home_charging_x_range_anxiety` | Home Charging × Range Anxiety | Has infrastructure but still anxious? |
+| `range_anxiety_x_commute` | Range Anxiety × Commute km | Anxious + long-distance = worst-case scenario |
+
+**Group B - Arithmetic:** Ratios and sums between existing signals.
+
+| Feature | Formula | Reasoning |
+|---------|---------|-----------|
+| `total_charging` | Home + Work stations | Overall charging accessibility |
+| `income_per_car` | Income / (Cars + 1) | Wealth per existing vehicle |
+| `income_per_commute_km` | Income / (Commute + 1) | Affordability vs distance |
+| `charging_gap` | Home − Work stations | Home vs work charging balance |
+
+**Group C - Composite:** Single score across multiple drivers.
+
+| Feature | Formula | Reasoning |
+|---------|---------|-----------|
+| `ev_readiness_score` | Subsidy + Home_Charging − Range_Anxiety | Combined readiness signal |
+
+**Group D - Binning:** Non-linear bracket effects.
+
+| Feature | Bins | Reasoning |
+|---------|------|-----------|
+| `income_bin` | [0, 30K, 60K, 100K, 200K, ∞] | Income bracket effects |
+| `age_bin` | [0, 30, 45, 60, ∞] | Generational EV adoption |
+
+**Group E - Digit Decomposition:** Extracts digit-level patterns from numerical features.
+
+> Playground Series datasets are generated from a real underlying dataset - digit-level patterns from the original data often survive the synthesis process. Each digit position (units, tens, hundreds...) can carry signal invisible to the raw value.
+
+**Group F - Triple Target Encoding:** OOF target encoding with 3 smoothing levels.
+
+> Target encodes `Gender`, `City_Type`, `Current_Car_Type`, and `Range_Anxiety_Level` using smoothing values of 1.0, 5.0, and 20.0. Three smoothing levels = three different regularisation strengths capturing different balance points between global mean and category mean. Encoded in-fold to prevent leakage.
+
+## 6. Feature Engineering Functions
+
+
+def fe_subsidy_x_home_charging(tr, te):
+    tr, te = tr.copy(), te.copy()
+    tr['subsidy_x_home_charging'] = tr['Subsidy_Available'] * tr['Home_Charging_Possible']
+    te['subsidy_x_home_charging'] = te['Subsidy_Available'] * te['Home_Charging_Possible']
+    return tr, te
+
+def fe_subsidy_x_range_anxiety(tr, te):
+    tr, te = tr.copy(), te.copy()
+    tr['subsidy_x_range_anxiety'] = tr['Subsidy_Available'] * tr['Range_Anxiety_Level']
+    te['subsidy_x_range_anxiety'] = te['Subsidy_Available'] * te['Range_Anxiety_Level']
+    return tr, te
+
+def fe_subsidy_x_income(tr, te):
+    tr, te = tr.copy(), te.copy()
+    tr['subsidy_x_income'] = tr['Subsidy_Available'] * tr['Annual_Income_USD']
+    te['subsidy_x_income'] = te['Subsidy_Available'] * te['Annual_Income_USD']
+    return tr, te
+
+def fe_subsidy_x_concern(tr, te):
+    tr, te = tr.copy(), te.copy()
+    tr['subsidy_x_concern'] = tr['Subsidy_Available'] * tr['Environmental_Concern_Level']
+    te['subsidy_x_concern'] = te['Subsidy_Available'] * te['Environmental_Concern_Level']
+    return tr, te
+
+def fe_home_charging_x_range_anxiety(tr, te):
+    tr, te = tr.copy(), te.copy()
+    tr['home_charging_x_range_anxiety'] = tr['Home_Charging_Possible'] * tr['Range_Anxiety_Level']
+    te['home_charging_x_range_anxiety'] = te['Home_Charging_Possible'] * te['Range_Anxiety_Level']
+    return tr, te
+
+def fe_range_anxiety_x_commute(tr, te):
+    tr, te = tr.copy(), te.copy()
+    tr['range_anxiety_x_commute'] = tr['Range_Anxiety_Level'] * tr['Daily_Commute_km']
+    te['range_anxiety_x_commute'] = te['Range_Anxiety_Level'] * te['Daily_Commute_km']
+    return tr, te
+
+def fe_total_charging(tr, te):
+    tr, te = tr.copy(), te.copy()
+    tr['total_charging'] = tr['Charging_Stations_Near_Home'] + tr['Charging_Stations_Near_Work']
+    te['total_charging'] = te['Charging_Stations_Near_Home'] + te['Charging_Stations_Near_Work']
+    return tr, te
+
+def fe_income_per_car(tr, te):
+    tr, te = tr.copy(), te.copy()
+    tr['income_per_car'] = tr['Annual_Income_USD'] / (tr['Number_of_Cars_Owned'] + 1)
+    te['income_per_car'] = te['Annual_Income_USD'] / (te['Number_of_Cars_Owned'] + 1)
+    return tr, te
+
+def fe_income_per_commute_km(tr, te):
+    tr, te = tr.copy(), te.copy()
+    tr['income_per_commute_km'] = tr['Annual_Income_USD'] / (tr['Daily_Commute_km'] + 1)
+    te['income_per_commute_km'] = te['Annual_Income_USD'] / (te['Daily_Commute_km'] + 1)
+    return tr, te
+
+def fe_charging_gap(tr, te):
+    tr, te = tr.copy(), te.copy()
+    tr['charging_gap'] = tr['Charging_Stations_Near_Home'] - tr['Charging_Stations_Near_Work']
+    te['charging_gap'] = te['Charging_Stations_Near_Home'] - te['Charging_Stations_Near_Work']
+    return tr, te
+
+def fe_ev_readiness_score(tr, te):
+    tr, te = tr.copy(), te.copy()
+    # FIX: normalise Range_Anxiety_Level (0=Low,1=Med,2=High → 0–1) so it is on
+    # the same 0-1 scale as the two binary features before subtracting.
+    # Previously, High anxiety (2) could subtract twice as much as either binary
+    # positive contributes, making anxiety dominate the composite unfairly.
+    tr['ev_readiness_score'] = (tr['Subsidy_Available']
+                               + tr['Home_Charging_Possible']
+                               - tr['Range_Anxiety_Level'] / 2)
+    te['ev_readiness_score'] = (te['Subsidy_Available']
+                               + te['Home_Charging_Possible']
+                               - te['Range_Anxiety_Level'] / 2)
+    return tr, te
+
+def fe_income_bin(tr, te):
+    tr, te = tr.copy(), te.copy()
+    bins, labels = [0, 30_000, 60_000, 100_000, 200_000, float('inf')], [0,1,2,3,4]
+    tr['income_bin'] = pd.cut(tr['Annual_Income_USD'], bins=bins, labels=labels).astype(float)
+    te['income_bin'] = pd.cut(te['Annual_Income_USD'], bins=bins, labels=labels).astype(float)
+    return tr, te
+
+def fe_age_bin(tr, te):
+    tr, te = tr.copy(), te.copy()
+    bins, labels = [0, 30, 45, 60, float('inf')], [0,1,2,3]
+    tr['age_bin'] = pd.cut(tr['Age'], bins=bins, labels=labels).astype(float)
+    te['age_bin'] = pd.cut(te['Age'], bins=bins, labels=labels).astype(float)
+    return tr, te
+
+print('Standard FE functions (Groups A-D) defined ')
+
+### Digit Decomposition
+
+Extracts each digit position (units=d1, tens=d2, hundreds=d3 ...) from every numerical column.
+Applied to the raw feature values before any encoding.
+
+DIGIT_COLS = [
+    'Age',
+    'Annual_Income_USD',
+    'Daily_Commute_km',
+    'Number_of_Cars_Owned',
+    'Charging_Stations_Near_Home',
+    'Charging_Stations_Near_Work',
+    'Environmental_Concern_Level',
+]
+
+def fe_digit_decomp(baseline_tr, baseline_te, raw_tr=raw_train, raw_te=raw_test):
+    """Add digit-position features from raw numerical columns."""
+    tr, te = baseline_tr.copy(), baseline_te.copy()
+
+    for col in DIGIT_COLS:
+        v_tr = raw_tr[col].fillna(0).astype(int).abs()
+        v_te = raw_te[col].fillna(0).astype(int).abs()
+        max_d = max(len(str(int(v_tr.max()))), 1)
+
+        for pos in range(1, min(max_d + 1, 7)):
+            name = f'{col}_d{pos}'
+            tr[name] = ((v_tr // (10 ** (pos - 1))) % 10).values
+            te[name] = ((v_te // (10 ** (pos - 1))) % 10).values
+
+    n_new = tr.shape[1] - baseline_tr.shape[1]
+    print(f'Digit decomp added {n_new} new features')
+    return tr.astype('float32'), te.astype('float32')
+
+for col in DIGIT_COLS:
+    max_d = max(len(str(int(raw_train[col].fillna(0).astype(int).abs().max()))), 1)
+    n = min(max_d, 6)
+    print(f'  {col:<35} max value={raw_train[col].max():.0f}   → {n} digit features')
+
+### Triple Target Encoding
+
+Applies OOF target encoding to 4 categorical columns using **3 smoothing levels** (1.0, 5.0, 20.0).
+
+- **Low smoothing (1.0)** - stays close to category mean, aggressive
+- **Mid smoothing (5.0)** - balanced
+- **High smoothing (20.0)** - pulls strongly toward global mean, conservative
+
+In-fold encoding is mandatory - computing TE on the full training set and using it in the same fold leaks target information.
+
+> **Why not encode `Home_Charging_Possible` and `Subsidy_Available`?** They are binary. TE on a binary column with proper smoothing collapses to a scalar - almost identical to ordinal encoding. No point.
+
+TE_COLS       = ['Gender', 'City_Type', 'Current_Car_Type', 'Range_Anxiety_Level']
+TE_SMOOTHING  = [1.0, 5.0, 20.0]
+
+def run_cv_triple_te(baseline_tr, baseline_te, raw_tr, raw_te, y,
+                     n_splits=5, verbose=False):
+    """
+    5-fold CV where Triple TE is computed in-fold to prevent leakage.
+    Returns (OOF AUC, OOF predictions, test predictions).
+    """
+    kf         = StratifiedKFold(n_splits=n_splits, shuffle=True, random_state=42)
+    oof        = np.zeros(len(y))
+    test_preds = np.zeros(len(baseline_te))
+
+    for fold, (tr_idx, val_idx) in enumerate(kf.split(baseline_tr, y), 1):
+
+        X_tr  = baseline_tr.iloc[tr_idx].copy()
+        X_val = baseline_tr.iloc[val_idx].copy()
+        X_te  = baseline_te.copy()
+        y_tr  = y.iloc[tr_idx]
+        y_val = y.iloc[val_idx]
+
+        raw_tr_fold  = raw_tr.iloc[tr_idx]
+        raw_val_fold = raw_tr.iloc[val_idx]
+
+        global_mean = y_tr.mean()
+
+        for col in TE_COLS:
+            grp   = pd.DataFrame({'cat': raw_tr_fold[col].values, 'tgt': y_tr.values})
+            stats = grp.groupby('cat')['tgt'].agg(['mean', 'count'])
+
+            for s in TE_SMOOTHING:
+                col_name = f'{col}_te_s{s}'
+                stats[col_name] = (
+                    (stats['mean'] * stats['count'] + global_mean * s)
+                    / (stats['count'] + s)
+                )
+                mapping = stats[col_name].to_dict()
+
+                X_tr [col_name] = raw_tr_fold [col].map(mapping).fillna(global_mean).values
+                X_val[col_name] = raw_val_fold[col].map(mapping).fillna(global_mean).values
+                X_te [col_name] = raw_te       [col].map(mapping).fillna(global_mean).values
+
+        model = get_model()
+        model.fit(X_tr, y_tr, eval_set=[(X_val, y_val)],
+                  callbacks=[lgb.early_stopping(50, first_metric_only=True, verbose=False),
+                              lgb.log_evaluation(0)])
+        oof[val_idx]  = model.predict_proba(X_val)[:, 1]
+        test_preds   += model.predict_proba(X_te )[:, 1] / n_splits
+
+        if verbose:
+            print(f'  Fold {fold} | AUC: {roc_auc_score(y_val, oof[val_idx]):.5f} | '
+                  f'Best iter: {model.best_iteration_}')
+
+    return roc_auc_score(y, oof), oof, test_preds
+
+print('Advanced FE functions (Digit Decomp + Triple TE) defined ')
+print(f'Digit decomp: {len(DIGIT_COLS)} columns')
+print(f'Triple TE   : {len(TE_COLS)} columns × {len(TE_SMOOTHING)} smoothing = '
+      f'{len(TE_COLS)*len(TE_SMOOTHING)} new features')
+
+## 7. Ablation - Standard Candidates (Groups A-D)
+
+13 features, tested one at a time against the raw baseline.
+
+>  ~20 minutes on Kaggle GPU.
+
+candidates = [
+    ('Subsidy × Home Charging',    fe_subsidy_x_home_charging,      'Interaction'),
+    ('Subsidy × Range Anxiety',    fe_subsidy_x_range_anxiety,      'Interaction'),
+    ('Subsidy × Income',           fe_subsidy_x_income,             'Interaction'),
+    ('Subsidy × Concern',          fe_subsidy_x_concern,            'Interaction'),
+    ('Home Charging × Range Anx',  fe_home_charging_x_range_anxiety,'Interaction'),
+    ('Range Anxiety × Commute',    fe_range_anxiety_x_commute,      'Interaction'),
+    ('Total Charging Stations',    fe_total_charging,               'Arithmetic'),
+    ('Income Per Car',             fe_income_per_car,               'Arithmetic'),
+    ('Income Per Commute km',      fe_income_per_commute_km,        'Arithmetic'),
+    ('Charging Gap',               fe_charging_gap,                 'Arithmetic'),
+    ('EV Readiness Score',         fe_ev_readiness_score,           'Composite'),
+    ('Income Bin',                 fe_income_bin,                   'Binning'),
+    ('Age Bin',                    fe_age_bin,                      'Binning'),
+]
+
+results = []
+print(f'Baseline OOF AUC : {baseline_auc:.5f}')
+print(f'{"─"*65}')
+print(f'{"Feature":<32} {"Group":<14} {"OOF AUC":>10} {"Gain":>10}')
+print(f'{"─"*65}')
+
+for name, fe_fn, group in candidates:
+    tr_fe, _ = fe_fn(baseline_train, baseline_test)
+    auc, _   = run_cv(tr_fe, y)
+    gain     = auc - baseline_auc
+    results.append({'Feature': name, 'Group': group, 'OOF AUC': auc, 'Gain': gain})
+    sign = '+' if gain >= 0 else ''
+    print(f'{name:<32} {group:<14} {auc:.5f}    {sign}{gain:.5f}')
+
+print(f'{"─"*65}')
+results_df = pd.DataFrame(results).sort_values('Gain', ascending=False).reset_index(drop=True)
+print(f'\n Standard ablation complete - '
+      f'{len(results_df[results_df["Gain"]>0])} positive-gain features')
+
+###  Visualization 3 - Top FE Features: Distribution by Purchase Decision
+
+The best way to understand *why* a feature gains CV AUC is to look at how it separates
+EV buyers from non-buyers. These distributions show the top 3 standard features
+split by `Will_Buy_EV = 1` vs `Will_Buy_EV = 0`.
+
+top3_feats = results_df.head(3)
+
+fig, axes = plt.subplots(1, 3, figsize=(19, 6))
+fig.suptitle('Top 3 FE Features - Distribution by EV Purchase Decision',
+             fontsize=14, fontweight='bold')
+
+for i, (_, row) in enumerate(top3_feats.iterrows()):
+    ax = axes[i]
+    for name, fe_fn, grp in candidates:
+        if name == row['Feature']:
+            tr_tmp, _ = fe_fn(baseline_train, baseline_test)
+            new_col   = [c for c in tr_tmp.columns if c not in baseline_train.columns]
+            if not new_col:
+                break
+            col_name  = new_col[0]
+            vals      = tr_tmp[col_name]
+            buyers    = vals[y == 1]
+            non_buyers= vals[y == 0]
+
+            n_uniq = vals.nunique()
+
+            if n_uniq <= 8:
+                cats   = sorted(vals.unique())
+                b_rate = [buyers[buyers == c].shape[0] / (y==1).sum() for c in cats]
+                n_rate = [non_buyers[non_buyers == c].shape[0] / (y==0).sum() for c in cats]
+                x = np.arange(len(cats))
+                w = 0.35
+                ax.bar(x - w/2, n_rate, w, label="Won't Buy", color=NO_BUY,
+                       edgecolor='white', alpha=0.85)
+                ax.bar(x + w/2, b_rate, w, label='Will Buy',  color=BUY,
+                       edgecolor='white', alpha=0.85)
+                ax.set_xticks(x)
+                ax.set_xticklabels([str(c) for c in cats], fontsize=9)
+                ax.set_ylabel('Proportion within class', fontsize=10)
+            else:
+                n_sample = 50_000
+                b_samp = buyers.sample(min(n_sample, len(buyers)), random_state=42)
+                n_samp = non_buyers.sample(min(n_sample, len(non_buyers)), random_state=42)
+
+                lo, hi = vals.quantile(0.01), vals.quantile(0.99)
+                b_samp = b_samp.clip(lo, hi)
+                n_samp = n_samp.clip(lo, hi)
+
+                ax.hist(n_samp, bins=50, density=True, alpha=0.60,
+                        color=NO_BUY, label="Won't Buy", edgecolor='none')
+                ax.hist(b_samp, bins=50, density=True, alpha=0.60,
+                        color=BUY,    label='Will Buy',  edgecolor='none')
+                ax.set_ylabel('Density', fontsize=10)
+
+            color = GROUP_COLORS.get(row['Group'], ACCENT)
+            ax.set_title(f'{row["Feature"]}\nGain: {row["Gain"]:+.5f}  |  Group: {row["Group"]}',
+                         fontweight='bold', fontsize=10, color=color)
+            ax.set_xlabel(col_name, fontsize=9)
+            ax.legend(fontsize=9, framealpha=0.9)
+            break
+
+plt.tight_layout()
+plt.savefig('top_fe_distributions.png', dpi=150, bbox_inches='tight')
+plt.show()
+
+## 8. Advanced Candidates - Digit Decomposition & Triple TE
+
+These two require different handling than the standard candidates:
+
+- **Digit Decomp** - no leakage risk, runs through the standard `run_cv` helper
+- **Triple TE** - must be computed in-fold to prevent leakage, uses `run_cv_triple_te`
+
+>  Digit decomp: ~2 min. Triple TE: ~5-8 min (TE computation added per fold).
+
+print('Running: Digit Decomposition...')
+tr_digit, te_digit = fe_digit_decomp(baseline_train, baseline_test)
+auc_digit, _       = run_cv(tr_digit, y, verbose=True)
+gain_digit         = auc_digit - baseline_auc
+print(f'\n  Digit Decomp | OOF AUC: {auc_digit:.5f} | Gain: {gain_digit:+.5f}')
+
+results.append({
+    'Feature': 'Digit Decomposition',
+    'Group':   'Digit Decomp',
+    'OOF AUC': auc_digit,
+    'Gain':    gain_digit,
+})
+
+print('\nRunning: Triple Target Encoding...')
+auc_te, _, te_test_preds = run_cv_triple_te(
+    baseline_train, baseline_test, raw_train, raw_test, y, verbose=True
+)
+gain_te = auc_te - baseline_auc
+print(f'\n  Triple TE    | OOF AUC: {auc_te:.5f} | Gain: {gain_te:+.5f}')
+
+results.append({
+    'Feature': 'Triple Target Encoding',
+    'Group':   'Triple TE',
+    'OOF AUC': auc_te,
+    'Gain':    gain_te,
+})
+
+all_results_df = pd.DataFrame(results).sort_values('Gain', ascending=False).reset_index(drop=True)
+
+print(f'\n{"─"*65}')
+print(f'{"Rank":<5} {"Feature":<28} {"Group":<14} {"OOF AUC":>10} {"Gain":>10}')
+print(f'{"─"*65}')
+for i, row in all_results_df.iterrows():
+    flag = '' if row['Gain'] > 0 else ''
+    sign = '+' if row['Gain'] >= 0 else ''
+    print(f'{flag} {i+1:<3} {row["Feature"]:<28} {row["Group"]:<14} '
+          f'{row["OOF AUC"]:.5f}    {sign}{row["Gain"]:.5f}')
+print(f'{"─"*65}')
+print(f'Positive-gain: {len(all_results_df[all_results_df["Gain"]>0])} / {len(all_results_df)}')
+
+## 8.1 Why Does Digit Decomposition Work?
+
+Digit Decomp delivered **+0.00182 standalone AUC gain** — 7× higher than the next best feature (Subsidy × Income at +0.00026) and more than **all 13 standard FE features combined (+0.00015)**. Understanding *why* is more useful than the number itself.
+
+---
+
+### The core reason: Playground Series datasets are synthesized from real data
+
+Kaggle generates PS datasets using a deep learning model trained on a real underlying tabular dataset. The synthesis process preserves statistical relationships from the original data — including **digit-level patterns** that encode information invisible to the raw feature values.
+
+Consider `Annual_Income_USD`. The raw value tells the model "this person earns $52,400." But the digit features tell it:
+- Units digit (d1) = 0
+- Tens digit (d2) = 0
+- Hundreds digit (d3) = 4
+- Thousands digit (d4) = 2
+
+In real survey data, incomes cluster at round numbers ($50,000, $75,000, $100,000). If the original dataset encoded income in buckets that survive synthesis as digit-level regularities — for example, all buyers in a certain income tier having the same hundreds digit — those signals become predictive. A tree model splitting on the raw `Annual_Income_USD` will miss these unless the split happens to fall exactly on the boundary, which with 2000 trees and early stopping is not guaranteed.
+
+---
+
+### Why this is specific to PS / synthetic datasets
+
+In most real-world tabular datasets, digit decomposition adds nothing. An actual survey respondent's income of $52,400 vs $52,500 carries no signal — the $100 difference is measurement noise. But in a PS dataset generated from a model trained on binned or rounded real data, those digit positions can be consistent enough to matter.
+
+This is why the technique appears in top PS kernels but rarely in production ML work.
+
+---
+
+### The stability confirms it is real signal, not noise
+
+Across 3 CV seeds (42, 2026, 3407), Digit Decomp produced gains of **+0.001822, +0.001823, +0.001835** — a standard deviation of just **0.000008**. Compare that to Subsidy × Income (std 0.000025) or Income Bin (std 0.000039). Digit Decomp is the most stable feature in the entire candidate set. Real signal is stable; noise fluctuates.
+
+The 16 digit features it adds (2 for Age, 6 for Annual_Income_USD, 2 for Daily_Commute_km, 1 for Number_of_Cars_Owned, 2 for Charging_Stations_Near_Home, 2 for Charging_Stations_Near_Work, 1 for Environmental_Concern_Level) each carry a slice of this structured signal. Individually they are weak — collectively they dominate the feature ranking.
+
+---
+
+### The practical rule for PS competitions
+
+> **Add digit decomposition before designing any interactions.** Run it as your first ablation candidate. If it gains more than +0.001, your remaining feature engineering budget is better spent on the model — not on more features — because almost nothing else will match that return.
+
+This notebook is a concrete example: 13 thoughtfully designed features across 5 engineering strategies produced +0.00015 combined. One 10-line digit decomposition function produced +0.00182.
+
+## 9. Ablation Results - All 15 Candidates
+
+Green = positive gain. Red = zero or negative. Colour-coded by feature group.
+
+fig, axes = plt.subplots(1, 2, figsize=(22, 8))
+fig.suptitle('Feature Engineering Ablation - All 15 Candidates | PS S6E9 EV Purchase',
+             fontsize=14, fontweight='bold', y=1.01)
+
+rdf = all_results_df.copy()
+
+ax = axes[0]
+bar_colors = [BUY if g > 0 else NO_BUY for g in rdf['Gain']]
+ax.barh(rdf['Feature'][::-1], rdf['Gain'][::-1],
+        color=bar_colors[::-1], edgecolor='white', height=0.65)
+
+ax.axvline(0, color=DARK, linewidth=1.5, linestyle='--', alpha=0.7)
+ax.set_xlabel('OOF AUC Gain over Baseline', fontsize=12)
+ax.set_title('CV Gain per Feature (vs Raw 13-Feature Baseline)', fontweight='bold', fontsize=12)
+
+max_g = rdf['Gain'].abs().max()
+for bar, gain in zip(ax.patches, rdf['Gain'][::-1]):
+    offset = max_g * 0.015
+    ha = 'left' if gain >= 0 else 'right'
+    ax.text(
+        bar.get_width() + (offset if gain >= 0 else -offset),
+        bar.get_y() + bar.get_height() / 2,
+        f'{gain:+.5f}', va='center', ha=ha, fontsize=8.5,
+        fontweight='bold', color=BUY if gain > 0 else NO_BUY,
+    )
+
+ax.legend(handles=[
+    mpatches.Patch(color=BUY,    label='Positive gain'),
+    mpatches.Patch(color=NO_BUY, label='Zero / negative gain'),
+], fontsize=10, framealpha=0.9)
+
+ax2 = axes[1]
+g_colors = [GROUP_COLORS.get(row['Group'], ACCENT) for _, row in rdf[::-1].iterrows()]
+ax2.barh(rdf['Feature'][::-1], rdf['OOF AUC'][::-1],
+         color=g_colors, edgecolor='white', height=0.65)
+
+ax2.axvline(baseline_auc, color=DARK, linewidth=2.0, linestyle='--', alpha=0.8,
+            label=f'Baseline: {baseline_auc:.5f}')
+ax2.set_xlabel('Absolute OOF AUC', fontsize=12)
+ax2.set_title('Absolute AUC per Feature (by Group)', fontweight='bold', fontsize=12)
+auc_range = rdf['OOF AUC'].max() - rdf['OOF AUC'].min()
+ax2.set_xlim(rdf['OOF AUC'].min() - auc_range * 0.1,
+             rdf['OOF AUC'].max() + auc_range * 0.35)
+
+legend_handles = [mpatches.Patch(color=v, label=k) for k, v in GROUP_COLORS.items()]
+legend_handles.append(plt.Line2D([0],[0], color=DARK, linewidth=2,
+                                  linestyle='--', label=f'Baseline {baseline_auc:.5f}'))
+ax2.legend(handles=legend_handles, fontsize=9, framealpha=0.9)
+
+plt.tight_layout()
+plt.savefig('ablation_all_candidates.png', dpi=150, bbox_inches='tight')
+plt.show()
+
+## 10. Stability Test Across CV Seeds
+
+A standalone gain of a few ten-thousandths can depend on the particular fold assignment. The five strongest standalone candidates are therefore evaluated with three different StratifiedKFold seeds.
+
+For each candidate, the table reports the mean AUC gain, the standard deviation of the gain, and the number of seeds where the candidate improved on the same-seed baseline. A candidate with a positive mean gain but unstable sign across seeds should be treated differently from a candidate that improves consistently.
+
+
+def get_model_with_seed(seed):
+    
+    return LGBMClassifier(
+        n_estimators=2000,
+        learning_rate=0.05,
+        num_leaves=64,
+        min_child_samples=50,
+        subsample=0.8,
+        colsample_bytree=0.8,
+        is_unbalance=True,
+        device='gpu',
+        verbose=-1,
+        random_state=seed,
+        metric='auc',
+    )
+
+def run_cv_seed(X, y, seed, n_splits=5):
+    kf = StratifiedKFold(n_splits=n_splits, shuffle=True, random_state=seed)
+    oof = np.zeros(len(y))
+    for tr_idx, val_idx in kf.split(X, y):
+        model = get_model_with_seed(seed)
+        model.fit(
+            X.iloc[tr_idx], y.iloc[tr_idx],
+            eval_set=[(X.iloc[val_idx], y.iloc[val_idx])],
+            callbacks=[lgb.early_stopping(50, first_metric_only=True, verbose=False), lgb.log_evaluation(0)]
+        )
+        oof[val_idx] = model.predict_proba(X.iloc[val_idx])[:, 1]
+    return roc_auc_score(y, oof), oof
+
+def evaluate_named_candidate(name, seed):
+    if name == 'Digit Decomposition':
+        X, _ = fe_digit_decomp(baseline_train, baseline_test)
+        return run_cv_seed(X, y, seed)[0]
+    if name == 'Triple Target Encoding':
+        return run_cv_triple_te_seed(baseline_train, raw_train, raw_test, y, seed)[0]
+    match = next((item for item in candidates if item[0] == name), None)
+    if match is None:
+        raise ValueError(f'Unknown candidate: {name}')
+    X, _ = match[1](baseline_train, baseline_test)
+    return run_cv_seed(X, y, seed)[0]
+
+def run_cv_triple_te_seed(baseline_tr, raw_tr, raw_te, y, seed, n_splits=5):
+    kf = StratifiedKFold(n_splits=n_splits, shuffle=True, random_state=seed)
+    oof = np.zeros(len(y))
+    for tr_idx, val_idx in kf.split(baseline_tr, y):
+        X_tr = baseline_tr.iloc[tr_idx].copy()
+        X_val = baseline_tr.iloc[val_idx].copy()
+        y_tr = y.iloc[tr_idx]
+        y_val = y.iloc[val_idx]
+        raw_tr_fold = raw_tr.iloc[tr_idx]
+        raw_val_fold = raw_tr.iloc[val_idx]
+        global_mean = y_tr.mean()
+        for col in TE_COLS:
+            stats = pd.DataFrame({'cat': raw_tr_fold[col].values, 'tgt': y_tr.values}).groupby('cat')['tgt'].agg(['mean', 'count'])
+            for s in TE_SMOOTHING:
+                col_name = f'{col}_te_s{s}'
+                values = (stats['mean'] * stats['count'] + global_mean * s) / (stats['count'] + s)
+                mapping = values.to_dict()
+                X_tr[col_name] = raw_tr_fold[col].map(mapping).fillna(global_mean).values
+                X_val[col_name] = raw_val_fold[col].map(mapping).fillna(global_mean).values
+        model = get_model_with_seed(seed)
+        model.fit(X_tr, y_tr, eval_set=[(X_val, y_val)], callbacks=[lgb.early_stopping(50, first_metric_only=True, verbose=False), lgb.log_evaluation(0)])
+        oof[val_idx] = model.predict_proba(X_val)[:, 1]
+    return roc_auc_score(y, oof), oof
+
+top5_names = all_results_df.head(5)['Feature'].tolist()
+stability_seeds = [42, 2026, 3407]
+stability_rows = []
+for name in top5_names:
+    gains = []
+    for seed in stability_seeds:
+        base_seed_auc = run_cv_seed(baseline_train, y, seed)[0]
+        candidate_seed_auc = evaluate_named_candidate(name, seed)
+        gains.append(candidate_seed_auc - base_seed_auc)
+    stability_rows.append({
+        'Feature': name,
+        'Mean Gain': np.mean(gains),
+        'Std Gain': np.std(gains, ddof=1),
+        'Positive Seeds': f'{sum(g > 0 for g in gains)}/{len(gains)}',
+        'Seed 42': gains[0],
+        'Seed 2026': gains[1],
+        'Seed 3407': gains[2],
+    })
+stability_df = pd.DataFrame(stability_rows).sort_values('Mean Gain', ascending=False).reset_index(drop=True)
+stability_display = stability_df.copy()
+for col in ['Mean Gain', 'Std Gain', 'Seed 42', 'Seed 2026', 'Seed 3407']:
+    stability_display[col] = stability_display[col].map(lambda x: f'{x:+.6f}')
+stability_display
+
+
+## 11. Greedy Forward Selection
+
+Individual ablation measures whether a candidate helps when it is added to the baseline. It does not measure whether the candidate still adds information after other useful features are already present.
+
+This experiment uses the six strongest standalone candidates as the search pool: Digit Decomposition (+0.00182), Subsidy × Income (+0.00026), Income Bin (+0.00016), Income Per Car (+0.00016), Home Charging × Range Anx (+0.00008), and Subsidy × Range Anxiety (+0.00008). Triple TE is excluded despite also scoring +0.00008 standalone — it requires in-fold computation and cannot be run inside the standard forward-selection loop without a full rewrite of the CV pipeline. At each step, every remaining candidate is added to the current feature set, the candidate producing the highest OOF AUC is retained, and the process continues until all six candidates have been tested once.
+
+The result is a sequence of marginal gains. A candidate can have a strong standalone gain but a small or negative marginal gain when selected later because another selected feature already captures the same information.
+
+
+candidate_lookup = {name: (fn, group) for name, fn, group in candidates}
+forward_pool = all_results_df.head(6)['Feature'].tolist()
+
+def make_selected_static_features(selected_names):
+    X_tr = baseline_train.copy()
+    X_te = baseline_test.copy()
+    for name in selected_names:
+        if name == 'Digit Decomposition' or name == 'Triple Target Encoding':
+            continue
+        fn, _ = candidate_lookup[name]
+        tr_tmp, te_tmp = fn(baseline_train, baseline_test)
+        new_cols = [c for c in tr_tmp.columns if c not in baseline_train.columns]
+        for col in new_cols:
+            X_tr[col] = tr_tmp[col].values
+            X_te[col] = te_tmp[col].values
+    if 'Digit Decomposition' in selected_names:
+        tr_tmp, te_tmp = fe_digit_decomp(baseline_train, baseline_test)
+        new_cols = [c for c in tr_tmp.columns if c not in baseline_train.columns]
+        for col in new_cols:
+            X_tr[col] = tr_tmp[col].values
+            X_te[col] = te_tmp[col].values
+    return X_tr.astype('float32'), X_te.astype('float32')
+
+def run_selected_cv(selected_names):
+    selected_te = 'Triple Target Encoding' in selected_names
+    static_names = [n for n in selected_names if n != 'Triple Target Encoding']
+    X_tr, X_te = make_selected_static_features(static_names)
+    if selected_te:
+        auc, _, _ = run_cv_triple_te(X_tr, X_te, raw_train, raw_test, y, verbose=False)
+        return auc
+    return run_cv(X_tr, y, verbose=False)[0]
+
+selected = []
+remaining = forward_pool.copy()
+forward_rows = []
+current_auc = baseline_auc
+
+for step in range(1, len(forward_pool) + 1):
+    trial_rows = []
+    for name in remaining:
+        trial_auc = run_selected_cv(selected + [name])
+        trial_rows.append((name, trial_auc))
+    best_name, best_auc = max(trial_rows, key=lambda x: x[1])
+    marginal_gain = best_auc - current_auc
+    selected.append(best_name)
+    remaining.remove(best_name)
+    forward_rows.append({
+        'Step': step,
+        'Selected Feature': best_name,
+        'OOF AUC': best_auc,
+        'Marginal Gain': marginal_gain,
+        'Gain vs Baseline': best_auc - baseline_auc,
+    })
+    current_auc = best_auc
+    print(f'Step {step}: {best_name} | AUC {best_auc:.5f} | Marginal Gain {marginal_gain:+.5f}')
+
+forward_df = pd.DataFrame(forward_rows)
+forward_df
+
+
+fig, ax = plt.subplots(figsize=(13, 6))
+ax.plot(forward_df['Step'], forward_df['Marginal Gain'], marker='o', linewidth=2)
+ax.axhline(0, linewidth=1.2, linestyle='--')
+ax.set_xticks(forward_df['Step'])
+ax.set_xticklabels(forward_df['Selected Feature'], rotation=35, ha='right')
+ax.set_ylabel('Marginal OOF AUC Gain')
+ax.set_title('Greedy Forward Selection: Marginal Gain at Each Step')
+for x, yv in zip(forward_df['Step'], forward_df['Marginal Gain']):
+    ax.text(x, yv, f'{yv:+.5f}', ha='center', va='bottom' if yv >= 0 else 'top', fontsize=9)
+plt.tight_layout()
+plt.savefig('forward_selection_marginal_gain.png', dpi=150, bbox_inches='tight')
+plt.show()
+
+
+## 12. Feature Importance - Winning Standard Features
+
+Train a model with baseline + all positive-gain standard features (Groups A-D) to see which engineered columns the model actually uses.
+
+std_winners = results_df[results_df['Gain'] > 0]
+print(f'Standard positive-gain features: {len(std_winners)}')
+
+combined_train = baseline_train.copy()
+combined_test  = baseline_test.copy()
+
+for _, row in std_winners.iterrows():
+    for name, fe_fn, _ in candidates:
+        if name == row['Feature']:
+            tr_tmp, te_tmp = fe_fn(baseline_train, baseline_test)
+            for col in [c for c in tr_tmp.columns if c not in baseline_train.columns]:
+                combined_train[col] = tr_tmp[col].values
+                combined_test[col]  = te_tmp[col].values
+
+print(f'Combined feature count: {combined_train.shape[1]}  '
+      f'(baseline: {baseline_train.shape[1]}, added: {combined_train.shape[1]-baseline_train.shape[1]})')
+
+kf = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
+*_, (tr_idx, val_idx) = kf.split(combined_train, y)
+
+model_fi = get_model()
+model_fi.fit(combined_train.iloc[tr_idx], y.iloc[tr_idx],
+             eval_set=[(combined_train.iloc[val_idx], y.iloc[val_idx])],
+             callbacks=[lgb.early_stopping(50, verbose=False), lgb.log_evaluation(0)])
+
+fi_df = (pd.DataFrame({'feature': combined_train.columns,
+                        'importance': model_fi.feature_importances_})
+           .sort_values('importance', ascending=False)
+           .head(25).reset_index(drop=True))
+
+fe_cols   = set(combined_train.columns) - set(baseline_train.columns)
+fi_colors = []
+for feat in fi_df['feature']:
+    if feat in fe_cols:
+        matched = next((g for n,_,g in candidates
+                        if any(p in feat for p in
+                               n.lower().replace(' × ','_x_').replace(' ','_').split('_')[:3])),
+                       'Interaction')
+        fi_colors.append(GROUP_COLORS.get(matched, ACCENT))
+    else:
+        fi_colors.append('#95a5a6')
+
+fig, ax = plt.subplots(figsize=(13, 10))
+ax.barh(fi_df['feature'][::-1], fi_df['importance'][::-1],
+        color=fi_colors[::-1], edgecolor='white', height=0.72)
+
+for bar, val in zip(ax.patches, fi_df['importance'][::-1]):
+    ax.text(bar.get_width() + fi_df['importance'].max()*0.005,
+            bar.get_y()+bar.get_height()/2,
+            f'{val:,}', va='center', fontsize=9)
+
+ax.set_title('Top 25 Feature Importances - Baseline + Winning FE Features',
+             fontsize=13, fontweight='bold')
+ax.set_xlabel('LightGBM Importance Score', fontsize=12)
+
+legend_h = [mpatches.Patch(color=v, label=f'FE - {k}') for k,v in GROUP_COLORS.items()
+            if k not in ('Digit Decomp','Triple TE')]
+legend_h.append(mpatches.Patch(color='#95a5a6', label='Baseline (raw)'))
+ax.legend(handles=legend_h, fontsize=10, framealpha=0.95, loc='lower right')
+
+plt.tight_layout()
+plt.savefig('feature_importance.png', dpi=150, bbox_inches='tight')
+plt.show()
+
+## 13. Final Score vs Baseline - Waterfall
+
+Final model includes all standard positive-gain features + Digit Decomp (+0.00182) + Triple TE (+0.00008) — all three groups had positive standalone gains.
+
+The waterfall shows cumulative gain - where each bar starts from the previous score.
+
+print('Running final CV - standard winners...')
+std_auc, std_oof = run_cv(combined_train, y, verbose=True)
+std_gain = std_auc - baseline_auc
+print(f'  Standard winners OOF AUC : {std_auc:.5f}  ({std_gain:+.5f})')
+
+if gain_digit > 0:
+    print('\nAdding digit decomp to combined set...')
+    tr_tmp, te_tmp = fe_digit_decomp(combined_train, combined_test)
+    combined_train_d = tr_tmp
+    combined_test_d  = te_tmp
+    print('Running final CV - standard + digit decomp...')
+    dig_auc, dig_oof = run_cv(combined_train_d, y, verbose=True)
+    dig_gain = dig_auc - baseline_auc
+    print(f'  + Digit Decomp OOF AUC   : {dig_auc:.5f}  ({dig_gain:+.5f})')
+else:
+    combined_train_d = combined_train
+    combined_test_d  = combined_test
+    dig_auc, dig_gain = std_auc, std_gain
+
+if gain_te > 0:
+    print('\nRunning final CV - standard + digit decomp + triple TE...')
+    final_auc, final_oof, final_test_preds = run_cv_triple_te(
+        combined_train_d, combined_test_d, raw_train, raw_test, y, verbose=True
+    )
+else:
+    final_auc      = dig_auc
+    final_oof      = dig_oof
+    final_test_preds = None
+
+total_gain = final_auc - baseline_auc
+print(f'\n{"═"*50}')
+print(f'  Baseline OOF AUC            : {baseline_auc:.5f}')
+print(f'  + Standard FE winners       : {std_auc:.5f}  ({std_gain:+.5f})')
+if gain_digit > 0:
+    print(f'  + Digit Decomp              : {dig_auc:.5f}  ({dig_gain:+.5f})')
+if gain_te > 0:
+    print(f'  + Triple TE                 : {final_auc:.5f}  ({final_auc-dig_auc:+.5f})')
+print(f'  Total Gain                  : {total_gain:+.5f}')
+print(f'{"═"*50}')
+
+stages = [
+    ('Baseline',         baseline_auc, '#7f8c8d'),
+    ('+ Standard FE',    std_auc,      ACCENT),
+]
+if gain_digit > 0:
+    stages.append(('+ Digit Decomp', dig_auc, PINK))
+if gain_te > 0:
+    stages.append(('+ Triple TE',    final_auc, LIME))
+
+BASE   = round(baseline_auc - 0.001, 4)
+labels = [s[0] for s in stages]
+scores = [s[1] for s in stages]
+colors = [s[2] for s in stages]
+
+bottoms = [BASE] + scores[:-1]
+heights = [s - b for s, b in zip(scores, bottoms)]
+
+fig, ax = plt.subplots(figsize=(max(10, len(stages)*2.5), 6))
+bars = ax.bar(labels, heights, bottom=bottoms,
+              color=colors, width=0.55, edgecolor='white', linewidth=1.5)
+
+for bar, score in zip(bars, scores):
+    ax.text(bar.get_x()+bar.get_width()/2,
+            score + total_gain*0.06,
+            f'{score:.5f}',
+            ha='center', va='bottom', fontweight='bold', fontsize=10)
+
+for i in range(len(scores)-1):
+    ax.plot([i+0.28, i+0.72], [scores[i], scores[i]],
+            color='#bdc3c7', linewidth=1.0, linestyle='--')
+
+ax.set_ylim(BASE, final_auc + total_gain*0.7)
+ax.set_ylabel('OOF AUC', fontsize=12)
+ax.set_title('Score Waterfall - Cumulative FE Gain | PS S6E9',
+             fontsize=13, fontweight='bold')
+
+plt.tight_layout()
+plt.savefig('waterfall.png', dpi=150, bbox_inches='tight')
+plt.show()
+
+## 14. Generate Submission
+
+if final_test_preds is not None:
+    submission_preds = final_test_preds
+    print('Using predictions from Section 13 full model (standard + digit + TE)')
+else:
+    # TE did not help — run a final CV with the best non-TE features
+    final_tr = combined_train_d
+    final_te = combined_test_d
+    kf = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
+    submission_preds = np.zeros(len(final_te))
+    for fold, (tr_idx, val_idx) in enumerate(kf.split(final_tr, y), 1):
+        model = get_model()
+        model.fit(final_tr.iloc[tr_idx], y.iloc[tr_idx],
+                  eval_set=[(final_tr.iloc[val_idx], y.iloc[val_idx])],
+                  callbacks=[lgb.early_stopping(50, verbose=False), lgb.log_evaluation(0)])
+        submission_preds += model.predict_proba(final_te)[:, 1] / 5
+        print(f'Fold {fold} done | Best iter: {model.best_iteration_}')
+
+submission = pd.DataFrame({'id': test_ids, 'Will_Buy_EV': submission_preds})
+submission.to_csv('submission.csv', index=False)
+print(f'\n submission.csv saved - {len(submission):,} rows')
+submission.head()
+
+
+## 15. What Didn't Work — Specific Results
+
+---
+
+### Triple Target Encoding — 12 new features, barely moved the needle
+
+Triple TE is the most engineering-heavy technique in this notebook: in-fold OOF encoding
+across 4 categorical columns at 3 smoothing levels produces **12 new features**, and requires
+running target encoding computation fresh inside every CV fold to prevent leakage. The result?
+**+0.00008** standalone gain (0.94160 → 0.94168) — the exact same gain as two simple two-line
+interactions (Subsidy × Range Anxiety, Home Charging × Range Anx). In the final combined pipeline
+(standard FE + Digit Decomp + Triple TE), it added **+0.00002** (0.94327 → 0.94328). Twelve
+features, hundreds of extra computation, for two one-hundred-thousandths of AUC.
+
+The likely reason: the four categorical columns it encodes (`Gender`, `City_Type`,
+`Current_Car_Type`, `Range_Anxiety_Level`) are either already ordinal-encoded in the baseline
+or are weak predictors individually. OOF target encoding amplifies the signal a category carries —
+but if the category doesn't carry much, there's nothing to amplify.
+
+---
+
+### Adding all 13 standard FE winners to Digit Decomp actually hurt
+
+Digit Decomp standalone: **0.94343** (+0.00182 vs baseline).
+Standard FE 13 winners + Digit Decomp combined: **0.94327**.
+
+The 13 features that each showed a positive standalone gain collectively subtracted **−0.00016**
+from the Digit Decomp score when stacked on top of it. The features that looked useful on their
+own became noise once Digit Decomp — which carries signal from every digit position of every
+numerical column — was already present. LightGBM's tree splits get diluted across 13 extra
+correlated columns, most of which contain information the digit features already encode.
+
+---
+
+### All 13 standard FE combined underperformed the best single feature
+
+All 13 positive-gain standard features together: **+0.00015** (0.94160 → 0.94175).
+`Subsidy × Income` alone: **+0.00026** (0.94160 → 0.94186).
+
+Stacking all 13 gave less gain than the top-1 feature in isolation. Six of the thirteen are
+Subsidy interactions — they are all correlated with each other and with `Subsidy_Available`,
+which is already in the baseline. After the first Subsidy interaction is added, subsequent
+ones share splits with it and add noise rather than new information.
+
+---
+
+### Forward selection: every standard feature had zero or negative marginal gain after Digit Decomp
+
+| Step | Feature | OOF AUC | Marginal Gain |
+|------|---------|---------|--------------|
+| 1 | **Digit Decomposition** | 0.94343 | **+0.00183** |
+| 2 | Income Bin | 0.94342 | −0.00002 |
+| 3 | Subsidy × Income | 0.94341 | −0.00001 |
+| 4 | Home Charging × Range Anx | 0.94345 | +0.00004 |
+| 5 | Subsidy × Range Anxiety | 0.94341 | −0.00005 |
+| 6 | Income Per Car | 0.94343 | +0.00003 |
+
+Steps 2, 3, and 5 have negative marginal gains. Steps 4 and 6 are essentially flat (+0.00004,
++0.00003). The three features that led the **standalone ablation** (section 7) — Subsidy × Income
+(standalone: +0.00026), Income Bin (standalone: +0.00016), Income Per Car (standalone:
++0.00016) — all turn negative or negligible in forward selection once Digit Decomp is in
+the feature set. The standalone and forward selection experiments measure different things:
+standalone measures isolated contribution vs the baseline; forward selection measures
+marginal contribution after the best features are already present. A strong standalone
+gain does not guarantee a positive marginal gain.
+
+---
+
+### Subsidy × Concern — near-zero gain (+0.00001)
+
+The idea: an environmentally conscious buyer who also gets a subsidy has double motivation.
+`Environmental_Concern_Level` has the **highest raw correlation with the target** (r = +0.4641),
+so this seemed like a strong candidate. In practice the model got almost nothing from it.
+The most likely explanation: the model already captures this signal by splitting on
+`Environmental_Concern_Level` and `Subsidy_Available` independently — the product adds no
+information that a tree split on both original columns doesn't already find.
+
+---
+
+### Income Per Commute km — barely anything (+0.00002)
+
+The intent was to capture "how affordable is EV ownership relative to how far I drive."
+Gain was effectively zero. `Daily_Commute_km` has a weak negative correlation with the target
+(r = −0.0459), and `Annual_Income_USD` correlates positively (r = +0.2257). Dividing them
+creates a ratio with no meaningful joint signal: income and commute distance are not
+systematically related in this dataset, so the ratio carries noise rather than a new axis
+of variation.
+
+---
+
+### 11 of 15 features gained less than +0.00010 — most results are CV noise territory
+
+| Threshold | Count | Features |
+|----------|-------|---------|
+| > +0.00010 | 4 | Digit Decomp (+0.00182), Subsidy × Income (+0.00026), Income Bin (+0.00016), Income Per Car (+0.00016) |
+| +0.00001 to +0.00010 | 11 | Everything else, including Triple TE (+0.00008) |
+
+At gains below +0.00010 the stability test becomes decisive. The only features with
+consistent gains across all 3 CV seeds are Digit Decomp (mean +0.001827, std 0.000008),
+Subsidy × Income (mean +0.000229, std 0.000025), Income Bin (mean +0.000120, std 0.000039),
+and Income Per Car (mean +0.000112, std 0.000036). Every other candidate — including
+Home Charging × Range Anx (mean +0.000049, std 0.000025) — is borderline. The entire
+interaction group (6 features) collectively contributes less than Digit Decomp alone.
+
+## 16. Conclusions — What To Take Into Your Next Competition
+
+This notebook's purpose is not to maximise the leaderboard score — that is covered in the [full modeling notebook (0.94590 LB)](https://www.kaggle.com/code/rugvedbane/0-94590-lb-stacking-failed-this-didn-t), which uses a stronger model, lower learning rate, and 10-fold CV with proper validation. The purpose here is to measure which features actually move the score and which ones only appear to.
+
+Three things worth keeping from this experiment:
+
+---
+
+### 1. Standalone gain overstates combined value — always verify with forward selection
+
+Subsidy × Income showed +0.00026 standalone. In forward selection (step 3, after Digit Decomp and Income Bin were already present), its marginal gain was **−0.00001**. It actively hurt. This pattern repeated for 3 of the 6 candidates in forward selection.
+
+If you only run standalone ablation and include every positive-gain feature, you will add correlated noise. The combined standard FE set gained +0.00015 — less than the best single feature in isolation. **Run forward selection, or at minimum test your combined set separately.**
+
+---
+
+### 2. For Playground Series datasets, check digit decomposition first
+
+Digit Decomp gained +0.00182 standalone, consistent across all 3 CV seeds (std 0.000008). Adding all 13 carefully designed standard features to the Digit Decomp set **dropped** the score by −0.00016 (0.94343 → 0.94327). The standard features weren't just unhelpful — they diluted the digit signal.
+
+In PS competitions specifically, the synthesis process preserves digit-level regularities from the original data. This is exploitable in a way that most interaction or ratio features are not.
+
+---
+
+### 3. Engineering complexity does not predict gain
+
+Triple Target Encoding is the most complex technique in this notebook: in-fold OOF encoding, 4 categorical columns, 3 smoothing levels, 12 new features, careful leakage prevention. It produced **+0.00008** standalone and **+0.00002** in the final pipeline.
+
+Digit Decomposition is a 10-line function with no statistical machinery. It produced **+0.00182**.
+
+The lesson is not that simple is always better — it is that gain should be measured, not assumed from complexity. A technique that requires careful implementation deserves extra skepticism, not extra credit, until the CV confirms it.
+
+---
+
+*The full rankings, stability table, and forward selection chart above are the primary output of this notebook. If they helped clarify which features are worth carrying into a final model, an upvote takes 5 seconds and helps more people find it.*

@@ -1,0 +1,244 @@
+# 🚀 The Power of OOF: Rank Blending LogLoss & Focal Loss
+
+Welcome! This notebook was inspired by a great discussion in the forums with @sergeyqt2024. 
+
+Sergey noticed that blending his public LGBM model with my public LGBM model gave a significant boost to the leaderboard score because the two models are **highly orthogonal** (meaning they learn different patterns and make different mistakes). 
+
+👉 **[Click here to view Sergey's fantastic Focal Loss LGBM Notebook](https://www.kaggle.com/code/sergeyqt2024/simple-21-feature-lfbm-0-9456)**. Please make sure to give his original work an upvote!
+
+### 📊 The Results at a Glance
+Before diving into the math, here is exactly what this notebook achieves. By finding the perfect balance between our two models, we secure a very solid boost on both Local CV and the Public Leaderboard:
+
+| Model / Blend | Local CV (AUC) | Public LB | Optimal Weight |
+|:---|:---:|:---:|:---:|
+| Naji's Pure LGBM (LogLoss) | `0.945866` | `0.94612` | 68% |
+| Sergey's LGBM (Focal Loss) | `0.945329` | `0.94561` | 32% |
+| **Final Rank Blend** | **`0.946021`** ✅ | **`0.94622`** ✅ | **100%** |
+| **Improvement over Base Model:** | **+0.000155** ✅🚀 
+
+---
+
+### 💡 1. Why are these models Orthogonal?
+Even though both models use LightGBM, they look at the data through entirely different mathematical lenses:
+* **Model A (Naji's Model):** Optimized using standard **LogLoss** (`AUC` metric) with highly discrete feature engineering (digit extraction, hard thresholds). It acts like a macro-sensor capturing the big picture.
+* **Model B (Sergey's Model):** Optimized using **Focal Loss** with continuous Gaussian Target Encoding and `linear_tree=True`. It acts like a micro-sensor, aggressively hunting for hard-to-predict edge cases.
+
+Because Focal Loss and LogLoss produce fundamentally different probability distributions, a simple average (0.5 * A + 0.5 * B) is not optimal. Instead, we use **Percentile Rank Blending** to safely combine them!
+
+### ⚖️ 2. The Advantage of OOF vs. "Blind Blending"
+Many beginners just take two `submission.csv` files and average them together (Blind Blending). The problem? You have to guess the weights and wait for the Public Leaderboard to tell you if you were right. 
+
+By using **OOF (Out-Of-Fold) predictions**, we can simulate the leaderboard locally! We can test hundreds of different weight combinations against the true training labels (`y_true`) to find the mathematical optimum *before* we ever submit.
+
+### 📈 3. Visualizing the Optimization
+Below, we run a loop to test weights from 0% to 100%. Because we are only blending **two models**, we can plot this optimization as a beautiful, intuitive 1D curve. 
+*(Note: If we were ensembling 3 or more models, we couldn't easily plot it like this, and we would need to use advanced solvers like Optuna, Nelder-Mead, or Ridge Regression to find the weights).*
+
+As you will see in the plot below, the curve is a perfectly smooth parabola. A smooth curve proves that our ensemble is stable and robust! 
+
+Let's dive into the code! ⬇️
+
+
+
+# 🔥 LATEST UPDATE (Rank Blend V2 & Model V3)
+*Timestamp: September 7, 2026 | 21:00 UTC* ⏱️
+
+My base [Pure LGBM model was recently updated to V3](https://www.kaggle.com/code/najiama/pure-lgbm-model-cv-0-94587-lb-0-94612), incorporating Markus.JM's brilliant Multi-Scale "Smooth Keys" and a Triple-Target Encoding strategy. This pushed the base model to an impressive **0.94637** on the Public LB. 
+
+However, because of **Model Orthogonality**, we can *still* extract a boost by blending it with Sergey's Focal Loss model! 
+
+Even though the base V3 model is now much stronger (forcing the optimal blend weight to shift from 68% up to 77%), blending in 23% of the Focal Loss model still yields a beautiful CV and LB boost. **As of the timestamp above, this Blend and the Base V3 model hold the #1 and #2 highest scores of all public notebooks!** 🏆
+
+👉 **[Click here to view Sergey's Focal Loss LGBM](https://www.kaggle.com/code/sergeyqt2024/simple-21-feature-lfbm-0-9456)**
+👉 **[Click here to view Markus.JM's Astra Baseline](https://www.kaggle.com/code/maiernator/s6e9-ctboost-not-catboost-astra-baseline)**
+
+---
+
+### 📊 The Results at a Glance
+
+| Model / Blend | Local CV (AUC) | Public LB | Optimal Weight |
+|:---|:---:|:---:|:---:|
+| Naji's Pure LGBM **V3** (LogLoss) | `0.94606` | `0.94637` | 77% |
+| Sergey's LGBM (Focal Loss) | `0.94532` | `0.94561` | 23% |
+| **Final Rank Blend**  |   **`0.94613`** ✅ | **`0.94638`** ✅  | **100%** |
+
+🚀 **Improvement over Base Model (CV):**  **+0.00007** 
+🚀 **Improvement over Base Model (LB):**  **+0.00001** 
+
+import numpy as np
+import pandas as pd
+from scipy.stats import rankdata
+from sklearn.metrics import roc_auc_score
+import matplotlib.pyplot as plt
+import warnings 
+warnings.filterwarnings('ignore')
+
+def pct_rank(v):
+    """Converts predictions to percentile ranks between 0.0 and 1.0.
+       This safely blends models that have different probability calibrations."""
+    return (rankdata(v) - 0.5) / len(v)
+
+TARGET = 'Will_Buy_EV'
+
+# Load Data
+train_df = pd.read_csv("/kaggle/input/competitions/playground-series-s6e9/train.csv")
+sub_df = pd.read_csv("/kaggle/input/competitions/playground-series-s6e9/sample_submission.csv")
+train_df[TARGET] = train_df[TARGET].replace({'Yes': 1, 'No': 0}).astype(int)
+y_true = train_df[TARGET].values
+
+# Load OOF and Test Predictions
+oof_Notebook1  = pd.read_csv("/kaggle/input/notebooks/najiama/pure-lgbm-model-cv-0-94607-lb-0-94638/oof_LIGHTGBM.csv")['OOF_Pred'].values
+test_Notebook1 = pd.read_csv("/kaggle/input/notebooks/najiama/pure-lgbm-model-cv-0-94607-lb-0-94638/submission_LIGHTGBM.csv")[TARGET].values
+
+oof_Notebook2  = pd.read_csv("/kaggle/input/datasets/najiama/s6e9-oof/Sergey_LGBM_oof.csv")[TARGET].values
+test_Notebook2 = pd.read_csv("/kaggle/input/datasets/najiama/s6e9-oof/Sergey_LGBM_submission.csv")[TARGET].values
+
+
+# Baseline Score
+Notebook1_auc = roc_auc_score(y_true, oof_Notebook1)
+Notebook2_auc = roc_auc_score(y_true, oof_Notebook2)
+
+
+# Rank-transform inputs once
+rank_oof1 = pct_rank(oof_Notebook1)
+rank_oof2 = pct_rank(oof_Notebook2)
+rank_test1 = pct_rank(test_Notebook1)
+rank_test2 = pct_rank(test_Notebook2)
+
+# Baseline Scores
+auc1 = roc_auc_score(y_true, rank_oof1)
+auc2 = roc_auc_score(y_true, rank_oof2)
+best_single_auc = max(auc1, auc2)
+
+
+# Optimize Blending Weights
+weights = np.linspace(0.0, 1.0, 101)
+aucs = []
+best_auc = 0
+best_w1 = 0
+
+for w in weights:
+    blend_oof =pct_rank((w * rank_oof1) + ((1.0 - w) * rank_oof2))
+    auc = roc_auc_score(y_true, blend_oof)
+    aucs.append(auc)
+    
+    if auc > best_auc:
+        best_auc = auc
+        best_w1 = w
+        
+best_w2 = 1.0 - best_w1
+
+# ==============================================================================
+# GENERATE THE FINAL KAGGLE SUBMISSION
+# ==============================================================================
+print("\n" + "="*50)
+print("🚀 GENERATING FINAL SUBMISSION")
+print("="*50)
+
+print(f"Optimal Notebook1 Weight: {best_w1:.2%} ({best_w1:.4f})")
+print(f"Optimal Notebook2 Weight: {best_w2:.2%} ({best_w2:.4f})")
+print("-" * 40)
+print(f"Notebook1 Baseline AUC: {auc1:.6f}")
+print(f"Notebook2 Baseline AUC: {auc2:.6f}")
+print(f"Final Blend CV Score  : {best_auc:.6f}")
+print(f"Improvement over best :+{best_auc - best_single_auc:.6f}\n")
+
+# Generate Test Predictions using dynamically calculated weights
+final_test_preds = pct_rank((best_w1 * rank_test1) + (best_w2 * rank_test2))
+final_oof_preds = pct_rank((best_w1 * rank_oof1) + (best_w2 * rank_oof2))
+
+# Save Submission
+sub_df[TARGET] = final_test_preds
+sub_df.to_csv("submission.csv", index=False)
+print("✅ Saved to submission.csv")
+
+# 5. Plot Optimization Curve
+plt.figure(figsize=(10, 5))
+plt.plot(weights, aucs, color='purple', linewidth=2)
+plt.axvline(best_w1, color='red', linestyle='--', label=f'Best Notebook1 Weight: {best_w1:.2f}')
+plt.title('Rank-Blend Optimization Curve')
+plt.xlabel("Notebook1's Weight")
+plt.ylabel('Ensemble ROC AUC')
+plt.legend()
+plt.grid(True)
+plt.show()
+
+## Stage2 Terminal blend
+
+# Load OOF and Test Predictions
+oof_Notebook1  = final_oof_preds
+test_Notebook1 = final_test_preds
+
+oof_Notebook2  = pd.read_csv("/kaggle/input/s6e9-oof/XGBoost_Triple_TE_10folds_oof.csv")['OOF_Pred'].values
+test_Notebook2 = pd.read_csv("/kaggle/input/s6e9-oof/XGBoost_Triple_TE_10folds_test.csv")[TARGET].values
+
+
+# Baseline Score
+Notebook1_auc = roc_auc_score(y_true, oof_Notebook1)
+Notebook2_auc = roc_auc_score(y_true, oof_Notebook2)
+
+
+# Rank-transform inputs once
+rank_oof1 = pct_rank(oof_Notebook1)
+rank_oof2 = pct_rank(oof_Notebook2)
+rank_test1 = pct_rank(test_Notebook1)
+rank_test2 = pct_rank(test_Notebook2)
+
+# Baseline Scores
+auc1 = roc_auc_score(y_true, rank_oof1)
+auc2 = roc_auc_score(y_true, rank_oof2)
+best_single_auc = max(auc1, auc2)
+
+
+# Optimize Blending Weights
+weights = np.linspace(0.0, 1.0, 101)
+aucs = []
+best_auc = 0
+best_w1 = 0
+
+for w in weights:
+    blend_oof =pct_rank((w * rank_oof1) + ((1.0 - w) * rank_oof2))
+    auc = roc_auc_score(y_true, blend_oof)
+    aucs.append(auc)
+    
+    if auc > best_auc:
+        best_auc = auc
+        best_w1 = w
+        
+best_w2 = 1.0 - best_w1
+
+# ==============================================================================
+# GENERATE THE FINAL KAGGLE SUBMISSION
+# ==============================================================================
+print("\n" + "="*50)
+print("🚀 GENERATING FINAL SUBMISSION")
+print("="*50)
+
+print(f"Optimal Notebook1 Weight: {best_w1:.2%} ({best_w1:.4f})")
+print(f"Optimal Notebook2 Weight: {best_w2:.2%} ({best_w2:.4f})")
+print("-" * 40)
+print(f"Notebook1 Baseline AUC: {auc1:.6f}")
+print(f"Notebook2 Baseline AUC: {auc2:.6f}")
+print(f"Final Blend CV Score  : {best_auc:.6f}")
+print(f"Improvement over best :+{best_auc - best_single_auc:.6f}\n")
+
+# Generate Test Predictions using dynamically calculated weights
+final_test_preds = pct_rank((best_w1 * rank_test1) + (best_w2 * rank_test2))
+
+# Save Submission
+sub_df[TARGET] = final_test_preds
+sub_df.to_csv("submission.csv", index=False)
+print("✅ Saved to submission.csv")
+
+# 5. Plot Optimization Curve
+plt.figure(figsize=(10, 5))
+plt.plot(weights, aucs, color='purple', linewidth=2)
+plt.axvline(best_w1, color='red', linestyle='--', label=f'Best Notebook1 Weight: {best_w1:.2f}')
+plt.title('Rank-Blend Optimization Curve')
+plt.xlabel("Notebook1's Weight")
+plt.ylabel('Ensemble ROC AUC')
+plt.legend()
+plt.grid(True)
+plt.show()
+
+**🙏 If you find this ensembling approach or the rank-blend function helpful, please consider leaving an Upvote! It keeps me motivated to share more experiments!**

@@ -1,0 +1,42 @@
+[{"stream_name":"stderr","time":7.8296446490000005,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":7.8297133,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":7.829718343,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":7.829721465,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":8.554016966,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":8.554087749,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":8.554093188,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":8.554096676,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":45.574310636,"data":"🔑 Adding Smooth Keys (Income/Commute Bins)...\n"}
+,{"stream_name":"stdout","time":86.460383878,"data":"Dropping 85 redundant/constant features\n"}
+,{"stream_name":"stdout","time":87.304486776,"data":"✅ Total Features: 109\n"}
+,{"stream_name":"stdout","time":87.304526246,"data":"✅ Columns to Target Encode: 41\n"}
+,{"stream_name":"stdout","time":87.506349089,"data":"\n"}
+,{"stream_name":"stdout","time":87.506413309,"data":"🚀 Training  LIGHTGBM with 5 Folds...\n"}
+,{"stream_name":"stdout","time":258.408181275,"data":"[1000]\tvalid_0's auc: 0.94512\n"}
+,{"stream_name":"stdout","time":335.506977909,"data":"   --\u003e Fold 1 CONVERGED at Tree #1331 | ROC-AUC: 0.94513\n"}
+,{"stream_name":"stdout","time":508.704880693,"data":"[1000]\tvalid_0's auc: 0.94568\n"}
+,{"stream_name":"stdout","time":577.362131088,"data":"[2000]\tvalid_0's auc: 0.945707\n"}
+,{"stream_name":"stdout","time":601.105072584,"data":"   --\u003e Fold 2 CONVERGED at Tree #1530 | ROC-AUC: 0.94573\n"}
+,{"stream_name":"stdout","time":771.045338238,"data":"[1000]\tvalid_0's auc: 0.946894\n"}
+,{"stream_name":"stdout","time":855.138928566,"data":"   --\u003e Fold 3 CONVERGED at Tree #1406 | ROC-AUC: 0.94694\n"}
+,{"stream_name":"stdout","time":1029.481380881,"data":"[1000]\tvalid_0's auc: 0.946365\n"}
+,{"stream_name":"stdout","time":1094.28846901,"data":"   --\u003e Fold 4 CONVERGED at Tree #1188 | ROC-AUC: 0.94640\n"}
+,{"stream_name":"stdout","time":1272.842929851,"data":"[1000]\tvalid_0's auc: 0.946138\n"}
+,{"stream_name":"stdout","time":1342.047105095,"data":"[2000]\tvalid_0's auc: 0.946138\n"}
+,{"stream_name":"stdout","time":1368.567727134,"data":"   --\u003e Fold 5 CONVERGED at Tree #1564 | ROC-AUC: 0.94617\n"}
+,{"stream_name":"stdout","time":1368.98228045,"data":"\n"}
+,{"stream_name":"stdout","time":1368.98231565,"data":"=============================================\n"}
+,{"stream_name":"stdout","time":1368.982322544,"data":"🏆   LIGHTGBM FINAL OOF ROC-AUC: 0.94607\n"}
+,{"stream_name":"stdout","time":1368.982328524,"data":"=============================================\n"}
+,{"stream_name":"stdout","time":1369.677688144,"data":"💾 Saved 'submission_LIGHTGBM.csv'\n"}
+,{"stream_name":"stdout","time":1370.347202521,"data":"💾 Saved 'test_LIGHTGBM.csv'\n"}
+,{"stream_name":"stdout","time":1371.740175434,"data":"💾 Saved 'oof_LIGHTGBM.csv'\n"}
+,{"stream_name":"stderr","time":1377.113681811,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":1377.113729932,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":1377.30781045,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":1377.307839854,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":1378.11057612,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":1378.50026114,"data":"[NbConvertApp] Writing 25120 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":1381.640274567,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":1382.744017299,"data":"[NbConvertApp] Writing 335441 bytes to __results__.html\n"}
+]

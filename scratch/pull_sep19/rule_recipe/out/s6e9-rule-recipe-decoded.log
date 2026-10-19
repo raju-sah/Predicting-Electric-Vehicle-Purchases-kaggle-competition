@@ -1,0 +1,41 @@
+[{"stream_name":"stderr","time":7.089979222,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":7.090051466,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":7.09005653,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":7.090059759,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":7.742830102,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":7.742863092,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":7.742866709,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":7.742869443,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":9.863430107,"data":"data dir: /kaggle/input/competitions/playground-series-s6e9\n"}
+,{"stream_name":"stdout","time":11.694810611,"data":"train 668,665 rows | test 286,571 rows | global buy rate 0.17465\n"}
+,{"stream_name":"stdout","time":11.780394407,"data":"--- income $20k ---\n"}
+,{"stream_name":"stdout","time":11.780430825,"data":"    lo     hi  count       dev\n"}
+,{"stream_name":"stdout","time":11.780434429,"data":" 20000  40000  62178 -0.130771\n"}
+,{"stream_name":"stdout","time":11.780436907,"data":" 40000  60000  55023 -0.087172\n"}
+,{"stream_name":"stdout","time":11.780439317,"data":" 60000  80000 158004 -0.058028\n"}
+,{"stream_name":"stdout","time":11.780441654,"data":"100000 120000 101190  0.086932\n"}
+,{"stream_name":"stdout","time":11.780443861,"data":"120000 140000  62954  0.139473\n"}
+,{"stream_name":"stdout","time":11.780446019,"data":"140000 160000  16098  0.195960\n"}
+,{"stream_name":"stdout","time":11.78044868,"data":"160000 180000   2464  0.267725\n"}
+,{"stream_name":"stdout","time":11.780467242,"data":"--- commute 10km ---\n"}
+,{"stream_name":"stdout","time":11.780471271,"data":" lo  hi  count       dev\n"}
+,{"stream_name":"stdout","time":11.780475284,"data":" 10  20  36938  0.077453\n"}
+,{"stream_name":"stdout","time":11.780479091,"data":" 60  70  28198 -0.067971\n"}
+,{"stream_name":"stdout","time":11.780482589,"data":" 70  80   3946 -0.060605\n"}
+,{"stream_name":"stdout","time":11.836959913,"data":"         mean   count\n"}
+,{"stream_name":"stdout","time":11.836999366,"data":"sub                  \n"}
+,{"stream_name":"stdout","time":11.837004779,"data":"No   0.005757  248756\n"}
+,{"stream_name":"stdout","time":11.83700869,"data":"Yes  0.274695  419909\n"}
+,{"stream_name":"stdout","time":17.475384776,"data":"toy LR baseline ready: (286571,)\n"}
+,{"stream_name":"stdout","time":17.649944091,"data":"rows in the \u003e=170537 block: 156 of 286,571\n"}
+,{"stream_name":"stdout","time":17.649989425,"data":"mean rank position before: 276,879  -\u003e  after: 286,494\n"}
+,{"stream_name":"stdout","time":17.650000643,"data":"=\u003e the block jumps above every un-shifted row: a HARD BLOCK, not a nudge\n"}
+,{"stream_name":"stderr","time":20.407641035,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":20.407672397,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":20.559630564,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":20.559676324,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":21.311287988,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":21.634707721,"data":"[NbConvertApp] Writing 16736 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":24.198866693,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":25.048365665,"data":"[NbConvertApp] Writing 304632 bytes to __results__.html\n"}
+]

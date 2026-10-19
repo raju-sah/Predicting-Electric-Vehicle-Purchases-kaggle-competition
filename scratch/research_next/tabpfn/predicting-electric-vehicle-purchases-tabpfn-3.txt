@@ -1,0 +1,187 @@
+# This Python 3 environment comes with many helpful analytics libraries installed
+# It is defined by the kaggle/python Docker image: https://github.com/kaggle/docker-python
+# For example, here's several helpful packages to load
+
+import numpy as np # linear algebra
+import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)
+
+# Input data files are available in the read-only "../input/" directory
+# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory
+
+import os
+for dirname, _, filenames in os.walk('/kaggle/input'):
+    for filename in filenames:
+        print(os.path.join(dirname, filename))
+
+# You can write up to 20GB to the current directory (/kaggle/working/) that gets preserved as output when you create a version using "Save & Run All" 
+# You can also write temporary files to /kaggle/temp/, but they won't be saved outside of the current session
+
+# Use the kagglehub client library to attach Kaggle resources like competitions, datasets, and models to your session
+# Learn more about kagglehub: https://github.com/Kaggle/kagglehub/blob/main/README.md
+
+import kagglehub
+# kagglehub.dataset_download('<owner>/<dataset-slug>')
+
+!pip install -q -U \
+    "tabpfn>=8.0.0" \
+    "huggingface_hub>=0.30.0"
+
+import sys
+import torch
+import tabpfn
+import huggingface_hub
+import os
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import roc_auc_score
+import matplotlib.pyplot as plt
+
+print("CUDA available:", torch.cuda.is_available())
+
+if torch.cuda.is_available():
+    print("GPU:", torch.cuda.get_device_name(0))
+
+# Predicting Electric Vehicle Purchases using TABPFN_3
+
+The goal of this notebook is to predict electric vahicle purchases using two models downloaded from Hugging Face.
+
+TABPFN_3 is a model developed from Prior-Labs specifically designed for inference in tabular data (more detail can be found on https://arxiv.org/pdf/2605.13986).
+
+TabPFN-3 OOD is specifically designed for situation where distribution of test data in training could differ from the distribution in test dataset.
+
+First the two model are downloaded from Hugging Face and saved in a folder (tabpfn_models).
+
+Then categorical columns are converted to Category and indices of categorical columns are calculated.
+
+Predictions are made in batches through the function "predict_in_batches".
+
+Final predictions are an ensemple of clf_default and clf_ood.
+
+
+from huggingface_hub import hf_hub_download
+from pathlib import Path
+
+MODEL_DIR = Path("/kaggle/working/tabpfn_models")
+MODEL_DIR.mkdir(parents = True, exist_ok = True)
+
+HF_REPO = "Prior-Labs/tabpfn_3"
+
+MODEL_DEFAULT = hf_hub_download(repo_id = HF_REPO, filename = "tabpfn-v3-classifier-v3_default.ckpt", local_dir = MODEL_DIR)
+MODEL_OOD = hf_hub_download(repo_id=HF_REPO,filename="tabpfn-v3-classifier-v3_20260506_ood.ckpt",local_dir=MODEL_DIR)
+
+from tabpfn import TabPFNClassifier
+
+for f in [MODEL_DEFAULT, MODEL_OOD]:
+    size_mb = os.path.getsize(f) / 1024**2
+    print(f"{Path(f).name}: {size_mb:.1f} MB")
+
+DATA_DIR = "/kaggle/input/competitions/playground-series-s6e9"
+
+train = pd.read_csv(f"{DATA_DIR}/train.csv")
+test = pd.read_csv(f"{DATA_DIR}/test.csv")
+
+
+train.shape, test.shape
+
+train.head(2)
+
+X = train.drop(columns = ['Will_Buy_EV','id'])
+y = train['Will_Buy_EV'].map({"No":0, "Yes":1})
+X_test = test.copy().drop(columns = ["id"])
+
+y.value_counts(normalize = True)
+
+categorical_columns = X.select_dtypes(include = ["object","category","string"]).columns.tolist()
+
+
+for col in categorical_columns:
+    combined = pd.concat([X[col], X_test[col]], axis = 0).astype("category")
+    categories = combined.cat.categories
+    X[col] = pd.Categorical(X[col],categories=categories)
+    X_test[col] = pd.Categorical(X_test[col],categories=categories)
+
+categorical_columns
+
+categorical_indices = [X.columns.get_loc(col) for col in categorical_columns]
+
+print(categorical_indices)
+
+X.columns
+
+clf_default = TabPFNClassifier(model_path=MODEL_DEFAULT,device="cuda",n_estimators=4,   
+    categorical_features_indices=categorical_indices,kv_cache_precision="int8",
+    random_state=42,show_progress_bar=True,fit_mode="fit_with_cache")
+
+clf_ood = TabPFNClassifier(model_path=MODEL_OOD,device="cuda",n_estimators=4,
+    categorical_features_indices=categorical_indices,kv_cache_precision="int8",
+    random_state=42,show_progress_bar=True,fit_mode="fit_with_cache")
+
+X_train_sub, X_test_sub, y_train_sub, y_test_sub = train_test_split(
+    X, y, train_size=10000, stratify=y, random_state=42
+)
+
+X_test_sub = X_test_sub.iloc[:20000]
+y_test_sub = y_test_sub.iloc[:20000]
+
+print("Training TabPFNClassifier")
+clf_default.fit(X_train_sub,y_train_sub)
+print("Training completed")
+
+#function to predict in batches
+
+def predict_in_batches(model, X, batch_size = 5000):
+    predictions = []
+    for start in range(0,len(X), batch_size):
+        end = min(start + batch_size, len(X))
+        batch = X.iloc[start:end]
+        pred = model.predict_proba(batch)[:,1]
+        predictions.append(pred)
+    return np.concatenate(predictions)
+
+print("Fitting TabPFN OOD")
+
+clf_ood.fit(X_train_sub,y_train_sub)
+
+print("Training completed")
+
+pred_y_test_sub_default = predict_in_batches(clf_default, X_test_sub, batch_size = 5000)
+roc_auc_score(y_test_sub, pred_y_test_sub_default )
+
+pred_y_test_sub_ood = predict_in_batches(clf_ood, X_test_sub, batch_size = 5000)
+roc_auc_score(y_test_sub, pred_y_test_sub_ood )
+
+weights = np.linspace(0,1,10)
+
+roc_auc_scores = []
+for i in weights:
+    pred_ensamble = (i*pred_y_test_sub_default + (1-i)*pred_y_test_sub_ood)
+    roc_auc_scores.append(roc_auc_score(y_test_sub, pred_ensamble ))
+
+plt.plot(weights,roc_auc_scores)
+
+if False:
+    X_train_sub, _, y_train_sub, _ = train_test_split(
+        X, y, train_size=150000, stratify=y, random_state=42
+    )
+
+clf2_ood = TabPFNClassifier(model_path=MODEL_OOD,device="cuda",n_estimators=4,
+    categorical_features_indices=categorical_indices,kv_cache_precision="int8",
+    random_state=42,show_progress_bar=False,fit_mode="fit_with_cache")
+
+print("Fitting TabPFN OOD")
+
+clf2_ood.fit(X,y)
+
+print("Training completed")
+
+pred_ood = predict_in_batches(clf2_ood,X_test,batch_size=5000)
+
+submission = pd.DataFrame({
+    "id": test["id"],
+    "Will_Buy_EV": pred_ood
+})
+
+submission.head()
+
+submission.to_csv('submission.csv', index=False)
+print("Submission created")

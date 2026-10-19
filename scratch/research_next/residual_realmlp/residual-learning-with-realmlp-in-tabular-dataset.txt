@@ -1,0 +1,1386 @@
+<!-- ╔══════════════════════════════════════════════════════════════════╗ ║ RealMLP + Recipe Residual — Kaggle Notebook Markdown Pack v2 ║ ║ HOW TO USE: every "CELL" below is one Kaggle Markdown cell. ║ ║ Copy each block into a separate Markdown cell, interleaved with ║ ║ the matching code cell. Do NOT paste the whole file as one cell. ║ ║ ║ ║ v2 NOTE: all tables are PURE HTML (not markdown pipes) because ║ ║ markdown inside <div>/<details> blocks is NOT parsed by the ║ ║ Jupyter/Kaggle renderer — pipe tables inside HTML show as raw ║ ║ text. HTML tables render everywhere and can be styled. ║ ╚══════════════════════════════════════════════════════════════════╝ -->
+
+<!-- ════════════════════════ CELL 1 · TITLE ════════════════════════ -->
+
+<div style="background:linear-gradient(135deg,#1a237e 0%,#4527a0 55%,#6a1b9a 100%);color:#ffffff;padding:28px 24px;border-radius:16px;font-family:Georgia,serif">
+
+<h1 style="margin:0;color:#ffffff;text-align:center">⚡ RealMLP × Recipe Residual Learning</h1> <h3 style="margin:6px 0 2px;color:#e8eaf6;text-align:center;font-weight:normal">A single PyTorch MLP for EV-buyer prediction — <i>with a physics-like head start</i></h3>
+
+<p style="text-align:center;margin:14px 0 4px"> <b style="background:#00e676;color:#1b5e20;padding:3px 14px;border-radius:20px;font-size:15px">CV AUC 0.94572</b> &nbsp;<b style="background:#ffca28;color:#4e342e;padding:3px 14px;border-radius:20px;font-size:15px">ONE model, no stacking</b> &nbsp;<b style="background:#40c4ff;color:#003c8f;padding:3px 14px;border-radius:20px;font-size:15px">~9 min / run</b> </p>
+
+</div>
+
+
+
+**Mission: predict Will_Buy_EV (binary, AUC metric) · ~668K train rows · 12 raw features**
+
+**Idea in one line: give the network the known purchasing formula as a base margin (XGBoost-style), so the MLP only has to learn the correction — not the whole signal from scratch.**
+
+<!-- ════════════════════════ CELL 2 · RESULTS AT A GLANCE ════════════════════════ -->
+
+<h2><span style="color:#b39ddb">📈 1 · Results at a Glance</span></h2>
+
+<table style="border-collapse:separate;border-spacing:0;width:100%;font-size:14px;border:1px solid #4a3f75;border-radius:10px;overflow:hidden;color:#e0e0e8"> <thead> <tr style="background:#5e35b1;color:#ffffff"> <th style="padding:9px 14px;text-align:left">Stage</th> <th style="padding:9px 14px;text-align:left">What was added</th> <th style="padding:9px 14px;text-align:center">5-fold OOF</th> <th style="padding:9px 14px;text-align:center">Δ</th> </tr> </thead> <tbody> <tr style="background:#1a1a2e"> <td style="padding:7px 14px;border-top:1px solid #4a3f75">📄  baseline</td> <td style="padding:7px 14px;border-top:1px solid #4a3f75">faithful RealMLP port</td> <td style="padding:7px 14px;border-top:1px solid #4a3f75;text-align:center">0.94515</td> <td style="padding:7px 14px;border-top:1px solid #4a3f75;text-align:center">—</td> </tr> <tr style="background:#22223a"> <td style="padding:7px 14px;border-top:1px solid #4a3f75">🧪 + Recipe residual</td> <td style="padding:7px 14px;border-top:1px solid #4a3f75">base-margin injection</td> <td style="padding:7px 14px;border-top:1px solid #4a3f75;text-align:center"><b>0.94536</b></td> <td style="padding:7px 14px;border-top:1px solid #4a3f75;text-align:center;color:#69f0ae"><b>+0.00021</b></td> </tr> <tr style="background:#1a1a2e"> <td style="padding:7px 14px;border-top:1px solid #4a3f75">🔧 + lr / wd / ls tuning</td> <td style="padding:7px 14px;border-top:1px solid #4a3f75">0.013 / 0.008 / 0.02</td> <td style="padding:7px 14px;border-top:1px solid #4a3f75;text-align:center">0.94542</td> <td style="padding:7px 14px;border-top:1px solid #4a3f75;text-align:center;color:#69f0ae">+0.00006</td> </tr> <tr style="background:#22223a"> <td style="padding:7px 14px;border-top:1px solid #4a3f75">🎯 + TE sharpening</td> <td style="padding:7px 14px;border-top:1px solid #4a3f75">smooth = 1.0</td> <td style="padding:7px 14px;border-top:1px solid #4a3f75;text-align:center">0.94554</td> <td style="padding:7px 14px;border-top:1px solid #4a3f75;text-align:center;color:#69f0ae">+0.00012</td> </tr> <tr style="background:#1a1a2e"> <td style="padding:7px 14px;border-top:1px solid #4a3f75">🧩 + PBLD enrichment</td> <td style="padding:7px 14px;border-top:1px solid #4a3f75">out 8 · lr×0.2 · hidden 32</td> <td style="padding:7px 14px;border-top:1px solid #4a3f75;text-align:center">0.94559</td> <td style="padding:7px 14px;border-top:1px solid #4a3f75;text-align:center;color:#69f0ae">+0.00005</td> </tr> <tr style="background:#14301f"> <td style="padding:7px 14px;border-top:2px solid #4caf50">🏁 10-fold final</td> <td style="padding:7px 14px;border-top:2px solid #4caf50"><b>s6_full single model</b></td> <td style="padding:7px 14px;border-top:2px solid #4caf50;text-align:center"><b style="color:#69f0ae">0.94572</b></td> <td style="padding:7px 14px;border-top:2px solid #4caf50;text-align:center;color:#69f0ae"><b>+0.00013</b></td> </tr> </tbody> </table>
+
+<div style="background:#122b1a;border-left:4px solid #4caf50;padding:10px 14px;border-radius:6px;margin-top:12px;color:#c8e6c9">
+
+✅ <b>Headline:</b> the final <b>single</b> RealMLP (0.94572) <b>beats our own 11-model blend</b> (0.94565) — pure tuning, no stacking, no seed-averaging.
+
+</div>
+
+<details><summary><b style="color:#b39ddb">📋 Dataset &amp; metric</b></summary> <ul style="margin:8px 0;color:#e0e0e8"> <li>Target <code>Will_Buy_EV</code> ∈ {Yes, No} · scored by <b>AUC</b> (rank-based → no class weights needed)</li> <li>6 numeric + 6 categorical raw features; test = 286,571 rows</li> <li>All CV numbers are <b>leak-free OOF AUC</b> (TE fit inside training folds only)</li> </ul> </details>
+
+<!-- ════════════════════════ CELL 3 · TABLE OF CONTENTS ════════════════════════ -->
+
+<h2><span style="color:#b39ddb">🧭 2 · Table of Contents</span></h2>
+
+<table style="border-collapse:separate;border-spacing:0;width:100%;font-size:14px;border:1px solid #4a3f75;border-radius:10px;overflow:hidden;color:#e0e0e8"> <thead> <tr style="background:#3949ab;color:#ffffff"> <th style="padding:9px 14px;text-align:center;width:44px">#</th> <th style="padding:9px 14px;text-align:left">Section</th> <th style="padding:9px 14px;text-align:left">What you'll find</th> </tr> </thead> <tbody> <tr style="background:#1a1a2e"><td style="padding:6px 14px;border-top:1px solid #4a3f75;text-align:center">3</td><td style="padding:6px 14px;border-top:1px solid #4a3f75">🧪 <b>The Recipe — Residual Learning</b></td><td style="padding:6px 14px;border-top:1px solid #4a3f75">the core trick &amp; why it works</td></tr> <tr style="background:#22223a"><td style="padding:6px 14px;border-top:1px solid #4a3f75;text-align:center">4</td><td style="padding:6px 14px;border-top:1px solid #4a3f75">🛠 Feature Engineering</td><td style="padding:6px 14px;border-top:1px solid #4a3f75">fable helpers, cat-twins, target encoding</td></tr> <tr style="background:#1a1a2e"><td style="padding:6px 14px;border-top:1px solid #4a3f75;text-align:center">5</td><td style="padding:6px 14px;border-top:1px solid #4a3f75">📏 Numerical Preprocessor</td><td style="padding:6px 14px;border-top:1px solid #4a3f75">median-center → robust-scale → smooth-clip</td></tr> <tr style="background:#22223a"><td style="padding:6px 14px;border-top:1px solid #4a3f75;text-align:center">6</td><td style="padding:6px 14px;border-top:1px solid #4a3f75">🏷 Categorical Layer</td><td style="padding:6px 14px;border-top:1px solid #4a3f75">one-hot vs embeddings + fused-table speedup</td></tr> <tr style="background:#1a1a2e"><td style="padding:6px 14px;border-top:1px solid #4a3f75;text-align:center">7</td><td style="padding:6px 14px;border-top:1px solid #4a3f75">🌊 PBLD Embedding</td><td style="padding:6px 14px;border-top:1px solid #4a3f75">periodic basis with learned decay</td></tr> <tr style="background:#22223a"><td style="padding:6px 14px;border-top:1px solid #4a3f75;text-align:center">8</td><td style="padding:6px 14px;border-top:1px solid #4a3f75">🔗 NTPLinear</td><td style="padding:6px 14px;border-top:1px solid #4a3f75">neural-tangent parametrization, ensemble-in-one</td></tr> <tr style="background:#1a1a2e"><td style="padding:6px 14px;border-top:1px solid #4a3f75;text-align:center">9</td><td style="padding:6px 14px;border-top:1px solid #4a3f75">🏗 RealMLP Module</td><td style="padding:6px 14px;border-top:1px solid #4a3f75">where the margin enters the network</td></tr> <tr style="background:#22223a"><td style="padding:6px 14px;border-top:1px solid #4a3f75;text-align:center">10</td><td style="padding:6px 14px;border-top:1px solid #4a3f75">⏱ Schedules &amp; Param Groups</td><td style="padding:6px 14px;border-top:1px solid #4a3f75">flat_cos + 5 optimizer groups</td></tr> <tr style="background:#1a1a2e"><td style="padding:6px 14px;border-top:1px solid #4a3f75;text-align:center">11</td><td style="padding:6px 14px;border-top:1px solid #4a3f75">🔁 Training Loop</td><td style="padding:6px 14px;border-top:1px solid #4a3f75">EMA weights, smooth CE, fold-AUC selection</td></tr> <tr style="background:#22223a"><td style="padding:6px 14px;border-top:1px solid #4a3f75;text-align:center">12</td><td style="padding:6px 14px;border-top:1px solid #4a3f75">🧮 CV Harness</td><td style="padding:6px 14px;border-top:1px solid #4a3f75">StratifiedKFold, caching, OOF bookkeeping</td></tr> <tr style="background:#1a1a2e"><td style="padding:6px 14px;border-top:1px solid #4a3f75;text-align:center">13</td><td style="padding:6px 14px;border-top:1px solid #4a3f75">🎛 Tuning Journey</td><td style="padding:6px 14px;border-top:1px solid #4a3f75">6 stages, 50+ configs, wins &amp; failures</td></tr> <tr style="background:#22223a"><td style="padding:6px 14px;border-top:1px solid #4a3f75;text-align:center">14</td><td style="padding:6px 14px;border-top:1px solid #4a3f75">🏁 Final Config &amp; Takeaways</td><td style="padding:6px 14px;border-top:1px solid #4a3f75">reproduction recipe</td></tr> </tbody> </table>
+
+# Set up
+
+import argparse
+import json
+import math
+import os
+import random
+import sys
+import time
+import warnings
+
+import numpy as np
+import pandas as pd
+from scipy.stats import norm, rankdata
+from sklearn.metrics import roc_auc_score
+from sklearn.model_selection import StratifiedKFold
+from sklearn.base import BaseEstimator, TransformerMixin
+from sklearn.utils.class_weight import compute_class_weight
+from sklearn.preprocessing import KBinsDiscretizer, TargetEncoder
+
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+
+warnings.filterwarnings("ignore")
+torch.set_float32_matmul_precision("high")
+
+# ───────────────────────── EDIT YOUR PATHS HERE ─────────────────────────
+TRAIN_PATH = "/kaggle/input/competitions/playground-series-s6e9/train.csv"
+TEST_PATH  = "/kaggle/input/competitions/playground-series-s6e9/test.csv"
+SUB_PATH   ="/kaggle/working/submission.csv"
+# local example:
+#   TRAIN_PATH = "./data/train.csv"
+#   TEST_PATH  = "./data/test.csv"
+# ─────────────────────────────────────────────────────────────────────────
+
+
+def _notebook_root():
+    # __file__ is undefined when this code is pasted into a Kaggle notebook
+    # cell; there the cwd is /kaggle/working (writable) — use it.
+    try:
+        return os.path.dirname(os.path.abspath(__file__))
+    except NameError:
+        return os.getcwd()
+
+
+ROOT = _notebook_root()
+RES_DIR = os.path.join(ROOT, "results")
+os.makedirs(RES_DIR, exist_ok=True)
+
+ID, TARGET = "id", "Will_Buy_EV"
+SEED = 42
+DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+
+def seed_everything(seed: int):
+    np.random.seed(seed)
+    random.seed(seed)
+    torch.manual_seed(seed)
+
+
+
+<!-- ════════════════════════ CELL 4 · THE RECIPE (RESIDUAL) ════════════════════════ -->
+
+<div style="background:#311b92;color:#ffffff;padding:12px 18px;border-radius:10px;font-size:19px;font-weight:bold">🧪 3 · The Recipe — Residual Learning (the key trick)</div>
+
+The EDA fable (same competition) discovered the data-generating formula: a person buys an EV when their recipe score clears a threshold.
+
+score
+=
+1.2
+⋅
+income
+10
+5
++
+0.6
+⋅
+concern
++
+2
+⋅
+1
+[
+subsidy
+]
+−
+1
+⋅
+1
+[
+med. anxiety
+]
+−
+3
+⋅
+1
+[
+high. anxiety
+]
+score=1.2⋅ 
+10 
+5
+ 
+income
+​
+ +0.6⋅concern+2⋅1[subsidy]−1⋅1[med. anxiety]−3⋅1[high. anxiety]
+
+The rule alone scores AUC 0.9377. Instead of letting the MLP rediscover it, we hand it over as a head start:
+
+logit
+final
+(
+𝑥
+)
+=
+logit
+(
+Φ
+(
+score
+(
+𝑥
+)
+−
+5.5
+)
+)
+⏟
+recipe base margin (frozen)
++
+𝑓
+𝜃
+(
+𝑥
+)
+⏟
+MLP correction (learned)
+logit 
+final
+​
+ (x)= 
+recipe base margin (frozen)
+logit(Φ(score(x)−5.5))
+​
+ 
+​
+ + 
+MLP correction (learned)
+f 
+θ
+​
+ (x)
+​
+ 
+​
+ 
+
+recipe_logit() — converts the score to log-odds via a Gaussian CDF (the "wobble" around the 5.5 threshold)
+
+Injected as margin into the positive-class logit — the exact analog of XGBoost's base_margin
+
+The network starts from a 0.9377-AUC solution on step 0 and spends its capacity on the residual signal
+
+<div style="background:#122b1a;border-left:4px solid #4caf50;padding:12px 14px;border-radius:6px;margin-top:10px;color:#c8e6c9">
+
+✅ <b>Does it actually help? Yes — the cleanest ablation of the project (5-fold OOF):</b>
+
+<table style="border-collapse:separate;border-spacing:0;width:100%;font-size:14px;margin-top:8px;border:1px solid #2f5a3a;border-radius:8px;overflow:hidden;color:#c8e6c9"> <thead> <tr style="background:#2e7d32;color:#ffffff"> <th style="padding:7px 14px;text-align:left">Variant</th> <th style="padding:7px 14px;text-align:center">OOF AUC</th> </tr> </thead> <tbody> <tr style="background:#14201a"><td style="padding:6px 14px;border-top:1px solid #2f5a3a">pure PDF RealMLP</td><td style="padding:6px 14px;border-top:1px solid #2f5a3a;text-align:center">0.94515</td></tr> <tr style="background:#182620"><td style="padding:6px 14px;border-top:1px solid #2f5a3a">recipe as <i>input feature</i> only</td><td style="padding:6px 14px;border-top:1px solid #2f5a3a;text-align:center">0.94516</td></tr> <tr style="background:#1c3a28"><td style="padding:6px 14px;border-top:1px solid #2f5a3a"><b>recipe as base margin (residual)</b></td><td style="padding:6px 14px;border-top:1px solid #2f5a3a;text-align:center"><b style="color:#69f0ae">0.94536</b></td></tr> <tr style="background:#182620"><td style="padding:6px 14px;border-top:1px solid #2f5a3a">margin + feature</td><td style="padding:6px 14px;border-top:1px solid #2f5a3a;text-align:center">0.94534</td></tr> </tbody> </table>
+
+→ Residual injection <b>+0.0002</b> over baseline; the same recipe as a mere feature adds <i>nothing</i>. The gain comes from <b>where</b> the prior enters, not from the information itself. This confirms the fable notebook's conclusion transfers to a neural model.
+
+</div>
+
+<details><summary><b style="color:#b39ddb">🔬 Why a logit offset is the right geometry</b></summary> <p style="margin:8px 0;color:#e0e0e8"> Softmax is shift-invariant in logits, so adding a constant to the positive logit is equivalent to multiplying the positive odds by <code>e^margin</code> — a <i>multiplicative prior on the odds</i>. Samples the recipe is confident about start far from the decision boundary; the MLP gradient then flows mostly through the samples the recipe gets <i>wrong</i>. Optionally, <code>margin_gate</code> exposes a learnable per-ensemble-member scalar to soften the prior. </p> </details>
+
+def recipe_score(df: pd.DataFrame) -> np.ndarray:
+    # buy_score from the EDA fable; person buys if score + wobble > 5.5
+    return (1.2 * df.Annual_Income_USD / 1e5
+            + 0.6 * df.Environmental_Concern_Level
+            + 2.0 * (df.Subsidy_Available == "Yes")
+            - 1.0 * (df.Range_Anxiety_Level == "Medium")
+            - 3.0 * (df.Range_Anxiety_Level == "High")).values
+
+
+def recipe_logit(df: pd.DataFrame) -> np.ndarray:
+    # probability implied by the recipe, expressed as log-odds (base margin)
+    p = np.clip(norm.cdf(recipe_score(df) - 5.5), 1e-6, 1 - 1e-6)
+    return np.log(p / (1 - p)).astype(np.float32)
+
+
+
+<!-- ════════════════════════ CELL 5 · FEATURE ENGINEERING ════════════════════════ -->
+
+<div style="background:#1a237e;color:#ffffff;padding:12px 18px;border-radius:10px;font-size:19px;font-weight:bold">🛠 4 · Feature Engineering — <code style="color:#ffe082">build_features()</code></div>
+
+Fit on train+test concatenated (target-free → no leakage), then split back.
+
+🧮 Fable helpers: worry_score (commute − chargers − home), chargers_total, income×subsidy, concern×subsidy
+
+👯 Numeric→categorical twins: every numeric column is factorized into a col_cat_ twin → categorical view for the embedding branch
+
+📦 Optional quantile bins (KBinsDiscretizer) for chosen columns — tested, roughly neutral here
+
+🎯 Target Encoding (sklearn TargetEncoder) — fitted inside each training fold only; smoothing 1.0 (tuned, see §13) instead of "auto"; applied to all categoricals including twins (removing twins costs −0.001!)
+
+def build_features(train_df: pd.DataFrame, test_df: pd.DataFrame, cfg: dict):
+    """Target-free engineering on the concatenated frame, then split back.
+
+    - 6 original categoricals -> integer codes (fit on train+test, no leakage)
+    - fable numeric helpers + optional recipe_score as numerical features
+    - every numerical column also gets a factorized `col_cat_` twin (categorical)
+    - optional quantile bins `{col}_10_quantile_bin_` for chosen columns
+    Returns X, X_test, cat_cols (list of categorical column names).
+    """
+    n_tr = len(train_df)
+    df = pd.concat([train_df.drop(columns=[TARGET]), test_df], ignore_index=True)
+
+    home = (df.Home_Charging_Possible == "Yes").astype(int)
+    subsidy = (df.Subsidy_Available == "Yes").astype(int)
+    # fable helper features
+    df["worry_score"] = (df.Daily_Commute_km
+                         - 5 * df.Charging_Stations_Near_Home
+                         - 5 * df.Charging_Stations_Near_Work
+                         - 150 * home)
+    df["chargers_total"] = df.Charging_Stations_Near_Home + df.Charging_Stations_Near_Work
+    df["income_x_subsidy"] = df.Annual_Income_USD / 1e5 * subsidy
+    df["concern_x_subsidy"] = df.Environmental_Concern_Level * subsidy
+    if cfg.get("add_recipe_feature"):
+        df["recipe_score"] = recipe_score(df)
+
+    cat_cols = ["Gender", "City_Type", "Current_Car_Type", "Home_Charging_Possible",
+                "Subsidy_Available", "Range_Anxiety_Level"]
+    num_cols = ["Age", "Annual_Income_USD", "Daily_Commute_km", "Number_of_Cars_Owned",
+                "Charging_Stations_Near_Home", "Charging_Stations_Near_Work",
+                "Environmental_Concern_Level", "worry_score", "chargers_total",
+                "income_x_subsidy", "concern_x_subsidy"]
+    if cfg.get("add_recipe_feature"):
+        num_cols.append("recipe_score")
+
+    # integer codes for original categoricals (concat fit -> no unseen codes)
+    for col in cat_cols:
+        df[col] = df[col].factorize()[0].astype("int32")
+
+    # factorized twin for every numerical column -> categorical view
+    if cfg.get("add_num_cat_twins", True):
+        for col in num_cols:
+            twin = f"{col}_cat_"
+            df[twin] = df[col].factorize()[0].astype("int32")
+            cat_cols.append(twin)
+
+    # quantile bins for selected continuous columns
+    for col, bins_list in cfg.get("bin_config", {}).items():
+        for n_bins in bins_list:
+            bname = f"{col}_{n_bins}_quantile_bin_"
+            kb = KBinsDiscretizer(n_bins=n_bins, encode="ordinal", strategy="quantile",
+                                  subsample=None)
+            df[bname] = kb.fit_transform(df[[col]]).ravel().astype("int32")
+            cat_cols.append(bname)
+
+    df = df.drop(columns=[ID])
+    X, X_test = df.iloc[:n_tr].reset_index(drop=True), df.iloc[n_tr:].reset_index(drop=True)
+    return X, X_test, cat_cols
+
+
+
+<!-- ════════════════════════ CELL 6 · NUMERICAL PREPROCESSOR ════════════════════════ -->
+
+<div style="background:#1a237e;color:#ffffff;padding:12px 18px;border-radius:10px;font-size:19px;font-weight:bold">📏 5 · Numerical Preprocessor</div>
+
+A configurable transform pipeline from the RealMLP paper, fit on the training fold only:
+
+<table style="border-collapse:separate;border-spacing:0;width:100%;font-size:14px;border:1px solid #4a3f75;border-radius:10px;overflow:hidden;color:#e0e0e8"> <thead> <tr style="background:#3949ab;color:#ffffff"> <th style="padding:8px 14px;text-align:left">Transform</th> <th style="padding:8px 14px;text-align:center">Formula</th> <th style="padding:8px 14px;text-align:left">Role</th> </tr> </thead> <tbody> <tr style="background:#1a1a2e"><td style="padding:7px 14px;border-top:1px solid #4a3f75"><code>median_center</code></td><td style="padding:7px 14px;border-top:1px solid #4a3f75;text-align:center">x − median</td><td style="padding:7px 14px;border-top:1px solid #4a3f75">robust location shift</td></tr> <tr style="background:#22223a"><td style="padding:7px 14px;border-top:1px solid #4a3f75"><code>robust_scale</code></td><td style="padding:7px 14px;border-top:1px solid #4a3f75;text-align:center">x · IQR⁻¹</td><td style="padding:7px 14px;border-top:1px solid #4a3f75">robust spread normalization</td></tr> <tr style="background:#1a1a2e"><td style="padding:7px 14px;border-top:1px solid #4a3f75"><code>smooth_clip</code></td><td style="padding:7px 14px;border-top:1px solid #4a3f75;text-align:center">x / √(1+(x/3)²)</td><td style="padding:7px 14px;border-top:1px solid #4a3f75">soft tails — no hard information loss</td></tr> </tbody> </table>
+
+Tested adding smooth_clip for this dataset: neutral (±0.0000x). Default keeps the first two.
+
+class NumericalPreprocessor(BaseEstimator, TransformerMixin):
+    """Configurable sequence of numerical transforms from CONFIG['tfms']."""
+
+    def __init__(self, tfms):
+        self._tfms = [t for t in tfms
+                      if t in ("median_center", "robust_scale", "smooth_clip", "l2_normalize")]
+
+    def fit(self, X: np.ndarray, y=None):
+        if "median_center" in self._tfms or "robust_scale" in self._tfms:
+            self._median = np.median(X, axis=0)
+            q_diff = np.quantile(X, 0.75, axis=0) - np.quantile(X, 0.25, axis=0)
+            zero_idx = q_diff == 0.0
+            q_diff[zero_idx] = 0.5 * (X.max(axis=0)[zero_idx] - X.min(axis=0)[zero_idx])
+            self._iqr_factors = 1.0 / (q_diff + 1e-30)
+            self._iqr_factors[q_diff == 0.0] = 0.0
+        return self
+
+    def transform(self, X: np.ndarray, y=None) -> np.ndarray:
+        X = X.copy().astype(np.float32)
+        for tfm in self._tfms:
+            if tfm == "median_center":
+                X -= self._median[None, :]
+            elif tfm == "robust_scale":
+                X *= self._iqr_factors[None, :]
+            elif tfm == "smooth_clip":
+                X = X / np.sqrt(1 + (X / 3) ** 2)
+            elif tfm == "l2_normalize":
+                norms = np.linalg.norm(X, axis=1, keepdims=True)
+                X /= np.where(norms == 0, 1.0, norms)
+        return X
+
+
+<!-- ════════════════════════ CELL 7 · CATEGORICAL LAYER ════════════════════════ -->
+
+<div style="background:#1a237e;color:#ffffff;padding:12px 18px;border-radius:10px;font-size:19px;font-weight:bold">🏷 6 · Categorical Layer — fused embeddings</div>
+
+Cardinality ≤ 8 → one-hot; otherwise → per-ensemble-member nn.Embedding(·, 8)
+
+Every feature is looked up per ensemble member (8 parallel MLPs live in one module — see §8/9)
+
+<div style="background:#2b2410;border-left:4px solid #ffb300;padding:12px 14px;border-radius:6px;margin-top:10px;color:#ffe082">
+
+⚡ <b>Engineering highlight — the fused-table trick.</b> The naive version launches <code>n_features × n_ens ≈ 90</code> embedding kernels per step (≈260 with backward). We stack all per-member tables into one <code>(n_ens, rows, dim)</code> parameter and do a <b>single <code>F.embedding</code> gather</b> with precomputed offsets; one-hot becomes a single <code>scatter_</code>.
+
+→ <b>2.6× faster, mathematically identical</b> (verified: same OOF AUC to 5 decimals before/after). Init order is preserved so RNG streams stay comparable.
+
+</div>
+
+class CategoricalFeatureLayer(nn.Module):
+    """One-hot for low-cardinality categoricals, per-ensemble embedding otherwise.
+
+    All per-member embedding tables are fused into a single (n_ens, total_rows,
+    embed_dim) parameter, so the forward pass needs ONE embedding gather instead
+    of n_features x n_ens lookups (identical math, ~10x fewer kernel launches).
+    Init order matches the unfused version so runs stay bit-comparable.
+    """
+
+    def __init__(self, n_ens: int, cat_dims, embed_dim: int = 8,
+                 onehot_thresh: int = 8, device=None):
+        super().__init__()
+        self.n_ens = n_ens
+        self.cat_dims = cat_dims
+        self.onehot_features = []
+        self._embed_feature_indices = []
+        # build per-feature tables first: keeps the global RNG stream (init
+        # order) identical to the original per-table implementation
+        per_feature_tables = []
+        for i, dim in enumerate(cat_dims):
+            if dim <= onehot_thresh:
+                self.onehot_features.append(i)
+            else:
+                per_feature_tables.append(
+                    nn.ModuleList([nn.Embedding(dim, embed_dim) for _ in range(n_ens)]))
+                self._embed_feature_indices.append(i)
+        if per_feature_tables:
+            fused = torch.stack([  # (n_ens, total_rows, embed_dim)
+                torch.cat([tables[m].weight for tables in per_feature_tables], dim=0)
+                for m in range(n_ens)], dim=0)
+            self.embed_weight = nn.Parameter(fused)
+            offs, acc = [], 0
+            for tables in per_feature_tables:
+                offs.append(acc)
+                acc += tables[0].num_embeddings
+            self.register_buffer("embed_offsets", torch.tensor(offs, dtype=torch.long),
+                                 persistent=False)
+            self.register_buffer("embed_index",
+                                 torch.tensor(self._embed_feature_indices, dtype=torch.long),
+                                 persistent=False)
+            self._n_fused_rows = acc
+            self._embed_dim = embed_dim
+        else:
+            self.embed_weight = None
+        if self.onehot_features:
+            oh_offs, acc = [], 0
+            for i in self.onehot_features:
+                oh_offs.append(acc)
+                acc += cat_dims[i]
+            self.register_buffer("onehot_offsets", torch.tensor(oh_offs, dtype=torch.long),
+                                 persistent=False)
+            self.register_buffer("onehot_index",
+                                 torch.tensor(self.onehot_features, dtype=torch.long),
+                                 persistent=False)
+            self._onehot_total = acc
+
+    def forward(self, x):
+        # x: (batch, n_ens, n_cat)
+        batch_size, n_ens, _ = x.shape
+        features = []
+        if self.onehot_features:
+            onehot_x = x.index_select(2, self.onehot_index)      # (b, ens, k)
+            flat = onehot_x + self.onehot_offsets
+            encoded = torch.zeros(batch_size, n_ens, self._onehot_total, device=x.device)
+            encoded.scatter_(2, flat, 1.0)
+            features.append(encoded)
+        if self.embed_weight is not None:
+            emb_idx = x.index_select(2, self.embed_index)        # (b, ens, F)
+            flat = emb_idx + self.embed_offsets
+            flat = flat + self._n_fused_rows * torch.arange(
+                n_ens, device=x.device).view(1, -1, 1)
+            emb = F.embedding(flat, self.embed_weight.reshape(-1, self._embed_dim))
+            features.append(emb.flatten(start_dim=2))            # (b, ens, F*embed_dim)
+        return torch.cat(features, dim=2)
+
+
+
+<!-- ════════════════════════ CELL 8 · PBLD ════════════════════════ -->
+
+<div style="background:#1a237e;color:#ffffff;padding:12px 18px;border-radius:10px;font-size:19px;font-weight:bold">🌊 7 · PBLD — Periodic Basis with Learned Decay</div>
+
+Each numeric feature is expanded into a periodic basis before entering the MLP:
+
+ℎ=
+cos
+⁡
+(
+2
+𝜋
+(
+𝑥
+𝑤
+1
++
+𝑏
+1
+)
+)
+,
+PBLD
+(
+𝑥
+)
+=
+[
+𝑥
+,
+𝜎
+(
+ℎ
+𝑊
+2
++
+𝑏
+2
+)
+]
+h=cos(2π(xw 
+1
+​
+ +b 
+1
+​
+ )),PBLD(x)=[x,σ(hW 
+2
+​
+ +b 
+2
+​
+ )]
+
+Frequencies 
+𝑤
+1
+w 
+1
+​
+  are learned (init small → low frequencies first), phases 
+𝑏
+1
+∼
+𝑈
+(
+−
+𝜋
+,
+𝜋
+)
+b 
+1
+​
+ ∼U(−π,π)
+
+The raw 
+𝑥
+x is concatenated back — a residual path inside the embedding
+
+Batched over the ensemble with one einsum; independent lr group (pbld_lr_factor)
+
+<div style="background:#122b1a;border-left:4px solid #4caf50;padding:12px 14px;border-radius:6px;margin-top:10px;color:#c8e6c9">
+
+✅ <b>Tuning paid off here (+0.00015 total):</b> <code>out_dim</code> 5→<b>8</b>, <code>pbld_lr_factor</code> 0.093→<b>0.2</b>, <code>hidden</code> 20→<b>32</b> — "richer & faster" all stacked. Extrapolating further (out 12, lr×0.3, emb 16) regressed: the peak is sharp.
+
+</div>
+
+class PBLDEmbedding(nn.Module):
+    """Periodic Basis with Learned Decay embedding for numerical features."""
+
+    def __init__(self, n_ens: int, n_features: int, hidden_dim: int = 16, out_dim: int = 4,
+                 freq_scale: float = 0.1, activation=nn.GELU):
+        super().__init__()
+        self.n_ens = n_ens
+        self.n_features = n_features
+        self.out_dim = out_dim
+        self.w1 = nn.Parameter(torch.randn(n_ens, n_features, hidden_dim) * freq_scale)
+        self.b1 = nn.Parameter(torch.randn(n_ens, n_features, hidden_dim))
+        self.w2 = nn.Parameter(torch.randn(n_ens, n_features, hidden_dim, out_dim - 1)
+                               / math.sqrt(hidden_dim))
+        self.b2 = nn.Parameter(torch.zeros(n_ens, n_features, out_dim - 1))
+        self.act = activation()
+        nn.init.uniform_(self.b1, -math.pi, math.pi)
+
+    def forward(self, x):
+        # x: (batch, n_ens, n_features) -> (batch, n_ens, n_features * out_dim)
+        periodic = torch.cos(
+            2 * math.pi * (x.unsqueeze(-1) * self.w1.unsqueeze(0) + self.b1.unsqueeze(0)))
+        transformed = self.act(
+            torch.einsum("bkfh,kfhd->bkfd", periodic, self.w2) + self.b2.unsqueeze(0))
+        feat = torch.cat([x.unsqueeze(-1), transformed], dim=-1)  # residual raw feature
+        return feat.flatten(start_dim=2)
+
+
+<!-- ════════════════════════ CELL 9 · NTPLINEAR ════════════════════════ -->
+
+<div style="background:#1a237e;color:#ffffff;padding:12px 18px;border-radius:10px;font-size:19px;font-weight:bold">🔗 8 · NTPLinear — one linear layer, 8 networks</div>
+
+Every weight is a 3-D tensor (n_ens, in, out) and the forward is a single einsum:
+
+class ScalingLayer(nn.Module):
+    def __init__(self, n_ens: int, n_features: int):
+        super().__init__()
+        self.scale = nn.Parameter(torch.ones(n_ens, n_features))
+
+    def forward(self, x):
+        return x * self.scale[None, :, :]
+
+
+class NTPLinear(nn.Module):
+    """Neural Tangent Parametrization linear layer, batched over the ensemble."""
+
+    def __init__(self, n_ens: int, in_features: int, out_features: int, bias: bool = True):
+        super().__init__()
+        self.in_features = in_features
+        self.out_features = out_features
+        self.weight = nn.Parameter(torch.randn(n_ens, in_features, out_features))
+        self.bias = nn.Parameter(torch.randn(n_ens, out_features)) if bias else None
+
+    def forward(self, x):
+        # x: (batch, n_ens, in_features)
+        x = torch.einsum("bki,kio->bko", x, self.weight) / math.sqrt(self.in_features)
+        if self.bias is not None:
+            x = x + self.bias
+        return x
+
+
+
+<!-- ════════════════════════ CELL 10 · REALMLP MODULE ════════════════════════ -->
+
+<div style="background:#1a237e;color:#ffffff;padding:12px 18px;border-radius:10px;font-size:19px;font-weight:bold">🏗 9 · The RealMLP Module — where the margin enters</div>
+
+
+<!-- ════════════════════════ CELL 11 · SCHEDULES & PARAM GROUPS ════════════════════════ -->
+
+<div style="background:#1a237e;color:#ffffff;padding:12px 18px;border-radius:10px;font-size:19px;font-weight:bold">⏱ 10 · Schedules &amp; Five Parameter Groups</div>
+
+lr schedule flat_cos: stay at peak lr for 30% of steps, cosine-decay after — avoids premature annealing. Dropout and label smoothing follow their own schedules (expm4t, cos).
+
+Every knob below is an independent optimizer group:
+
+<table style="border-collapse:separate;border-spacing:0;width:100%;font-size:14px;border:1px solid #4a3f75;border-radius:10px;overflow:hidden;color:#e0e0e8"> <thead> <tr style="background:#3949ab;color:#ffffff"> <th style="padding:8px 14px;text-align:left">Group</th> <th style="padding:8px 14px;text-align:center">lr ×</th> <th style="padding:8px 14px;text-align:center">wd ×</th> <th style="padding:8px 14px;text-align:left">Why</th> </tr> </thead> <tbody> <tr style="background:#1a1a2e"><td style="padding:7px 14px;border-top:1px solid #4a3f75">front <code>ScalingLayer</code></td><td style="padding:7px 14px;border-top:1px solid #4a3f75;text-align:center">10</td><td style="padding:7px 14px;border-top:1px solid #4a3f75;text-align:center">0.1</td><td style="padding:7px 14px;border-top:1px solid #4a3f75">fast feature gating, light regularization</td></tr> <tr style="background:#2b2410"><td style="padding:7px 14px;border-top:1px solid #4a3f75"><b>PBLD</b></td><td style="padding:7px 14px;border-top:1px solid #4a3f75;text-align:center"><b style="color:#ffe082">0.2 ↑</b></td><td style="padding:7px 14px;border-top:1px solid #4a3f75;text-align:center">1</td><td style="padding:7px 14px;border-top:1px solid #4a3f75">tuned up from 0.093 — big win</td></tr> <tr style="background:#1a1a2e"><td style="padding:7px 14px;border-top:1px solid #4a3f75">first-layer weight</td><td style="padding:7px 14px;border-top:1px solid #4a3f75;text-align:center">1</td><td style="padding:7px 14px;border-top:1px solid #4a3f75;text-align:center">0.1</td><td style="padding:7px 14px;border-top:1px solid #4a3f75">classic detuned first-layer wd</td></tr> <tr style="background:#22223a"><td style="padding:7px 14px;border-top:1px solid #4a3f75">other weights</td><td style="padding:7px 14px;border-top:1px solid #4a3f75;text-align:center">1</td><td style="padding:7px 14px;border-top:1px solid #4a3f75;text-align:center">1</td><td style="padding:7px 14px;border-top:1px solid #4a3f75">backbone</td></tr> <tr style="background:#1a1a2e"><td style="padding:7px 14px;border-top:1px solid #4a3f75">biases</td><td style="padding:7px 14px;border-top:1px solid #4a3f75;text-align:center">0.1</td><td style="padding:7px 14px;border-top:1px solid #4a3f75;text-align:center">0.5</td><td style="padding:7px 14px;border-top:1px solid #4a3f75">slow, barely-regularized</td></tr> </tbody> </table>
+
+class RealMLP(nn.Module):
+    """Ensemble of n_ens MLPs inside one module, with optional residual base margin."""
+
+    def __init__(self, output_dim: int, cat_dims, n_numerical: int, cfg: dict):
+        super().__init__()
+        n_ens = cfg["n_ens"]
+        embed_dim = cfg["embed_dim"]
+        self.n_ens = n_ens
+        self.cate = CategoricalFeatureLayer(
+            n_ens=n_ens, cat_dims=cat_dims, embed_dim=embed_dim,
+            onehot_thresh=cfg["onehot_thresh"])
+        self.num_embed = PBLDEmbedding(
+            n_ens=n_ens, n_features=n_numerical,
+            hidden_dim=cfg["pbld_hidden_dim"], out_dim=cfg["pbld_out_dim"],
+            freq_scale=cfg["pbld_freq_scale"], activation=cfg["pbld_activation"])
+        num_emb_dim = n_numerical * cfg["pbld_out_dim"]
+        cat_emb_dim = sum(c if c <= cfg["onehot_thresh"] else embed_dim for c in cat_dims)
+        total_dim = num_emb_dim + cat_emb_dim
+        hidden_dims = cfg["hidden_dims"]
+        act = cfg["activation"]
+
+        layers = []
+        if cfg["add_front_scale"]:
+            layers.append(ScalingLayer(n_ens=n_ens, n_features=total_dim))
+        self._dropout_modules = []
+        in_dim = total_dim
+        for i, out_dim_h in enumerate(hidden_dims):
+            linear = NTPLinear(n_ens=n_ens, in_features=in_dim, out_features=out_dim_h)
+            if i == 0:
+                # store the id only: registering the module twice (self.first_linear)
+                # would alias it in state_dict vs named_parameters and break EMA
+                self._first_w_id = id(linear.weight)
+            drop = nn.Dropout(cfg["dropout"])
+            self._dropout_modules.append(drop)
+            layers += [linear, act(), drop]
+            in_dim = out_dim_h
+        self.hidden = nn.Sequential(*layers)
+        self.output_layer = NTPLinear(n_ens=n_ens, in_features=in_dim, out_features=output_dim)
+        # learnable per-member gate on the base margin (residual technique)
+        self.margin_gate = nn.Parameter(torch.ones(n_ens)) if cfg.get("margin_gate") else None
+
+    def forward(self, x_num, x_cat, margin=None):
+        x_num = x_num.unsqueeze(1).expand(-1, self.n_ens, -1)
+        x_cat = x_cat.unsqueeze(1).expand(-1, self.n_ens, -1)
+        x_num = self.num_embed(x_num)
+        x_cat = self.cate(x_cat)
+        combined = torch.cat([x_num, x_cat], dim=2)
+        x = self.hidden(combined)
+        x = self.output_layer(x)  # (batch, n_ens, output_dim)
+        if margin is not None:
+            offset = torch.zeros_like(x)
+            gate = self.margin_gate if self.margin_gate is not None else 1.0
+            offset[:, :, 1] = margin.unsqueeze(1) * gate
+            x = x + offset
+        return F.softmax(x, dim=2)
+
+
+def apply_schedule(init_value: float, progress: float, sched: str,
+                   flat_ratio: float = 0.3) -> float:
+    if sched == "constant":
+        return init_value
+    elif sched == "cos":
+        return init_value * (math.cos(math.pi * progress) + 1) / 2
+    elif sched == "flat_cos":
+        if progress < flat_ratio:
+            return init_value
+        t = (progress - flat_ratio) / (1 - flat_ratio)
+        return init_value * (math.cos(math.pi * t) + 1) / 2
+    elif sched == "flat_anneal":
+        if progress < flat_ratio:
+            return init_value
+        t = (progress - flat_ratio) / (1 - flat_ratio)
+        return init_value * (1 - t)
+    elif sched == "sqrt_cos":
+        return init_value * math.sqrt((math.cos(math.pi * progress) + 1) / 2)
+    elif sched == "expm4t":
+        return init_value * math.exp(-4 * progress)
+    else:
+        raise ValueError(f"Unknown schedule: '{sched}'")
+
+
+def get_parameter_groups(model: RealMLP, p: dict):
+    """Five groups with independent lr / wd (scale, pbld, first-layer, weights, biases)."""
+    first_linear_weight_id = model._first_w_id
+    scale_p, pbld_p, first_w_p, other_w_p, bias_p = [], [], [], [], []
+    for name, param in model.named_parameters():
+        if "num_embed" in name:
+            pbld_p.append(param)
+        elif "scale" in name:
+            scale_p.append(param)
+        elif id(param) == first_linear_weight_id:
+            first_w_p.append(param)
+        elif "bias" in name:
+            bias_p.append(param)
+        else:
+            other_w_p.append(param)
+    LR = p["lr"]
+    WD = p["weight_decay"]
+    return [
+        {"params": scale_p,   "lr": LR * p["lr_scale_mult"],          "weight_decay": WD * p["wd_scale_mult"]},
+        {"params": pbld_p,    "lr": LR * p["pbld_lr_factor"],         "weight_decay": WD},
+        {"params": first_w_p, "lr": LR * p["first_layer_lr_factor"],  "weight_decay": WD * p["first_layer_wd_factor"]},
+        {"params": other_w_p, "lr": LR,                               "weight_decay": WD},
+        {"params": bias_p,    "lr": LR * p["lr_bias_mult"],           "weight_decay": WD * p["wd_bias_mult"]},
+    ]
+
+
+def smooth_ce_loss(y_true, y_pred, ls: float = 0.0, class_weights=None):
+    """Label-smoothed cross-entropy on probabilities."""
+    n_classes = y_pred.size(1)
+    y_smooth = torch.full_like(y_pred, ls / n_classes)
+    y_smooth.scatter_(1, y_true.unsqueeze(1), 1.0 - ls + ls / n_classes)
+    per_sample_loss = -(y_smooth * torch.log(y_pred.clamp(1e-15, 1))).sum(dim=1)
+    if class_weights is not None:
+        sample_weights = class_weights[y_true]
+        return (per_sample_loss * sample_weights).sum() / sample_weights.sum()
+    return per_sample_loss.mean()
+
+
+
+class RealMLPClassifier(BaseEstimator):
+    def __init__(self, **kwargs):
+        self.params = kwargs
+
+    def fit(self, X_train, y_train, X_val, y_val, cat_col_names=None, X_test=None,
+            margin_train=None, margin_val=None, margin_test=None):
+        p = self.params
+        dev = DEVICE
+        verbose = p["verbosity"]
+        cat_col_names = cat_col_names or []
+        num_col_names = [c for c in X_train.columns if c not in cat_col_names]
+
+        X_tr_num = X_train[num_col_names].values.astype(np.float32)
+        X_val_num = X_val[num_col_names].values.astype(np.float32)
+        X_tr_cat = X_train[cat_col_names].values.astype(np.int64)
+        X_val_cat = X_val[cat_col_names].values.astype(np.int64)
+        y_tr = np.asarray(y_train).astype(np.int64)
+        y_v = np.asarray(y_val).astype(np.int64)
+
+        # numerical preprocessing (fit on train fold only)
+        self.preprocessor_ = NumericalPreprocessor(p["tfms"])
+        self.preprocessor_.fit(X_tr_num)
+        X_tr_num = self.preprocessor_.transform(X_tr_num)
+        X_val_num = self.preprocessor_.transform(X_val_num)
+
+        # categorical dims from train + val (+ test if provided)
+        self.cat_col_names_ = cat_col_names
+        self.num_col_names_ = num_col_names
+        if cat_col_names:
+            all_cat = [X_tr_cat, X_val_cat]
+            if X_test is not None:
+                all_cat.append(X_test[cat_col_names].values.astype(np.int64))
+            cat_dims = (np.concatenate(all_cat, axis=0).max(axis=0) + 1).tolist()
+        else:
+            cat_dims = []
+        self.cat_dims_ = cat_dims
+        if cat_dims:
+            cat_max = np.array(cat_dims) - 1
+            X_tr_cat = np.clip(X_tr_cat, 0, cat_max)
+            X_val_cat = np.clip(X_val_cat, 0, cat_max)
+
+        # optional balanced class weights (off by default: metric is AUC)
+        classes = np.unique(y_tr)
+        self.classes_ = classes
+        if p.get("use_class_weights"):
+            weights_np = compute_class_weight("balanced", classes=classes, y=y_tr)
+            class_weights = torch.as_tensor(weights_np, dtype=torch.float32, device=dev)
+        else:
+            class_weights = None
+
+        n_classes = len(classes)
+        self.model_ = RealMLP(output_dim=n_classes, cat_dims=cat_dims,
+                              n_numerical=X_tr_num.shape[1], cfg=p).to(dev)
+        param_groups = get_parameter_groups(self.model_, p)
+        for g in param_groups:
+            g["lr_base"] = g["lr"]
+        optimizer = torch.optim.AdamW(param_groups, betas=(p["mom"], p["sq_mom"]))
+
+        # tensors on device (train set fits comfortably in VRAM)
+        Xtn = torch.as_tensor(X_tr_num, dtype=torch.float32, device=dev)
+        Xtc = torch.as_tensor(X_tr_cat, dtype=torch.long, device=dev)
+        ytt = torch.as_tensor(y_tr, dtype=torch.long, device=dev)
+        Xvn = torch.as_tensor(X_val_num, dtype=torch.float32, device=dev)
+        Xvc = torch.as_tensor(X_val_cat, dtype=torch.long, device=dev)
+        yvt = torch.as_tensor(y_v, dtype=torch.long, device=dev)
+        mtn = (torch.as_tensor(margin_train, dtype=torch.float32, device=dev)
+               if margin_train is not None else None)
+        mvn = (torch.as_tensor(margin_val, dtype=torch.float32, device=dev)
+               if margin_val is not None else None)
+        if X_test is not None:
+            Xtst_num = self.preprocessor_.transform(
+                X_test[num_col_names].values.astype(np.float32))
+            Xtst_num = torch.as_tensor(Xtst_num, dtype=torch.float32, device=dev)
+            if cat_col_names:
+                tst_cat = np.clip(X_test[cat_col_names].values.astype(np.int64),
+                                  0, np.array(cat_dims) - 1)
+                Xtst_cat = torch.as_tensor(tst_cat, dtype=torch.long, device=dev)
+            else:
+                Xtst_cat = torch.zeros(len(Xtst_num), 0, dtype=torch.long, device=dev)
+            mtt = (torch.as_tensor(margin_test, dtype=torch.float32, device=dev)
+                   if margin_test is not None else None)
+        else:
+            Xtst_num = Xtst_cat = mtt = None
+
+        n_ens = p["n_ens"]
+        train_bs, eval_bs = p["train_bs"], p["eval_bs"]
+        epochs = p["epochs"]
+        lr_sched, flat_ratio = p["lr_sched"], p["flat_ratio"]
+        ema_decay = p["ema_decay"]
+        total_steps = epochs * len(y_tr)
+        best_score, best_epoch = -np.inf, 0
+        best_val_probs, best_state = None, None
+        # EMA over named parameters (unique keys, no shared-module aliasing)
+        named = dict(self.model_.named_parameters())
+        ema_state = ({k: v.detach().clone() for k, v in named.items()}
+                     if ema_decay > 0 else None)
+        if ema_state is not None:
+            ema_names = list(named.keys())
+            ema_live = [named[k] for k in ema_names]        # model params (source)
+            ema_copy = [ema_state[k] for k in ema_names]    # EMA buffers (updated)
+
+        for epoch in range(epochs):
+            self.model_.train()
+            order = np.arange(len(y_tr))
+            np.random.shuffle(order)
+            order_t = torch.as_tensor(order, dtype=torch.long, device=dev)
+            t0 = time.time()
+            for start in range(0, len(y_tr), train_bs):
+                progress = (epoch * len(y_tr) + start) / total_steps
+                idx = order_t[start: start + train_bs]
+                for g in optimizer.param_groups:
+                    g["lr"] = apply_schedule(g["lr_base"], progress, lr_sched, flat_ratio)
+                optimizer.zero_grad()
+                y_pred = self.model_(Xtn[idx], Xtc[idx],
+                                     margin=mtn[idx] if mtn is not None else None)
+                ls_val = apply_schedule(p["ls_eps"], progress, p["ls_eps_sched"], flat_ratio)
+                drop_val = apply_schedule(p["dropout"], progress, p["p_drop_sched"], flat_ratio)
+                for dm in self.model_._dropout_modules:
+                    dm.p = drop_val
+                loss = smooth_ce_loss(
+                    ytt[idx].repeat_interleave(n_ens),
+                    y_pred.reshape(-1, n_classes),
+                    ls=ls_val, class_weights=class_weights)
+                loss.backward()
+                torch.nn.utils.clip_grad_norm_(self.model_.parameters(), p["grad_clip"])
+                optimizer.step()
+                if ema_state is not None:
+                    with torch.no_grad():
+                        # fused EMA update: two foreach kernels instead of 2N launches
+                        torch._foreach_mul_(ema_copy, ema_decay)
+                        torch._foreach_add_(ema_copy, ema_live, alpha=1.0 - ema_decay)
+
+            # ---- validation: AUC on ensemble-mean positive probability ----
+            self.model_.eval()
+            live_state = None
+            if ema_state is not None:
+                live_state = {k: v.detach().clone() for k, v in self.model_.state_dict().items()}
+                self.model_.load_state_dict(ema_state, strict=True)
+            with torch.no_grad():
+                val_probs = torch.cat([
+                    self.model_(Xvn[s: s + eval_bs], Xvc[s: s + eval_bs],
+                                margin=mvn[s: s + eval_bs] if mvn is not None else None)
+                    for s in range(0, len(y_v), eval_bs)]).mean(dim=1).cpu().numpy()
+            epoch_score = roc_auc_score(y_v, val_probs[:, 1])
+            improved = epoch_score > best_score
+            if improved:
+                best_score = epoch_score
+                best_epoch = epoch + 1
+                best_val_probs = val_probs.copy()
+                state_src = ema_state if ema_state is not None else self.model_.state_dict()
+                best_state = {k: v.detach().clone() for k, v in state_src.items()}
+            if verbose >= 2:
+                print(f"  epoch {epoch + 1}/{epochs}  AUC = {epoch_score:.5f}  "
+                      f"best = {best_score:.5f}  ls = {ls_val:.4f}  drop = {drop_val:.4f}"
+                      f"  [{time.time() - t0:.0f}s]" + (" *" if improved else ""))
+            if live_state is not None:
+                self.model_.load_state_dict(live_state, strict=True)
+
+            if p["use_early_stopping"]:
+                patience = (best_epoch * p["early_stopping_multiplicative_patience"]
+                            + p["early_stopping_additive_patience"])
+                if (epoch + 1) > patience:
+                    if verbose >= 1:
+                        print(f"  early stopping at epoch {epoch + 1} (best {best_epoch})")
+                    break
+
+        if best_state is not None:
+            self.model_.load_state_dict(best_state, strict=True)
+        self.best_score_ = best_score
+        self.best_val_probs_ = best_val_probs
+        self._dev = dev
+
+        # test probabilities with the best (EMA) weights
+        if Xtst_num is not None:
+            with torch.no_grad():
+                self.test_probs_ = torch.cat([
+                    self.model_(Xtst_num[s: s + eval_bs], Xtst_cat[s: s + eval_bs],
+                                margin=mtt[s: s + eval_bs] if mtt is not None else None)
+                    for s in range(0, len(Xtst_num), eval_bs)]).mean(dim=1).cpu().numpy()
+        return self
+
+    def predict_proba(self, X: pd.DataFrame, margin=None) -> np.ndarray:
+        eval_bs = self.params["eval_bs"]
+        X_num = self.preprocessor_.transform(
+            X[self.num_col_names_].values.astype(np.float32))
+        X_cat = X[self.cat_col_names_].values.astype(np.int64) if self.cat_col_names_ else None
+        X_cat = np.clip(X_cat, 0, np.array(self.cat_dims_) - 1)
+        Xn = torch.as_tensor(X_num, dtype=torch.float32, device=self._dev)
+        Xc = torch.as_tensor(X_cat, dtype=torch.long, device=self._dev)
+        if margin is not None:
+            mt = torch.as_tensor(np.asarray(margin, dtype=np.float32), device=self._dev)
+        self.model_.eval()
+        with torch.no_grad():
+            out = torch.cat([
+                self.model_(Xn[s: s + eval_bs], Xc[s: s + eval_bs],
+                            margin=mt[s: s + eval_bs] if margin is not None else None)
+                for s in range(0, len(X_num), eval_bs)]).mean(dim=1).cpu().numpy()
+        return out
+
+
+
+<!-- ════════════════════════ CELL 12 · TRAINING LOOP ════════════════════════ -->
+
+<div style="background:#1a237e;color:#ffffff;padding:12px 18px;border-radius:10px;font-size:19px;font-weight:bold">🔁 11 · Training Loop</div>
+
+EMA weights (decay 0.9979) maintained with torch._foreach_* — 2 fused kernels instead of 2N launches
+
+Label-smoothed CE on probabilities; each of the 8 members gets the same target (loss averaged over batch × n_ens)
+
+Validation = fold AUC of the ensemble-mean; best epoch's EMA state is restored (no early stop needed at 3 epochs)
+
+Whole dataset lives on-GPU as tensors; per-epoch shuffle via index tensor — zero host↔device copies
+
+<!-- ════════════════════════ CELL 13 · CV HARNESS ════════════════════════ -->
+
+<div style="background:#1a237e;color:#ffffff;padding:12px 18px;border-radius:10px;font-size:19px;font-weight:bold">🧮 12 · CV Harness — <code style="color:#ffe082">run_cv()</code></div>
+
+StratifiedKFold (5 for tuning, 10 for the final); per-fold reseed → member diversity across folds
+
+TE refit inside each training fold — the only leak-proof way
+
+OOF vector + averaged test predictions saved as .npy; results cached to JSON → crash-safe resume (already done, skipping)
+
+One CLI to reproduce everything:
+
+def run_cv(cfg: dict, tag: str, save_preds: bool = True):
+    # resume support: skip if this experiment already has results on disk
+    result_path = os.path.join(RES_DIR, f"{tag}.json")
+    if os.path.exists(result_path):
+        with open(result_path) as f:
+            prev = json.load(f)
+        print(f"[{tag}] already done (OOF {prev['oof_auc']:.5f}), skipping", flush=True)
+        return prev
+    seed_everything(cfg["random_state"])
+    if not hasattr(run_cv, "_cache"):
+        run_cv._cache = {}
+    if "train" not in run_cv._cache:
+        train = pd.read_csv(TRAIN_PATH)
+        test = pd.read_csv(TEST_PATH)
+        print("Train shape:", train.shape)
+        print("Test shape :", test.shape)
+        run_cv._cache["train"], run_cv._cache["test"] = train, test
+    train, test = run_cv._cache["train"], run_cv._cache["test"]
+    y = (train[TARGET] == "Yes").astype(int).values
+    test_id = test[ID].values
+
+    X, X_test, cat_cols = build_features(train, test, cfg)
+    m_scale = cfg.get("margin_scale", 1.0)
+    margin_train = recipe_logit(train) * m_scale if cfg["use_base_margin"] else None
+    margin_test = recipe_logit(test) * m_scale if cfg["use_base_margin"] else None
+
+    if cfg["subsample"]:
+        rng = np.random.RandomState(cfg["random_state"])
+        keep = rng.rand(len(y)) < cfg["subsample"]
+        X, y, margin_train = X[keep].reset_index(drop=True), y[keep], (
+            margin_train[keep] if margin_train is not None else None)
+        print(f"[{tag}] subsampled to {keep.sum()} rows")
+
+    n_folds = cfg["n_folds"]
+    if n_folds > 1:
+        splits = list(StratifiedKFold(n_splits=n_folds, shuffle=True,
+                                      random_state=SEED).split(X, y))
+    else:  # smoke mode: single 80/20 holdout split
+        splits = list(StratifiedKFold(n_splits=5, shuffle=True,
+                                      random_state=SEED).split(X, y))[:1]
+    oof = np.zeros(len(y))
+    test_pred = np.zeros(len(X_test))
+    fold_aucs, fold_times = [], []
+
+    for fold, (tr_idx, va_idx) in enumerate(splits, 1):
+        seed_everything(cfg["random_state"] + fold)
+        X_tr, X_val = X.iloc[tr_idx].copy(), X.iloc[va_idx].copy()
+        X_tst = X_test.copy()
+        y_tr, y_va = y[tr_idx], y[va_idx]
+
+        # target encoding (fit inside the training fold only -> leak free)
+        te_mode = cfg["te_mode"]
+        if te_mode != "none":
+            if te_mode == "all":
+                te_cols = [c for c in cat_cols if not c.endswith("bin_")]
+            else:  # 'orig': only the six original categoricals
+                te_cols = [c for c in cat_cols
+                           if not c.endswith("cat_") and not c.endswith("bin_")]
+            enc = TargetEncoder(cv=cfg["te_cv"], smooth=cfg.get("te_smooth", "auto"),
+                                shuffle=True, random_state=SEED)
+            X_tr[[f"_{c}_TE" for c in te_cols]] = enc.fit_transform(X_tr[te_cols], y_tr)
+            X_val[[f"_{c}_TE" for c in te_cols]] = enc.transform(X_val[te_cols])
+            X_tst[[f"_{c}_TE" for c in te_cols]] = enc.transform(X_tst[te_cols])
+
+        m_tr = margin_train[tr_idx] if margin_train is not None else None
+        m_va = margin_train[va_idx] if margin_train is not None else None
+
+        t0 = time.time()
+        model = RealMLPClassifier(**cfg)
+        model.fit(X_tr, y_tr, X_val, y_va, cat_col_names=cat_cols, X_test=X_tst,
+                  margin_train=m_tr, margin_val=m_va, margin_test=margin_test)
+        oof[va_idx] = model.best_val_probs_[:, 1]
+        test_pred += model.test_probs_[:, 1] / n_folds
+        fold_aucs.append(roc_auc_score(y_va, oof[va_idx]))
+        fold_times.append(time.time() - t0)
+        print(f"[{tag}] fold {fold}/{n_folds}  AUC = {fold_aucs[-1]:.5f}  "
+              f"({fold_times[-1]:.0f}s)", flush=True)
+
+    oof_auc = roc_auc_score(y, oof)
+    print(f"[{tag}] OOF AUC = {oof_auc:.5f}  |  folds = "
+          f"{np.round(fold_aucs, 5).tolist()}  |  total {sum(fold_times) / 60:.1f} min",
+          flush=True)
+
+    result = {"tag": tag, "oof_auc": oof_auc, "fold_aucs": fold_aucs,
+              "total_min": sum(fold_times) / 60,
+              "config": {k: (str(v) if not isinstance(v, (int, float, bool, list, type(None)))
+                             else v) for k, v in cfg.items()}}
+    with open(os.path.join(RES_DIR, f"{tag}.json"), "w") as f:
+        json.dump(result, f, indent=2, default=str)
+    if save_preds:
+        np.save(os.path.join(RES_DIR, f"{tag}_oof.npy"), oof)
+        np.save(os.path.join(RES_DIR, f"{tag}_test.npy"), test_pred)
+        np.save(os.path.join(RES_DIR, f"{tag}_train_id.npy"), train[ID].values)
+        np.save(os.path.join(RES_DIR, f"{tag}_test_id.npy"), test_id)
+    return result
+
+
+def make_submission(test_pred, test_id):
+    sub = pd.DataFrame({ID: test_id, TARGET: test_pred})
+    sub.to_csv(SUB_PATH, index=False)
+    print(f"saved {SUB_PATH}  ({len(sub)} rows)")
+    print(sub.head())
+    return SUB_PATH
+
+
+def blend(tags, weights=None):
+    """Rank-average several result tags' test predictions into SUB_PATH."""
+    preds, ids = [], None
+    for t in tags:
+        d = np.load(os.path.join(RES_DIR, f"{t}_test.npy"))
+        preds.append(rankdata(d) / len(d))  # normalize ranks to [0,1]
+        if ids is None:
+            ids = np.load(os.path.join(RES_DIR, f"{t}_test_id.npy"))
+    w = np.ones(len(preds)) / len(preds) if weights is None else np.asarray(weights)
+    blended = np.sum([w[i] * preds[i] for i in range(len(preds))], axis=0)
+    return make_submission(blended, ids)
+
+
+def run_final(tag="s6_full_10f"):
+    """Notebook entry point: run one experiment, then write submission.csv.
+
+    In a Kaggle notebook the cwd is /kaggle/working, so every output file
+    lands exactly where Kaggle expects it. Any experiment name from
+    EXPERIMENTS works.
+    """
+    cfg = dict(BASE_CONFIG)
+    cfg.update(EXPERIMENTS[tag])
+    run_cv(cfg, tag)
+    oof = np.load(os.path.join(RES_DIR, f"{tag}_oof.npy"))
+    test_pred = np.load(os.path.join(RES_DIR, f"{tag}_test.npy"))
+    test_id = np.load(os.path.join(RES_DIR, f"{tag}_test_id.npy"))
+    train_id_path = os.path.join(RES_DIR, f"{tag}_train_id.npy")
+    train_id = (np.load(train_id_path) if os.path.exists(train_id_path)
+                else pd.read_csv(TRAIN_PATH)[ID].values)
+
+    # Create Submission — same construction as the starter notebook
+    oof_df = pd.DataFrame({ID: train_id, TARGET: oof})
+    test_df = pd.DataFrame({ID: test_id, TARGET: test_pred})
+    oof_df.to_csv("oof_preds.csv", index=False)
+    test_df.to_csv("test_preds.csv", index=False)
+    make_submission(test_pred, test_id)
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--exp", type=str, default=None, help="experiment name or comma list")
+    ap.add_argument("--list", action="store_true")
+    ap.add_argument("--final", type=str, default=None,
+                    help="path to result .npy test predictions -> submission")
+    ap.add_argument("--blend", type=str, default=None,
+                    help="comma list of result tags to rank-average -> submission")
+    args = ap.parse_args()
+
+    if args.list:
+        for k in EXPERIMENTS:
+            print(k)
+        return
+    if args.final:
+        pred = np.load(args.final)
+        test_id = np.load(args.final.replace("_test.npy", "_test_id.npy"))
+        make_submission(pred, test_id)
+        return
+    if args.blend:
+        blend(args.blend.split(","))
+        return
+    if not args.exp:
+        print("use --exp name[,name2,...] or --list")
+        return
+
+    for name in args.exp.split(","):
+        cfg = dict(BASE_CONFIG)
+        cfg.update(EXPERIMENTS[name])
+        run_cv(cfg, name)
+
+
+
+<!-- ════════════════════════ CELL 14 · TUNING JOURNEY ════════════════════════ -->
+
+<div style="background:#004d40;color:#ffffff;padding:12px 18px;border-radius:10px;font-size:19px;font-weight:bold">🎛 13 · The Tuning Journey — 6 stages, 50+ configs</div>
+
+What moved the needle:
+
+<table style="border-collapse:separate;border-spacing:0;width:100%;font-size:14px;border:1px solid #2f5a3a;border-radius:10px;overflow:hidden;color:#c8e6c9"> <thead> <tr style="background:#2e7d32;color:#ffffff"> <th style="padding:8px 14px;text-align:left">Lever</th> <th style="padding:8px 14px;text-align:left">Change</th> <th style="padding:8px 14px;text-align:center">Gain</th> </tr> </thead> <tbody> <tr style="background:#14201a"><td style="padding:7px 14px;border-top:1px solid #2f5a3a">🔮 Recipe residual</td><td style="padding:7px 14px;border-top:1px solid #2f5a3a">none → base margin</td><td style="padding:7px 14px;border-top:1px solid #2f5a3a;text-align:center;color:#69f0ae"><b>+0.00021</b></td></tr> <tr style="background:#182620"><td style="padding:7px 14px;border-top:1px solid #2f5a3a">⚡ lr</td><td style="padding:7px 14px;border-top:1px solid #2f5a3a">0.010 → 0.013 (3 epochs)</td><td style="padding:7px 14px;border-top:1px solid #2f5a3a;text-align:center;color:#69f0ae">+0.00001</td></tr> <tr style="background:#14201a"><td style="padding:7px 14px;border-top:1px solid #2f5a3a">🛡 regularization</td><td style="padding:7px 14px;border-top:1px solid #2f5a3a">wd 0.013→0.008, ls 0.04→0.02</td><td style="padding:7px 14px;border-top:1px solid #2f5a3a;text-align:center;color:#69f0ae">+0.00006</td></tr> <tr style="background:#182620"><td style="padding:7px 14px;border-top:1px solid #2f5a3a">🎯 TE smoothing</td><td style="padding:7px 14px;border-top:1px solid #2f5a3a">"auto" → 1.0 (sharper)</td><td style="padding:7px 14px;border-top:1px solid #2f5a3a;text-align:center;color:#69f0ae">+0.00012</td></tr> <tr style="background:#14201a"><td style="padding:7px 14px;border-top:1px solid #2f5a3a">🌊 PBLD richness</td><td style="padding:7px 14px;border-top:1px solid #2f5a3a">out 8 · lr×0.2 · hidden 32</td><td style="padding:7px 14px;border-top:1px solid #2f5a3a;text-align:center;color:#69f0ae">+0.00015</td></tr> <tr style="background:#182620"><td style="padding:7px 14px;border-top:1px solid #2f5a3a">📐 Folds</td><td style="padding:7px 14px;border-top:1px solid #2f5a3a">5 → 10</td><td style="padding:7px 14px;border-top:1px solid #2f5a3a;text-align:center;color:#69f0ae">+0.00013</td></tr> </tbody> </table>
+
+<details><summary><b style="color:#ef9a9a">❌ What failed (equally important)</b></summary>
+
+<table style="border-collapse:separate;border-spacing:0;width:100%;font-size:14px;margin-top:8px;border:1px solid #5c2f2f;border-radius:8px;overflow:hidden;color:#ffcdd2"> <thead> <tr style="background:#b71c1c;color:#ffffff"> <th style="padding:8px 14px;text-align:left">Lever</th> <th style="padding:8px 14px;text-align:left">Result</th> </tr> </thead> <tbody> <tr style="background:#241616"><td style="padding:6px 14px;border-top:1px solid #5c2f2f"><code>n_ens</code> 8 → 16</td><td style="padding:6px 14px;border-top:1px solid #5c2f2f">no gain, 2× slower</td></tr> <tr style="background:#2a1a1a"><td style="padding:6px 14px;border-top:1px solid #5c2f2f">TE on original cats only</td><td style="padding:6px 14px;border-top:1px solid #5c2f2f"><b>−0.0011</b> — twin-feature TE is load-bearing</td></tr> <tr style="background:#241616"><td style="padding:6px 14px;border-top:1px solid #5c2f2f">TE smoothing → pure mean (0.0)</td><td style="padding:6px 14px;border-top:1px solid #5c2f2f">−0.0013 (noise takes over)</td></tr> <tr style="background:#2a1a1a"><td style="padding:6px 14px;border-top:1px solid #5c2f2f">Adam β2 0.98 → 0.99</td><td style="padding:6px 14px;border-top:1px solid #5c2f2f">−0.0003</td></tr> <tr style="background:#241616"><td style="padding:6px 14px;border-top:1px solid #5c2f2f">bs 256 → 512 (matched steps)</td><td style="padding:6px 14px;border-top:1px solid #5c2f2f">−0.0003</td></tr> <tr style="background:#2a1a1a"><td style="padding:6px 14px;border-top:1px solid #5c2f2f">wider (1024) / deeper (4×512) / GELU / emb 16</td><td style="padding:6px 14px;border-top:1px solid #5c2f2f">≤ +0.0000x, noise</td></tr> <tr style="background:#241616"><td style="padding:6px 14px;border-top:1px solid #5c2f2f">margin scale 0.75 / 1.25</td><td style="padding:6px 14px;border-top:1px solid #5c2f2f">both worse — 1.0 is the sweet spot</td></tr> <tr style="background:#2a1a1a"><td style="padding:6px 14px;border-top:1px solid #5c2f2f">recipe as input feature</td><td style="padding:6px 14px;border-top:1px solid #5c2f2f">+0.00001 (vs +0.00021 as residual!)</td></tr> </tbody> </table>
+
+</details>
+
+<div style="background:#231d38;border-left:4px solid #7e57c2;padding:12px 14px;border-radius:6px;margin-top:12px;color:#d1c4e9">
+
+💡 <b>Meta-lesson:</b> at this data scale the <i>inputs</i> to the network (TE sharpness, PBLD capacity, a strong prior) matter far more than the network itself. Architecture was saturated by stage 2; stages 4–6 gains all came from data encoding.
+
+</div>
+
+<!-- ════════════════════════ CELL 15 · FINAL CONFIG ════════════════════════ -->
+
+<div style="background:#1b4d2e;color:#ffffff;padding:12px 18px;border-radius:10px;font-size:19px;font-weight:bold">🏁 14 · Final Config — <code style="color:#c8e6c9">s6_full</code> (10-fold, single model)</div>
+
+<table style="border-collapse:separate;border-spacing:0;width:100%;font-size:14px;border:1px solid #2f5a3a;border-radius:10px;overflow:hidden;color:#c8e6c9"> <thead> <tr style="background:#2e7d32;color:#ffffff"> <th style="padding:8px 14px;text-align:left;width:130px">Block</th> <th style="padding:8px 14px;text-align:left">Value</th> </tr> </thead> <tbody> <tr style="background:#14201a"><td style="padding:7px 14px;border-top:1px solid #2f5a3a"><b>Residual</b></td><td style="padding:7px 14px;border-top:1px solid #2f5a3a">recipe base margin, scale 1.0</td></tr> <tr style="background:#182620"><td style="padding:7px 14px;border-top:1px solid #2f5a3a"><b>Optimizer</b></td><td style="padding:7px 14px;border-top:1px solid #2f5a3a">AdamW · lr 0.013 · wd 0.008 · β=(0.9, 0.98)</td></tr> <tr style="background:#14201a"><td style="padding:7px 14px;border-top:1px solid #2f5a3a"><b>Schedule</b></td><td style="padding:7px 14px;border-top:1px solid #2f5a3a">flat_cos (flat 0.3) · ls 0.02 · dropout 0.06</td></tr> <tr style="background:#182620"><td style="padding:7px 14px;border-top:1px solid #2f5a3a"><b>Ensemble</b></td><td style="padding:7px 14px;border-top:1px solid #2f5a3a">n_ens 8 · 3×512 SiLU · 3 epochs · bs 256</td></tr> <tr style="background:#14201a"><td style="padding:7px 14px;border-top:1px solid #2f5a3a"><b>PBLD</b></td><td style="padding:7px 14px;border-top:1px solid #2f5a3a">hidden 32 · out 8 · lr×0.2</td></tr> <tr style="background:#182620"><td style="padding:7px 14px;border-top:1px solid #2f5a3a"><b>Data</b></td><td style="padding:7px 14px;border-top:1px solid #2f5a3a">TE all cats, smooth 1.0 · median-center + robust-scale</td></tr> <tr style="background:#14201a"><td style="padding:7px 14px;border-top:1px solid #2f5a3a"><b>CV</b></td><td style="padding:7px 14px;border-top:1px solid #2f5a3a">Stratified 10-fold</td></tr> </tbody> </table>
+
+<div style="background:#122b1a;border-left:4px solid #4caf50;padding:12px 14px;border-radius:6px;margin-top:12px;color:#c8e6c9">
+
+🏆 <b style="color:#69f0ae">Final OOF AUC = 0.94572</b> — one model, ~9 minutes on a single consumer GPU, beating an 11-model blend. The recipe residual is worth <b>+0.0002</b> of it and, more importantly, makes training converge to a better basin from step zero.
+
+</div>
+
+Three takeaways
+
+1.
+🧪 Residual learning works: injecting a known closed-form prior as a logit offset beats feeding the same prior as a feature by 20×.
+
+2.
+🎯 Encoding > architecture: TE smoothing and PBLD capacity delivered the largest post-baseline gains.
+
+3.
+✂️ One tuned model ≥ a bag of mediocre ones — and it's 10× simpler to ship.
+
+BASE_CONFIG = {
+    # architecture
+    "n_ens": 8,
+    "embed_dim": 8,
+    "onehot_thresh": 8,
+    "hidden_dims": [512, 512, 512],
+    "dropout": 0.06,
+    "p_drop_sched": "expm4t",
+    "activation": nn.SiLU,
+    "add_front_scale": True,
+    # PBLD numerical embedding
+    "pbld_hidden_dim": 20,
+    "pbld_out_dim": 5,
+    "pbld_freq_scale": 5.0,
+    "pbld_activation": nn.PReLU,
+    "pbld_lr_factor": 0.093,
+    # optimizer
+    "lr": 0.01,
+    "mom": 0.9,
+    "sq_mom": 0.98,
+    "lr_sched": "flat_cos",
+    "flat_ratio": 0.3,
+    "first_layer_lr_factor": 1.0,
+    "first_layer_wd_factor": 0.1,
+    "lr_scale_mult": 10.0,
+    "lr_bias_mult": 0.1,
+    "weight_decay": 0.013,
+    "wd_scale_mult": 0.1,
+    "wd_bias_mult": 0.5,
+    "ema_decay": 0.997875,
+    "grad_clip": 1.2,
+    # label smoothing
+    "ls_eps": 0.04,
+    "ls_eps_sched": "cos",
+    # preprocessing
+    "tfms": ["median_center", "robust_scale"],
+    # training loop
+    "epochs": 2,
+    "train_bs": 256,
+    "eval_bs": 10240,
+    "verbosity": 1,
+    "use_early_stopping": False,
+    "early_stopping_additive_patience": 10,
+    "early_stopping_multiplicative_patience": 1,
+    "device": "cuda",
+    "random_state": 42,
+    # ---- project-specific extensions ----
+    "use_class_weights": False,   # AUC is rank-based; weights off by default
+    "use_base_margin": False,     # fable residual: recipe logit as head start
+    "add_recipe_feature": False,  # fable model-3: recipe score as input feature
+    "margin_gate": False,         # learnable per-member gate on the margin
+    "add_num_cat_twins": True,
+    "bin_config": {},             # e.g. {"Annual_Income_USD": [10]}
+    "te_mode": "all",             # 'all' | 'orig' | 'none'
+    "te_cv": 5,
+    "n_folds": 5,
+    "subsample": None,            # fraction of train rows for quick smoke runs
+}
+
+EXPERIMENTS = {
+    # stage 0: smoke
+    "smoke": {"epochs": 1, "n_folds": 1, "subsample": 0.25, "verbosity": 2,
+              "use_base_margin": True},
+    # stage 1: starter baseline vs fable residual variants
+    "base": {},                                                        # pure starter config
+    "margin": {"use_base_margin": True},                              # recipe as head start
+    "feat": {"add_recipe_feature": True},                             # recipe as feature
+    "margin_feat": {"use_base_margin": True, "add_recipe_feature": True},
+    # stage 2: hyperparameter tuning on top of the residual winner
+    "margin_e3": {"use_base_margin": True, "epochs": 3},
+    "margin_e3_ens16": {"use_base_margin": True, "epochs": 3, "n_ens": 16},
+    "margin_e3_lr013": {"use_base_margin": True, "epochs": 3, "lr": 0.013},
+    "margin_e3_lr008": {"use_base_margin": True, "epochs": 3, "lr": 0.008},
+    "margin_e3_clip": {"use_base_margin": True, "epochs": 3,
+                       "tfms": ["median_center", "robust_scale", "smooth_clip"]},
+    "margin_e3_gate": {"use_base_margin": True, "epochs": 3, "margin_gate": True},
+    "margin_e3_do01": {"use_base_margin": True, "epochs": 3, "dropout": 0.10},
+    "margin_e3_ls02": {"use_base_margin": True, "epochs": 3, "ls_eps": 0.02},
+    "margin_e4_ens16": {"use_base_margin": True, "epochs": 4, "n_ens": 16},
+    "margin_e3_bins": {"use_base_margin": True, "epochs": 3,
+                       "bin_config": {"Annual_Income_USD": [10]}},
+    "margin_e3_h1024": {"use_base_margin": True, "epochs": 3,
+                        "hidden_dims": [1024, 512, 256]},
+    # final: 10-fold, best config from stage-2 (margin + 3 epochs + lr 0.013)
+    "final_s42": {"use_base_margin": True, "epochs": 3, "lr": 0.013, "n_folds": 10},
+    "final_s7": {"use_base_margin": True, "epochs": 3, "lr": 0.013, "n_folds": 10,
+                 "random_state": 7},
+    # stage 3: push for 0.946+
+    "t_lr016": {"use_base_margin": True, "epochs": 3, "lr": 0.016},
+    "t_lr018": {"use_base_margin": True, "epochs": 3, "lr": 0.018},
+    "t_wd002": {"use_base_margin": True, "epochs": 3, "lr": 0.013, "weight_decay": 0.02},
+    "t_wd008": {"use_base_margin": True, "epochs": 3, "lr": 0.013, "weight_decay": 0.008},
+    "t_ls02": {"use_base_margin": True, "epochs": 3, "lr": 0.013, "ls_eps": 0.02},
+    "t_ls06": {"use_base_margin": True, "epochs": 3, "lr": 0.013, "ls_eps": 0.06},
+    "t_teorig": {"use_base_margin": True, "epochs": 3, "lr": 0.013, "te_mode": "orig"},
+    "t_tenone": {"use_base_margin": True, "epochs": 3, "lr": 0.013, "te_mode": "none"},
+    "t_m075": {"use_base_margin": True, "epochs": 3, "lr": 0.013, "margin_scale": 0.75},
+    "t_m125": {"use_base_margin": True, "epochs": 3, "lr": 0.013, "margin_scale": 1.25},
+    "t_pbld32": {"use_base_margin": True, "epochs": 3, "lr": 0.013,
+                 "pbld_hidden_dim": 32},
+    "t_fs3": {"use_base_margin": True, "epochs": 3, "lr": 0.013, "pbld_freq_scale": 3.0},
+    "t_emb16": {"use_base_margin": True, "epochs": 3, "lr": 0.013, "embed_dim": 16},
+    "t_h1024": {"use_base_margin": True, "epochs": 3, "lr": 0.013,
+                "hidden_dims": [1024, 512, 256]},
+    "t_bins": {"use_base_margin": True, "epochs": 3, "lr": 0.013,
+               "bin_config": {"Annual_Income_USD": [16]}},
+    "t_e4": {"use_base_margin": True, "epochs": 4, "lr": 0.013},
+    "t_bs512": {"use_base_margin": True, "epochs": 6, "lr": 0.016, "train_bs": 512},
+    "t_notwin": {"use_base_margin": True, "epochs": 3, "lr": 0.013,
+                 "add_num_cat_twins": False},
+    # combinations of stage-3 winners
+    "c_wd008_ls02": {"use_base_margin": True, "epochs": 3, "lr": 0.013,
+                     "weight_decay": 0.008, "ls_eps": 0.02},
+    "c_wd006_ls02": {"use_base_margin": True, "epochs": 3, "lr": 0.013,
+                     "weight_decay": 0.006, "ls_eps": 0.02},
+    "c_wd008_ls02_e4": {"use_base_margin": True, "epochs": 4, "lr": 0.013,
+                        "weight_decay": 0.008, "ls_eps": 0.02},
+    # ---- final 10-fold fleet for the grand blend (greedy-selected on OOF) ----
+    "f_c1_s42": {"use_base_margin": True, "epochs": 3, "lr": 0.013,
+                 "weight_decay": 0.008, "ls_eps": 0.02, "n_folds": 10},
+    "f_c1_s7": {"use_base_margin": True, "epochs": 3, "lr": 0.013,
+                "weight_decay": 0.008, "ls_eps": 0.02, "n_folds": 10,
+                "random_state": 7},
+    "f_mf_s42": {"use_base_margin": True, "add_recipe_feature": True, "n_folds": 10},
+    "f_bins_s42": {"use_base_margin": True, "epochs": 3, "lr": 0.013,
+                   "bin_config": {"Annual_Income_USD": [16]}, "n_folds": 10},
+    "f_clip_s42": {"use_base_margin": True, "epochs": 3,
+                   "tfms": ["median_center", "robust_scale", "smooth_clip"],
+                   "n_folds": 10},
+    # ---- last-mile diversity models ----
+    "f_c1_s13": {"use_base_margin": True, "epochs": 3, "lr": 0.013,
+                 "weight_decay": 0.008, "ls_eps": 0.02, "n_folds": 10,
+                 "random_state": 13},
+    "f_c1_te10": {"use_base_margin": True, "epochs": 3, "lr": 0.013,
+                  "weight_decay": 0.008, "ls_eps": 0.02, "te_cv": 10,
+                  "n_folds": 10},
+    "f_c1_lr012": {"use_base_margin": True, "epochs": 3, "lr": 0.012,
+                   "weight_decay": 0.008, "ls_eps": 0.02, "n_folds": 10},
+    "f_pbld32_s42": {"use_base_margin": True, "epochs": 3, "lr": 0.013,
+                     "pbld_hidden_dim": 32, "n_folds": 10},
+    # ---- stage 4: single-config deep tuning on c1 (margin + lr0.013 + wd008 + ls02)
+    # first: add the tuned regularization so all experiments start from c1 baseline
+    "s4_sq99":  {"use_base_margin": True, "epochs": 3, "lr": 0.013,
+                 "weight_decay": 0.008, "ls_eps": 0.02, "sq_mom": 0.99},
+    "s4_sq95":  {"use_base_margin": True, "epochs": 3, "lr": 0.013,
+                 "weight_decay": 0.008, "ls_eps": 0.02, "sq_mom": 0.95},
+    "s4_fr50":  {"use_base_margin": True, "epochs": 3, "lr": 0.013,
+                 "weight_decay": 0.008, "ls_eps": 0.02, "flat_ratio": 0.5},
+    "s4_fr25":  {"use_base_margin": True, "epochs": 3, "lr": 0.013,
+                 "weight_decay": 0.008, "ls_eps": 0.02, "flat_ratio": 0.25},
+    "s4_plf20": {"use_base_margin": True, "epochs": 3, "lr": 0.013,
+                 "weight_decay": 0.008, "ls_eps": 0.02, "pbld_lr_factor": 0.2},
+    "s4_plf05": {"use_base_margin": True, "epochs": 3, "lr": 0.013,
+                 "weight_decay": 0.008, "ls_eps": 0.02, "pbld_lr_factor": 0.05},
+    "s4_po8":   {"use_base_margin": True, "epochs": 3, "lr": 0.013,
+                 "weight_decay": 0.008, "ls_eps": 0.02, "pbld_out_dim": 8},
+    "s4_deep2": {"use_base_margin": True, "epochs": 3, "lr": 0.013,
+                 "weight_decay": 0.008, "ls_eps": 0.02, "hidden_dims": [512, 512]},
+    "s4_deep4": {"use_base_margin": True, "epochs": 3, "lr": 0.013,
+                 "weight_decay": 0.008, "ls_eps": 0.02,
+                 "hidden_dims": [512, 512, 512, 512]},
+    "s4_gelu":  {"use_base_margin": True, "epochs": 3, "lr": 0.013,
+                 "weight_decay": 0.008, "ls_eps": 0.02, "activation": nn.GELU},
+    "s4_tesmooth10": {"use_base_margin": True, "epochs": 3, "lr": 0.013,
+                      "weight_decay": 0.008, "ls_eps": 0.02, "te_smooth": 10.0},
+    "s4_tesmooth1":  {"use_base_margin": True, "epochs": 3, "lr": 0.013,
+                      "weight_decay": 0.008, "ls_eps": 0.02, "te_smooth": 1.0},
+    # equivalence check of the fused-embedding speedup (must reproduce c_wd008_ls02)
+    "c1_check": {"use_base_margin": True, "epochs": 3, "lr": 0.013,
+                 "weight_decay": 0.008, "ls_eps": 0.02},
+    # bs=512: same total optimizer steps (6270) as bs=256 x 3 epochs, EMA
+    # horizon rescaled to keep the same decay window in epochs
+    "s4_bs512": {"use_base_margin": True, "epochs": 6, "lr": 0.013, "train_bs": 512,
+                 "ema_decay": 0.9958, "weight_decay": 0.008, "ls_eps": 0.02},
+    # ---- stage 5: TE smoothing refinement (smooth=1 gave +0.00013) ----
+    "s5_te05": {"use_base_margin": True, "epochs": 3, "lr": 0.013,
+                "weight_decay": 0.008, "ls_eps": 0.02, "te_smooth": 0.5},
+    "s5_te0":  {"use_base_margin": True, "epochs": 3, "lr": 0.013,
+                "weight_decay": 0.008, "ls_eps": 0.02, "te_smooth": 0.0},
+    "s5_te2":  {"use_base_margin": True, "epochs": 3, "lr": 0.013,
+                "weight_decay": 0.008, "ls_eps": 0.02, "te_smooth": 2.0},
+    "s5_te1_po8": {"use_base_margin": True, "epochs": 3, "lr": 0.013,
+                   "weight_decay": 0.008, "ls_eps": 0.02, "te_smooth": 1.0,
+                   "pbld_out_dim": 8},
+    "s5_te1_po8_plf20": {"use_base_margin": True, "epochs": 3, "lr": 0.013,
+                         "weight_decay": 0.008, "ls_eps": 0.02, "te_smooth": 1.0,
+                         "pbld_out_dim": 8, "pbld_lr_factor": 0.2},
+    "s5_te1_deep2": {"use_base_margin": True, "epochs": 3, "lr": 0.013,
+                     "weight_decay": 0.008, "ls_eps": 0.02, "te_smooth": 1.0,
+                     "hidden_dims": [512, 512]},
+    "s5_te1_fr25": {"use_base_margin": True, "epochs": 3, "lr": 0.013,
+                    "weight_decay": 0.008, "ls_eps": 0.02, "te_smooth": 1.0,
+                    "flat_ratio": 0.25},
+    # ---- stage 6: extrapolate the PBLD direction ----
+    "s6_full": {"use_base_margin": True, "epochs": 3, "lr": 0.013,
+                "weight_decay": 0.008, "ls_eps": 0.02, "te_smooth": 1.0,
+                "pbld_out_dim": 8, "pbld_lr_factor": 0.2, "pbld_hidden_dim": 32},
+    "s6_plf30": {"use_base_margin": True, "epochs": 3, "lr": 0.013,
+                 "weight_decay": 0.008, "ls_eps": 0.02, "te_smooth": 1.0,
+                 "pbld_out_dim": 8, "pbld_lr_factor": 0.3},
+    "s6_po12": {"use_base_margin": True, "epochs": 3, "lr": 0.013,
+                "weight_decay": 0.008, "ls_eps": 0.02, "te_smooth": 1.0,
+                "pbld_out_dim": 12, "pbld_lr_factor": 0.2},
+    "s6_emb16": {"use_base_margin": True, "epochs": 3, "lr": 0.013,
+                 "weight_decay": 0.008, "ls_eps": 0.02, "te_smooth": 1.0,
+                 "pbld_out_dim": 8, "pbld_lr_factor": 0.2, "embed_dim": 16},
+    # single best config at 10 folds (final single-model submission)
+    "s6_full_10f": {"use_base_margin": True, "epochs": 3, "lr": 0.013,
+                    "weight_decay": 0.008, "ls_eps": 0.02, "te_smooth": 1.0,
+                    "pbld_out_dim": 8, "pbld_lr_factor": 0.2, "pbld_hidden_dim": 32,
+                    "n_folds": 10},
+}
+
+
+
+# Pre_Trained Submission 
+
+submission=pd.read_csv("/kaggle/input/datasets/zhenruiweng/s6e9-realmlp-submission-csv/submission.csv")
+submission.to_csv("/kaggle/working/submission.csv")
