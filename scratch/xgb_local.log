@@ -1,0 +1,30 @@
+data loaded (5s)
+keys factored (23s)
+fold 0 matrices (534932, 87) (18s)
+fold 0: AUC 0.945005 trees 1261 (640s)
+fold 1 matrices (534932, 87) (27s)
+fold 1: AUC 0.945684 trees 1727 (1340s)
+fold 2 matrices (534932, 87) (31s)
+fold 2: AUC 0.946741 trees 1460 (787s)
+fold 3 matrices (534932, 87) (6s)
+fold 3: AUC 0.946126 trees 1076 (225s)
+fold 4 matrices (534932, 87) (10s)
+fold 4: AUC 0.945960 trees 1400 (277s)
+
+OOF AUC: 0.945897
+Traceback (most recent call last):
+  File "/tmp/xgb_local.py", line 239, in <module>
+    pd.DataFrame({ID: train[ID].to_numpy(), "oof": oof}).to_csv("/content/oof_xgbstack_v2.csv", index=False)
+  File "/home/raju/.local/lib/python3.12/site-packages/pandas/core/generic.py", line 3976, in to_csv
+    return DataFrameRenderer(formatter).to_csv(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/raju/.local/lib/python3.12/site-packages/pandas/io/formats/format.py", line 1025, in to_csv
+    csv_formatter.save()
+  File "/home/raju/.local/lib/python3.12/site-packages/pandas/io/formats/csvs.py", line 251, in save
+    with get_handle(
+         ^^^^^^^^^^^
+  File "/home/raju/.local/lib/python3.12/site-packages/pandas/io/common.py", line 797, in get_handle
+    check_parent_directory(str(handle))
+  File "/home/raju/.local/lib/python3.12/site-packages/pandas/io/common.py", line 656, in check_parent_directory
+    raise OSError(rf"Cannot save file into a non-existent directory: '{parent}'")
+OSError: Cannot save file into a non-existent directory: '/content'

@@ -1,0 +1,26 @@
+[{"stream_name":"stdout","time":4.7508846049999995,"data":"[    0.0s] Loading raw data...\n"}
+,{"stream_name":"stdout","time":6.991279745,"data":"[    2.2s] Train: (668665, 15), Test: (286571, 14)\n"}
+,{"stream_name":"stdout","time":7.167655893,"data":"[    2.4s] Computing Chris Deotte Fable 5.1 recipe features...\n"}
+,{"stream_name":"stdout","time":7.421824226,"data":"[    2.7s] Adding Simpson's paradox charging features...\n"}
+,{"stream_name":"stdout","time":8.552396955,"data":"[    3.8s] Decomposing exact integer digits...\n"}
+,{"stream_name":"stdout","time":15.051520097,"data":"[   10.3s] Total Preprocessed Features: 105\n"}
+,{"stream_name":"stdout","time":15.051794808,"data":"[   10.3s] Starting 10-Fold GPU XGBoost training with Simpson \u0026 Deotte features...\n"}
+,{"stream_name":"stdout","time":62.311113097,"data":"[   57.6s] Fold  1/10 - Trees: 1499 | AUC: 0.945080\n"}
+,{"stream_name":"stdout","time":108.239817854,"data":"[  103.5s] Fold  2/10 - Trees: 1394 | AUC: 0.945271\n"}
+,{"stream_name":"stdout","time":151.937330195,"data":"[  147.2s] Fold  3/10 - Trees: 1299 | AUC: 0.945627\n"}
+,{"stream_name":"stdout","time":202.034443443,"data":"[  197.3s] Fold  4/10 - Trees: 1712 | AUC: 0.946382\n"}
+,{"stream_name":"stdout","time":251.776299678,"data":"[  247.0s] Fold  5/10 - Trees: 1814 | AUC: 0.946785\n"}
+,{"stream_name":"stdout","time":301.107173971,"data":"[  296.4s] Fold  6/10 - Trees: 1711 | AUC: 0.947149\n"}
+,{"stream_name":"stdout","time":341.882037142,"data":"[  337.1s] Fold  7/10 - Trees:  980 | AUC: 0.945975\n"}
+,{"stream_name":"stdout","time":384.708252085,"data":"[  380.0s] Fold  8/10 - Trees: 1069 | AUC: 0.947079\n"}
+,{"stream_name":"stdout","time":430.652987743,"data":"[  425.9s] Fold  9/10 - Trees: 1368 | AUC: 0.947253\n"}
+,{"stream_name":"stdout","time":473.524773601,"data":"[  468.8s] Fold 10/10 - Trees: 1141 | AUC: 0.945284\n"}
+,{"stream_name":"stdout","time":473.717644636,"data":"[  469.0s] === OVERALL 10-FOLD OOF AUC: 0.9461822 ===\n"}
+,{"stream_name":"stdout","time":476.683958281,"data":"[  471.9s] All output files written and validated successfully!\n"}
+,{"stream_name":"stderr","time":479.941902223,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":479.941963892,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":480.287714687,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":480.28776032,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":482.227310122,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":483.691883376,"data":"[NbConvertApp] Writing 323258 bytes to __results__.html\n"}
+]
