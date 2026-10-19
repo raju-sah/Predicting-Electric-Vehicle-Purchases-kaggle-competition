@@ -1,0 +1,44 @@
+[{"stream_name":"stderr","time":9.037041358,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":9.037124537,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":9.037131557,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":9.037136196,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":9.795387541,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":9.795423976,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":9.795429383,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":9.795433749,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":16.75057052,"data":"Train Shape: (668665, 15) | Test Shape: (286571, 14)\n"}
+,{"stream_name":"stdout","time":16.75065942,"data":"Base EV Adoption Rate: 17.465%\n"}
+,{"stream_name":"stdout","time":16.949906278,"data":"Megayak 0.94645 Source: /kaggle/input/notebooks/megayak/s6e9-0-94645-four-feature-views-beat-the-blend/submission.csv\n"}
+,{"stream_name":"stdout","time":16.9499511,"data":"CTBoost Source:         /kaggle/input/notebooks/maiernator/s6e9-ctboost-not-catboost-astra-baseline/submission.csv\n"}
+,{"stream_name":"stdout","time":16.949958232,"data":"RealMLP Source:         /kaggle/input/notebooks/yekenot/ps-s6-e9-realmlp-pytorch/submission.csv\n"}
+,{"stream_name":"stdout","time":16.949963824,"data":"Raw LGBM Source:        /kaggle/input/notebooks/megayak/s6e9-one-lightgbm-from-raw-data-cv-0-9463/test_hybrid.npy\n"}
+,{"stream_name":"stdout","time":18.098135598,"data":"\n"}
+,{"stream_name":"stdout","time":18.098177757,"data":"Test Spearman Rank Correlation Matrix:\n"}
+,{"stream_name":"stdout","time":19.200727398,"data":"SUCCESS: submission.csv generated and validated.\n"}
+,{"stream_name":"stdout","time":19.200767432,"data":"Total Rows:        286,571\n"}
+,{"stream_name":"stdout","time":19.200774717,"data":"Unique Values:     286,571 (Zero Ties!)\n"}
+,{"stream_name":"stdout","time":19.200780317,"data":"Min Prediction:    0.00000174\n"}
+,{"stream_name":"stdout","time":19.200785621,"data":"Max Prediction:    0.99999826\n"}
+,{"stream_name":"stdout","time":19.234352728,"data":"Upper Cliff (Income \u003e= $170,537):\n"}
+,{"stream_name":"stdout","time":19.234395266,"data":"  Train Rows: 393 | Positives: 393 (100.00%)\n"}
+,{"stream_name":"stdout","time":19.234402214,"data":"  Test Rows:  156\n"}
+,{"stream_name":"stdout","time":19.234407366,"data":"\n"}
+,{"stream_name":"stdout","time":19.234412351,"data":"Lower Dead Zone ($31,003 \u003c Income \u003c $41,971):\n"}
+,{"stream_name":"stdout","time":19.234418109,"data":"  Train Rows: 1,257 | Positives: 0 (0.00%)\n"}
+,{"stream_name":"stdout","time":19.234433238,"data":"  Test Rows:  494\n"}
+,{"stream_name":"stdout","time":19.234439063,"data":"\n"}
+,{"stream_name":"stdout","time":19.234444437,"data":"Current Blend Ranks in Dead Zone (should ideally be near 0):\n"}
+,{"stream_name":"stdout","time":19.234449457,"data":"  Max Rank:  0.6610\n"}
+,{"stream_name":"stdout","time":19.234454268,"data":"  Mean Rank: 0.1597\n"}
+,{"stream_name":"stdout","time":19.234459005,"data":"  Rows \u003e 0.10: 252 / 494\n"}
+,{"stream_name":"stderr","time":22.770792695,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":22.770850918,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":22.958664882,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":22.958693379,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":23.805927172,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":24.191853932,"data":"[NbConvertApp] Writing 123723 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":27.263088894,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":28.326469761,"data":"[NbConvertApp] Support files will be in __results___files/\n"}
+,{"stream_name":"stderr","time":28.326506284,"data":"[NbConvertApp] Making directory __results___files\n"}
+,{"stream_name":"stderr","time":28.326919695,"data":"[NbConvertApp] Writing 331748 bytes to __results__.html\n"}
+]

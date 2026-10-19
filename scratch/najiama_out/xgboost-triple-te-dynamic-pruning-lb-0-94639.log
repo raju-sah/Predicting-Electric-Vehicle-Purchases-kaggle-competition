@@ -1,0 +1,128 @@
+[{"stream_name":"stderr","time":8.709403716,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":8.709485903000001,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":8.709493271,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":8.709498042,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":9.50158688,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":9.501629487,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":9.501636967,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":9.501643507,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":96.635601108,"data":"   -\u003e Dropping 85 redundant/constant features: ['Age_digit3_cat_fe', 'Environmental_Concern_Level_digit-3_cat_fe', 'Charging_Stations_Near_Home_digit-1', 'Environmental_Concern_Level_digit0', 'Annual_Income_USD_digit-4', 'Annual_Income_USD_digit-1', 'Age_digit3', 'Charging_Stations_Near_Home_digit2_cat_fe', 'Charging_Stations_Near_Work_digit-3', 'Annual_Income_USD_digit-1_cat', 'Environmental_Concern_Level_digit0_cat_fe', 'Environmental_Concern_Level_digit-1', 'Charging_Stations_Near_Work_digit-2', 'Age_digit-4_cat', 'Age_digit2', 'Charging_Stations_Near_Work_digit3', 'Annual_Income_USD_digit-3_cat_fe', 'Daily_Commute_km_digit3', 'Annual_Income_USD_digit-1_cat_fe', 'Environmental_Concern_Level_digit2_cat', 'Daily_Commute_km_digit2_cat_fe', 'Age_digit-1', 'Charging_Stations_Near_Home_digit-1_cat_fe', 'Environmental_Concern_Level_digit-1_cat', 'Charging_Stations_Near_Home_digit3_cat', 'Charging_Stations_Near_Work_digit2', 'Environmental_Concern_Level_digit-2', 'Charging_Stations_Near_Work_digit-2_cat_fe', 'Charging_Stations_Near_Home_digit3', 'Charging_Stations_Near_Work_digit-3_cat_fe', 'Daily_Commute_km_digit2_cat', 'Environmental_Concern_Level_digit-2_cat_fe', 'Environmental_Concern_Level_digit3', 'Charging_Stations_Near_Home_digit-3', 'Age_digit-2_cat_fe', 'Charging_Stations_Near_Home_digit3_cat_fe', 'Environmental_Concern_Level_digit-2_cat', 'Charging_Stations_Near_Home_digit-2', 'Daily_Commute_km_digit-2', 'Environmental_Concern_Level_digit-4_cat', 'Environmental_Concern_Level_digit2', 'Daily_Commute_km_digit-2_cat_fe', 'Environmental_Concern_Level_digit3_cat_fe', 'Charging_Stations_Near_Work_digit2_cat_fe', 'Environmental_Concern_Level_digit-1_cat_fe', 'Charging_Stations_Near_Work_digit2_cat', 'Charging_Stations_Near_Home_digit2', 'Daily_Commute_km_digit3_cat', 'Age_digit2_cat', 'Annual_Income_USD_digit-2_cat_fe', 'Annual_Income_USD_digit-3', 'Environmental_Concern_Level_digit-4_cat_fe', 'Environmental_Concern_Level_digit1', 'Age_digit-1_cat', 'Charging_Stations_Near_Home_digit2_cat', 'Annual_Income_USD_digit-4_cat_fe', 'Environmental_Concern_Level_digit1_cat_fe', 'Environmental_Concern_Level_digit1_cat', 'Age_digit-4_cat_fe', 'Age_digit2_cat_fe', 'Daily_Commute_km_digit2', 'Age_digit-3_cat_fe', 'Charging_Stations_Near_Work_digit3_cat_fe', 'Age_digit-4', 'Environmental_Concern_Level_digit-4', 'Charging_Stations_Near_Home_digit-2_cat_fe', 'Age_digit-3', 'Annual_Income_USD_digit-3_cat', 'Annual_Income_USD_digit-4_cat', 'Age_digit-2', 'Age_digit-2_cat', 'Annual_Income_USD_digit-2_cat', 'Annual_Income_USD_digit-2', 'Environmental_Concern_Level_digit-3', 'Charging_Stations_Near_Work_digit3_cat', 'Charging_Stations_Near_Home_digit-3_cat_fe', 'Charging_Stations_Near_Work_digit-1', 'Charging_Stations_Near_Work_digit-1_cat_fe', 'Environmental_Concern_Level_digit-3_cat', 'Environmental_Concern_Level_digit3_cat', 'Age_digit-3_cat', 'Daily_Commute_km_digit3_cat_fe', 'Age_digit-1_cat_fe', 'Age_digit3_cat', 'Environmental_Concern_Level_digit2_cat_fe']\n"}
+,{"stream_name":"stdout","time":97.582581101,"data":"✅ Total Features: 106\n"}
+,{"stream_name":"stdout","time":97.5826236,"data":"✅ Columns to Target Encode: 41\n"}
+,{"stream_name":"stdout","time":97.602312109,"data":"✂️ Feature for dynamic pruning (Dropping 88 low-gain features)...\n"}
+,{"stream_name":"stdout","time":97.792795882,"data":"\n"}
+,{"stream_name":"stdout","time":97.792845058,"data":"🚀 Training XGBoost with 10 Folds...\n"}
+,{"stream_name":"stdout","time":183.889162784,"data":"   -\u003e Successfully pruned 85 features.\n"}
+,{"stream_name":"stdout","time":188.783236866,"data":"[0]\tvalidation_0-auc:0.92589\n"}
+,{"stream_name":"stdout","time":307.116752582,"data":"[1000]\tvalidation_0-auc:0.94481\n"}
+,{"stream_name":"stdout","time":410.274514823,"data":"[2000]\tvalidation_0-auc:0.94509\n"}
+,{"stream_name":"stdout","time":507.49310382,"data":"[3000]\tvalidation_0-auc:0.94514\n"}
+,{"stream_name":"stdout","time":597.20640732,"data":"[4000]\tvalidation_0-auc:0.94514\n"}
+,{"stream_name":"stdout","time":600.025000638,"data":"[4031]\tvalidation_0-auc:0.94514\n"}
+,{"stream_name":"stdout","time":610.257892997,"data":"   --\u003e Fold 1 CONVERGED at Tree #3531 | ROC-AUC: 0.94515\n"}
+,{"stream_name":"stdout","time":698.894891708,"data":"[0]\tvalidation_0-auc:0.92498\n"}
+,{"stream_name":"stdout","time":817.125101873,"data":"[1000]\tvalidation_0-auc:0.94504\n"}
+,{"stream_name":"stdout","time":919.422113752,"data":"[2000]\tvalidation_0-auc:0.94535\n"}
+,{"stream_name":"stdout","time":1014.793432058,"data":"[3000]\tvalidation_0-auc:0.94543\n"}
+,{"stream_name":"stdout","time":1105.383106053,"data":"[4000]\tvalidation_0-auc:0.94546\n"}
+,{"stream_name":"stdout","time":1178.810606097,"data":"[4836]\tvalidation_0-auc:0.94546\n"}
+,{"stream_name":"stdout","time":1190.791519099,"data":"   --\u003e Fold 2 CONVERGED at Tree #4336 | ROC-AUC: 0.94547\n"}
+,{"stream_name":"stdout","time":1280.476541096,"data":"[0]\tvalidation_0-auc:0.92699\n"}
+,{"stream_name":"stdout","time":1400.505612531,"data":"[1000]\tvalidation_0-auc:0.94536\n"}
+,{"stream_name":"stdout","time":1504.249149413,"data":"[2000]\tvalidation_0-auc:0.94557\n"}
+,{"stream_name":"stdout","time":1599.319836092,"data":"[3000]\tvalidation_0-auc:0.94563\n"}
+,{"stream_name":"stdout","time":1689.40909293,"data":"[4000]\tvalidation_0-auc:0.94565\n"}
+,{"stream_name":"stdout","time":1777.323959164,"data":"[5000]\tvalidation_0-auc:0.94566\n"}
+,{"stream_name":"stdout","time":1798.692364267,"data":"[5245]\tvalidation_0-auc:0.94566\n"}
+,{"stream_name":"stdout","time":1811.560863532,"data":"   --\u003e Fold 3 CONVERGED at Tree #4745 | ROC-AUC: 0.94567\n"}
+,{"stream_name":"stdout","time":1901.39886313,"data":"[0]\tvalidation_0-auc:0.92729\n"}
+,{"stream_name":"stdout","time":2020.959378843,"data":"[1000]\tvalidation_0-auc:0.94586\n"}
+,{"stream_name":"stdout","time":2124.896098012,"data":"[2000]\tvalidation_0-auc:0.94611\n"}
+,{"stream_name":"stdout","time":2223.124851992,"data":"[3000]\tvalidation_0-auc:0.94619\n"}
+,{"stream_name":"stdout","time":2313.88059956,"data":"[4000]\tvalidation_0-auc:0.94621\n"}
+,{"stream_name":"stdout","time":2366.843746245,"data":"[4600]\tvalidation_0-auc:0.94621\n"}
+,{"stream_name":"stdout","time":2378.457882795,"data":"   --\u003e Fold 4 CONVERGED at Tree #4100 | ROC-AUC: 0.94622\n"}
+,{"stream_name":"stdout","time":2471.536115411,"data":"[0]\tvalidation_0-auc:0.92777\n"}
+,{"stream_name":"stdout","time":2589.653623792,"data":"[1000]\tvalidation_0-auc:0.94660\n"}
+,{"stream_name":"stdout","time":2692.94629981,"data":"[2000]\tvalidation_0-auc:0.94690\n"}
+,{"stream_name":"stdout","time":2792.523813211,"data":"[3000]\tvalidation_0-auc:0.94698\n"}
+,{"stream_name":"stdout","time":2883.128094244,"data":"[4000]\tvalidation_0-auc:0.94700\n"}
+,{"stream_name":"stdout","time":2907.280849202,"data":"[4273]\tvalidation_0-auc:0.94699\n"}
+,{"stream_name":"stdout","time":2918.087198918,"data":"   --\u003e Fold 5 CONVERGED at Tree #3773 | ROC-AUC: 0.94700\n"}
+,{"stream_name":"stdout","time":3012.920896632,"data":"[0]\tvalidation_0-auc:0.92880\n"}
+,{"stream_name":"stdout","time":3134.062164912,"data":"[1000]\tvalidation_0-auc:0.94691\n"}
+,{"stream_name":"stdout","time":3247.829654396,"data":"[2000]\tvalidation_0-auc:0.94718\n"}
+,{"stream_name":"stdout","time":3348.406281888,"data":"[3000]\tvalidation_0-auc:0.94723\n"}
+,{"stream_name":"stdout","time":3444.244697067,"data":"[4000]\tvalidation_0-auc:0.94724\n"}
+,{"stream_name":"stdout","time":3533.013676658,"data":"[5000]\tvalidation_0-auc:0.94725\n"}
+,{"stream_name":"stdout","time":3592.577216967,"data":"[5699]\tvalidation_0-auc:0.94724\n"}
+,{"stream_name":"stdout","time":3606.341486559,"data":"   --\u003e Fold 6 CONVERGED at Tree #5199 | ROC-AUC: 0.94725\n"}
+,{"stream_name":"stdout","time":3698.519432439,"data":"[0]\tvalidation_0-auc:0.92675\n"}
+,{"stream_name":"stdout","time":3818.159031969,"data":"[1000]\tvalidation_0-auc:0.94592\n"}
+,{"stream_name":"stdout","time":3921.362189314,"data":"[2000]\tvalidation_0-auc:0.94608\n"}
+,{"stream_name":"stdout","time":4019.992422376,"data":"[3000]\tvalidation_0-auc:0.94611\n"}
+,{"stream_name":"stdout","time":4109.640922852,"data":"[3988]\tvalidation_0-auc:0.94610\n"}
+,{"stream_name":"stdout","time":4119.770438276,"data":"   --\u003e Fold 7 CONVERGED at Tree #3488 | ROC-AUC: 0.94611\n"}
+,{"stream_name":"stdout","time":4211.539496989,"data":"[0]\tvalidation_0-auc:0.92793\n"}
+,{"stream_name":"stdout","time":4329.722085739,"data":"[1000]\tvalidation_0-auc:0.94670\n"}
+,{"stream_name":"stdout","time":4431.698332923,"data":"[2000]\tvalidation_0-auc:0.94695\n"}
+,{"stream_name":"stdout","time":4527.148346879,"data":"[3000]\tvalidation_0-auc:0.94699\n"}
+,{"stream_name":"stdout","time":4625.28337206,"data":"[4000]\tvalidation_0-auc:0.94698\n"}
+,{"stream_name":"stdout","time":4626.600272802,"data":"[4016]\tvalidation_0-auc:0.94698\n"}
+,{"stream_name":"stdout","time":4637.013572931,"data":"   --\u003e Fold 8 CONVERGED at Tree #3516 | ROC-AUC: 0.94700\n"}
+,{"stream_name":"stdout","time":4730.802288163,"data":"[0]\tvalidation_0-auc:0.92790\n"}
+,{"stream_name":"stdout","time":4854.336026748,"data":"[1000]\tvalidation_0-auc:0.94688\n"}
+,{"stream_name":"stdout","time":4961.83352068,"data":"[2000]\tvalidation_0-auc:0.94714\n"}
+,{"stream_name":"stdout","time":5058.99313284,"data":"[3000]\tvalidation_0-auc:0.94718\n"}
+,{"stream_name":"stdout","time":5116.671733952,"data":"[3631]\tvalidation_0-auc:0.94719\n"}
+,{"stream_name":"stdout","time":5125.983832795,"data":"   --\u003e Fold 9 CONVERGED at Tree #3131 | ROC-AUC: 0.94719\n"}
+,{"stream_name":"stdout","time":5218.080331649,"data":"[0]\tvalidation_0-auc:0.92678\n"}
+,{"stream_name":"stdout","time":5336.047098366,"data":"[1000]\tvalidation_0-auc:0.94506\n"}
+,{"stream_name":"stdout","time":5441.94453162,"data":"[2000]\tvalidation_0-auc:0.94534\n"}
+,{"stream_name":"stdout","time":5538.714104232,"data":"[3000]\tvalidation_0-auc:0.94541\n"}
+,{"stream_name":"stdout","time":5629.618263632,"data":"[4000]\tvalidation_0-auc:0.94543\n"}
+,{"stream_name":"stdout","time":5670.774968236,"data":"[4470]\tvalidation_0-auc:0.94542\n"}
+,{"stream_name":"stdout","time":5681.94878804,"data":"   --\u003e Fold 10 CONVERGED at Tree #3970 | ROC-AUC: 0.94543\n"}
+,{"stream_name":"stdout","time":5682.440874659,"data":"\n"}
+,{"stream_name":"stdout","time":5682.440914871,"data":"=============================================\n"}
+,{"stream_name":"stdout","time":5682.440919786,"data":"🏆 XGBOOST FINAL OOF ROC-AUC: 0.94624\n"}
+,{"stream_name":"stdout","time":5682.440924781,"data":"=============================================\n"}
+,{"stream_name":"stdout","time":5683.11066645,"data":"💾 Saved 'submission_XGBOOST.csv'\n"}
+,{"stream_name":"stdout","time":5683.791070355,"data":"💾 Saved 'test_XGBOOST.csv'\n"}
+,{"stream_name":"stdout","time":5685.143201939,"data":"💾 Saved 'oof_XGBOOST.csv'\n"}
+,{"stream_name":"stdout","time":5685.143246386,"data":"💾 Saved 'feature_importance_XGBOOST.csv'\n"}
+,{"stream_name":"stdout","time":5685.143253247,"data":"\n"}
+,{"stream_name":"stdout","time":5685.14325942,"data":"🔥 Top 10 Features:\n"}
+,{"stream_name":"stdout","time":5685.143265714,"data":"                                        feature  importance\n"}
+,{"stream_name":"stdout","time":5685.143271434,"data":"0                    Subsidy_Available_org_mean    0.142717\n"}
+,{"stream_name":"stdout","time":5685.143276913,"data":"1                          Subsidy_Available_fe    0.131552\n"}
+,{"stream_name":"stdout","time":5685.143282492,"data":"2                      Subsidy_Available_TE_100    0.109131\n"}
+,{"stream_name":"stdout","time":5685.14328833,"data":"3          Environmental_Concern_Level_org_mean    0.103258\n"}
+,{"stream_name":"stdout","time":5685.143293936,"data":"4                   Environmental_Concern_Level    0.085169\n"}
+,{"stream_name":"stdout","time":5685.143299772,"data":"5                       Subsidy_Available_TE_10    0.081532\n"}
+,{"stream_name":"stdout","time":5685.143305027,"data":"6                     Subsidy_Available_TE_auto    0.069920\n"}
+,{"stream_name":"stdout","time":5685.143310473,"data":"7  Environmental_Concern_Level_digit0_cat_TE_10    0.035955\n"}
+,{"stream_name":"stdout","time":5685.143315948,"data":"8        Environmental_Concern_Level_cat_TE_100    0.031800\n"}
+,{"stream_name":"stdout","time":5685.143321585,"data":"9            Environmental_Concern_Level_cat_fe    0.030978\n"}
+,{"stream_name":"stdout","time":5685.143327161,"data":"\n"}
+,{"stream_name":"stdout","time":5685.143332189,"data":"🧊 Bottom 10 Features (Candidates for Pruning):\n"}
+,{"stream_name":"stdout","time":5685.143337791,"data":"                                             feature  importance\n"}
+,{"stream_name":"stdout","time":5685.143343177,"data":"93    Charging_Stations_Near_Work_digit-4_cat_TE_100    0.000332\n"}
+,{"stream_name":"stdout","time":5685.143349136,"data":"94                Charging_Stations_Near_Work_digit1    0.000328\n"}
+,{"stream_name":"stdout","time":5685.14335478,"data":"95     Charging_Stations_Near_Home_digit-4_cat_TE_10    0.000328\n"}
+,{"stream_name":"stdout","time":5685.143360735,"data":"96                 Daily_Commute_km_digit1_cat_TE_10    0.000327\n"}
+,{"stream_name":"stdout","time":5685.143366443,"data":"97      Charging_Stations_Near_Work_digit1_cat_TE_10    0.000326\n"}
+,{"stream_name":"stdout","time":5685.143371963,"data":"98                   Annual_Income_USD_digit2_cat_fe    0.000325\n"}
+,{"stream_name":"stdout","time":5685.143377632,"data":"99              Daily_Commute_km_digit-2_cat_TE_auto    0.000323\n"}
+,{"stream_name":"stdout","time":5685.143383329,"data":"100  Charging_Stations_Near_Work_digit-4_cat_TE_auto    0.000322\n"}
+,{"stream_name":"stdout","time":5685.143424235,"data":"101       Charging_Stations_Near_Home_digit-4_cat_fe    0.000320\n"}
+,{"stream_name":"stdout","time":5685.143430175,"data":"102    Charging_Stations_Near_Work_digit-4_cat_TE_10    0.000315\n"}
+,{"stream_name":"stderr","time":5691.504817332,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":5691.504859938,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":5691.76607496,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":5691.766111668,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":5692.796527776,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":5693.274284512,"data":"[NbConvertApp] Writing 35458 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":5696.997312203,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":5698.331108694,"data":"[NbConvertApp] Writing 354110 bytes to __results__.html\n"}
+]

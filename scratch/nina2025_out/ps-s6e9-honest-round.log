@@ -1,0 +1,32 @@
+[{"stream_name":"stderr","time":8.059971333,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":8.060097673,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":8.060104523,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":8.060108493,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":8.785616624,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":8.785685874,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":8.785692204,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":8.785696674,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":11.139388327,"data":"--- Loading baseline submission datasets ---\n"}
+,{"stream_name":"stdout","time":11.473401757,"data":"--- Executing Round 1: Running the stable 0.74 Magic ---\n"}
+,{"stream_name":"stdout","time":11.473449527,"data":"--- Applying Rank Transformation \u0026 Post-Blending ---\n"}
+,{"stream_name":"stdout","time":11.675948911999999,"data":"--- Success! Final stabilized submission saved to 'submission.csv' ---\n"}
+,{"stream_name":"stdout","time":11.676022962,"data":"       id  Will_Buy_EV\n"}
+,{"stream_name":"stdout","time":11.676028722,"data":"0  668665     0.574646\n"}
+,{"stream_name":"stdout","time":11.676032062,"data":"1  668666     0.480949\n"}
+,{"stream_name":"stdout","time":11.676035082,"data":"2  668667     0.309951\n"}
+,{"stream_name":"stdout","time":11.676038452,"data":"3  668668     0.253942\n"}
+,{"stream_name":"stdout","time":11.676041602,"data":"4  668669     0.555655\n"}
+,{"stream_name":"stdout","time":11.676044462,"data":"5  668670     0.315914\n"}
+,{"stream_name":"stdout","time":11.676047342,"data":"6  668671     0.833346\n"}
+,{"stream_name":"stdout","time":11.676050172,"data":"7  668672     0.072909\n"}
+,{"stream_name":"stdout","time":11.676053012,"data":"8  668673     0.898844\n"}
+,{"stream_name":"stdout","time":11.676055882,"data":"9  668674     0.414051\n"}
+,{"stream_name":"stderr","time":15.251200613,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":15.251269543,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":15.424078876,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":15.424223587,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":16.184584137,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":16.473211133,"data":"[NbConvertApp] Writing 5282 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":19.438617296,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":20.31557703,"data":"[NbConvertApp] Writing 281733 bytes to __results__.html\n"}
+]

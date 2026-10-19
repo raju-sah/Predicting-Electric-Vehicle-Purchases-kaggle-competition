@@ -1,0 +1,45 @@
+[{"stream_name":"stderr","time":7.295207374,"data":"/usr/local/lib/python3.12/dist-packages/nbformat/__init__.py:96: MissingIDFieldWarning: Cell is missing an id field, this will become a hard error in future nbformat versions. You may want to use `normalize()` on your notebooks before validations (available since nbformat 5.1.4). Previous versions of nbformat are fixing this issue transparently, and will stop doing so in the future.\n"}
+,{"stream_name":"stderr","time":7.295299861,"data":"  validate(nb)\n"}
+,{"stream_name":"stderr","time":8.380980962,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":8.381018254,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":8.38102514,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":8.381030145,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":9.197291001,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":9.197336061,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":9.197341155,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":9.197344468,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":19.822351104,"data":"train (668665, 15)  test (286571, 14)  positive rate 0.17465\n"}
+,{"stream_name":"stdout","time":19.822433132,"data":"7 numeric: ['Age', 'Annual_Income_USD', 'Daily_Commute_km', 'Number_of_Cars_Owned', 'Charging_Stations_Near_Home', 'Charging_Stations_Near_Work', 'Environmental_Concern_Level']\n"}
+,{"stream_name":"stdout","time":19.822438875,"data":"6 categorical: ['Gender', 'City_Type', 'Current_Car_Type', 'Home_Charging_Possible', 'Subsidy_Available', 'Range_Anxiety_Level']\n"}
+,{"stream_name":"stdout","time":19.946862099,"data":"missing values: train 0, test 0\n"}
+,{"stream_name":"stdout","time":142.922729596,"data":"  base: digits + interactions + frequency: 154 columns\n"}
+,{"stream_name":"stdout","time":620.455003089,"data":"  base: digits + interactions + frequency: OOF 0.944522   600s\n"}
+,{"stream_name":"stdout","time":853.31330971,"data":"  + dual target encoding: 292 columns\n"}
+,{"stream_name":"stdout","time":1711.04971326,"data":"  + dual target encoding: OOF 0.945609   1091s\n"}
+,{"stream_name":"stdout","time":1983.602628501,"data":"  + original-dataset means: 305 columns\n"}
+,{"stream_name":"stdout","time":2863.59807706,"data":"  + original-dataset means: OOF 0.945598   1153s\n"}
+,{"stream_name":"stdout","time":3118.22530969,"data":"  + four hand flags: 309 columns\n"}
+,{"stream_name":"stdout","time":4053.848699233,"data":"  + four hand flags: OOF 0.945609   1190s\n"}
+,{"stream_name":"stdout","time":4279.896936256,"data":"  target encoding + flags, no original: 296 columns\n"}
+,{"stream_name":"stdout","time":5265.221842488,"data":"  target encoding + flags, no original: OOF 0.945601   1211s\n"}
+,{"stream_name":"stdout","time":5266.863779867,"data":"rank correlation between the two arms' OOF: 0.99228\n"}
+,{"stream_name":"stdout","time":5266.947253298,"data":"share of rows the two arms rank more than 1 percentile apart: 67.7%\n"}
+,{"stream_name":"stdout","time":5267.685266555,"data":"       id  Will_Buy_EV\n"}
+,{"stream_name":"stdout","time":5267.68530792,"data":"0  668665     0.022255\n"}
+,{"stream_name":"stdout","time":5267.685315304,"data":"1  668666     0.015724\n"}
+,{"stream_name":"stdout","time":5267.685343752,"data":"2  668667     0.005074\n"}
+,{"stream_name":"stdout","time":5267.685348743,"data":"3  668668     0.002884\n"}
+,{"stream_name":"stdout","time":5267.685352423,"data":"4  668669     0.022533\n"}
+,{"stream_name":"stdout","time":5267.685356658,"data":"wrote submission.csv  (286571, 2)   total runtime 87.5 min\n"}
+,{"stream_name":"stdout","time":5268.275862147,"data":"library member h OOF AUC : 0.944507\n"}
+,{"stream_name":"stdout","time":5268.516555678,"data":"this notebook base arm   : 0.944522\n"}
+,{"stream_name":"stdout","time":5268.612398216,"data":"rank correlation         : 0.99812\n"}
+,{"stream_name":"stderr","time":5273.017239992,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":5273.017292372,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":5273.25175655,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":5273.251790653,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":5274.181706506,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":5274.596174393,"data":"[NbConvertApp] Writing 45054 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":5278.013459542,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":5279.219720227,"data":"[NbConvertApp] Writing 378645 bytes to __results__.html\n"}
+]

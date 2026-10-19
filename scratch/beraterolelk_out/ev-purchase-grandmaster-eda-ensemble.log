@@ -1,0 +1,54 @@
+[{"stream_name":"stderr","time":7.961220327,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":7.961288061,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":7.961295768,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":7.961300829,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":8.739639737,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":8.739676597,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":8.739682759,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":8.739688732,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":16.970204948,"data":"🚀 Environment initialized with TokyoNight theme \u0026 LightGBM acceleration.\n"}
+,{"stream_name":"stdout","time":19.036718447,"data":"ℹ️ Original dataset not mounted directly; creating synthetic proxy prior.\n"}
+,{"stream_name":"stdout","time":19.036761358,"data":"📊 Training shape:   (668665, 15)\n"}
+,{"stream_name":"stdout","time":19.03676864,"data":"📊 Test shape:       (286571, 14)\n"}
+,{"stream_name":"stdout","time":19.036774726,"data":"📊 Target balance:   {'No': 0.8253549983923191, 'Yes': 0.17464500160768098}\n"}
+,{"stream_name":"stdout","time":19.645156939,"data":"🔢 Extracting digit powers for 6 continuous features...\n"}
+,{"stream_name":"stdout","time":47.733567233,"data":"🎯 Engineering hard edge boundary flags...\n"}
+,{"stream_name":"stdout","time":100.928761874,"data":"✅ Total Engineered Features: 109\n"}
+,{"stream_name":"stdout","time":100.928803005,"data":"✅ Categorical Targets to Encode: 41\n"}
+,{"stream_name":"stdout","time":105.343175633,"data":"🚀 Training SOTA LightGBM with 5-Fold Stratified Cross-Validation...\n"}
+,{"stream_name":"stdout","time":280.490919273,"data":"[1000]\tvalid_0's auc: 0.945528\n"}
+,{"stream_name":"stdout","time":360.292181308,"data":"   --\u003e Fold 1 Converged @ Iteration #1345 | ROC-AUC: 0.94556\n"}
+,{"stream_name":"stdout","time":532.746890883,"data":"[1000]\tvalid_0's auc: 0.946001\n"}
+,{"stream_name":"stdout","time":614.129147878,"data":"   --\u003e Fold 2 Converged @ Iteration #1372 | ROC-AUC: 0.94603\n"}
+,{"stream_name":"stdout","time":786.80774254,"data":"[1000]\tvalid_0's auc: 0.947253\n"}
+,{"stream_name":"stdout","time":857.309542988,"data":"   --\u003e Fold 3 Converged @ Iteration #1245 | ROC-AUC: 0.94726\n"}
+,{"stream_name":"stdout","time":1028.480130134,"data":"[1000]\tvalid_0's auc: 0.946829\n"}
+,{"stream_name":"stdout","time":1095.428756267,"data":"   --\u003e Fold 4 Converged @ Iteration #1216 | ROC-AUC: 0.94684\n"}
+,{"stream_name":"stdout","time":1268.546868624,"data":"[1000]\tvalid_0's auc: 0.946549\n"}
+,{"stream_name":"stdout","time":1358.314164806,"data":"   --\u003e Fold 5 Converged @ Iteration #1454 | ROC-AUC: 0.94657\n"}
+,{"stream_name":"stdout","time":1358.315346127,"data":"=================================================================\n"}
+,{"stream_name":"stdout","time":1358.315373632,"data":"🏆 OVERALL OUT-OF-FOLD (OOF) ROC-AUC: 0.94644\n"}
+,{"stream_name":"stdout","time":1358.315381978,"data":"=================================================================\n"}
+,{"stream_name":"stdout","time":1359.019027476,"data":"✅ Final submission.csv saved with 286571 rows.\n"}
+,{"stream_name":"stdout","time":1359.019082808,"data":"📊 Prediction Summary:\n"}
+,{"stream_name":"stdout","time":1359.019089416,"data":"  • Mean Predicted Probability: 0.1747\n"}
+,{"stream_name":"stdout","time":1359.019094192,"data":"  • Min Predicted Probability:  0.0000\n"}
+,{"stream_name":"stdout","time":1359.019098877,"data":"  • Max Predicted Probability:  1.0000\n"}
+,{"stream_name":"stdout","time":1359.019103195,"data":"  • Head rows:\n"}
+,{"stream_name":"stdout","time":1359.019106202,"data":"       id  Will_Buy_EV\n"}
+,{"stream_name":"stdout","time":1359.019109232,"data":"0  668665     0.037333\n"}
+,{"stream_name":"stdout","time":1359.019112103,"data":"1  668666     0.016148\n"}
+,{"stream_name":"stdout","time":1359.019115063,"data":"2  668667     0.003394\n"}
+,{"stream_name":"stdout","time":1359.019117928,"data":"3  668668     0.002143\n"}
+,{"stream_name":"stdout","time":1359.01912081,"data":"4  668669     0.024300\n"}
+,{"stream_name":"stderr","time":1364.066904187,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":1364.066957632,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":1364.258726854,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":1364.258756984,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":1365.066543045,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":1365.484080551,"data":"[NbConvertApp] Writing 166827 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":1368.706183672,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":1369.844336841,"data":"[NbConvertApp] Support files will be in __results___files/\n"}
+,{"stream_name":"stderr","time":1369.844378133,"data":"[NbConvertApp] Making directory __results___files\n"}
+,{"stream_name":"stderr","time":1369.844719509,"data":"[NbConvertApp] Writing 356797 bytes to __results__.html\n"}
+]

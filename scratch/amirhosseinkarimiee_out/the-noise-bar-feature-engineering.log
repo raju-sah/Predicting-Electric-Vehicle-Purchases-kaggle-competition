@@ -1,0 +1,284 @@
+[{"stream_name":"stderr","time":6.26159977,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":6.261688207,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":6.261693032,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":6.261695658,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":6.824756209,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":6.824795713,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":6.824818239,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":6.824822774,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":16.058623381,"data":"GPU available: True  -\u003e  USE_GPU = True\n"}
+,{"stream_name":"stdout","time":16.259010176,"data":"Using data from: /kaggle/input/competitions/playground-series-s6e9\n"}
+,{"stream_name":"stdout","time":17.489765765,"data":"train: (668665, 15)  test: (286571, 14)  sample_submission: (286571, 2)\n"}
+,{"stream_name":"stdout","time":17.512892571,"data":"13 features -\u003e 7 numeric, 6 categorical\n"}
+,{"stream_name":"stdout","time":17.512921776,"data":"numeric: ['Age', 'Annual_Income_USD', 'Daily_Commute_km', 'Number_of_Cars_Owned', 'Charging_Stations_Near_Home', 'Charging_Stations_Near_Work', 'Environmental_Concern_Level']\n"}
+,{"stream_name":"stdout","time":17.512927809,"data":"categorical: ['Gender', 'City_Type', 'Current_Car_Type', 'Home_Charging_Possible', 'Subsidy_Available', 'Range_Anxiety_Level']\n"}
+,{"stream_name":"stdout","time":17.838786208,"data":"\u003cclass 'pandas.core.frame.DataFrame'\u003e\n"}
+,{"stream_name":"stdout","time":17.838831744,"data":"RangeIndex: 668665 entries, 0 to 668664\n"}
+,{"stream_name":"stdout","time":17.838837387,"data":"Data columns (total 15 columns):\n"}
+,{"stream_name":"stdout","time":17.83884128,"data":" #   Column                       Non-Null Count   Dtype  \n"}
+,{"stream_name":"stdout","time":17.838844855,"data":"---  ------                       --------------   -----  \n"}
+,{"stream_name":"stdout","time":17.838848365,"data":" 0   id                           668665 non-null  int64  \n"}
+,{"stream_name":"stdout","time":17.838852253,"data":" 1   Age                          668665 non-null  int64  \n"}
+,{"stream_name":"stdout","time":17.83885623,"data":" 2   Annual_Income_USD            668665 non-null  float64\n"}
+,{"stream_name":"stdout","time":17.838860001,"data":" 3   Daily_Commute_km             668665 non-null  float64\n"}
+,{"stream_name":"stdout","time":17.838863617,"data":" 4   Number_of_Cars_Owned         668665 non-null  int64  \n"}
+,{"stream_name":"stdout","time":17.838867134,"data":" 5   Charging_Stations_Near_Home  668665 non-null  int64  \n"}
+,{"stream_name":"stdout","time":17.838870694,"data":" 6   Charging_Stations_Near_Work  668665 non-null  int64  \n"}
+,{"stream_name":"stdout","time":17.838874369,"data":" 7   Environmental_Concern_Level  668665 non-null  float64\n"}
+,{"stream_name":"stdout","time":17.838877875,"data":" 8   Gender                       668665 non-null  object \n"}
+,{"stream_name":"stdout","time":17.838881391,"data":" 9   City_Type                    668665 non-null  object \n"}
+,{"stream_name":"stdout","time":17.838890926,"data":" 10  Current_Car_Type             668665 non-null  object \n"}
+,{"stream_name":"stdout","time":17.838908827,"data":" 11  Home_Charging_Possible       668665 non-null  object \n"}
+,{"stream_name":"stdout","time":17.838912623,"data":" 12  Subsidy_Available            668665 non-null  object \n"}
+,{"stream_name":"stdout","time":17.838916315,"data":" 13  Range_Anxiety_Level          668665 non-null  object \n"}
+,{"stream_name":"stdout","time":17.838920828,"data":" 14  Will_Buy_EV                  668665 non-null  object \n"}
+,{"stream_name":"stdout","time":17.838924193,"data":"dtypes: float64(3), int64(5), object(7)\n"}
+,{"stream_name":"stdout","time":17.838927299,"data":"memory usage: 76.5+ MB\n"}
+,{"stream_name":"stdout","time":18.684323361,"data":"Low-cardinality numeric columns (\u003c=20 distinct values): ['Number_of_Cars_Owned', 'Charging_Stations_Near_Home', 'Charging_Stations_Near_Work', 'Environmental_Concern_Level']\n"}
+,{"stream_name":"stdout","time":18.684371772,"data":"  Number_of_Cars_Owned: [np.int64(1), np.int64(2), np.int64(3), np.int64(4)]\n"}
+,{"stream_name":"stdout","time":18.684377811,"data":"  Charging_Stations_Near_Home: [np.int64(0), np.int64(1), np.int64(2), np.int64(3), np.int64(4), np.int64(5), np.int64(6), np.int64(7), np.int64(8), np.int64(9), np.int64(10), np.int64(11), np.int64(12), np.int64(13), np.int64(14)]\n"}
+,{"stream_name":"stdout","time":18.684383433,"data":"  Charging_Stations_Near_Work: [np.int64(0), np.int64(1), np.int64(2), np.int64(3), np.int64(4), np.int64(5), np.int64(6), np.int64(7), np.int64(8), np.int64(9), np.int64(10), np.int64(11), np.int64(12), np.int64(13), np.int64(14), np.int64(15), np.int64(16), np.int64(17), np.int64(18), np.int64(19)]\n"}
+,{"stream_name":"stdout","time":18.68438792,"data":"  Environmental_Concern_Level: [np.float64(1.0), np.float64(2.0), np.float64(3.0), np.float64(4.0), np.float64(5.0)]\n"}
+,{"stream_name":"stdout","time":18.92358073,"data":"Class ratio (majority:minority) = 4.73 : 1\n"}
+,{"stream_name":"stdout","time":18.923609297,"data":"This is a moderately imbalanced binary target. Since the metric is ROC-AUC (a ranking metric,\n"}
+,{"stream_name":"stdout","time":18.923614387,"data":"not accuracy), we do NOT need to rebalance classes or pick a threshold — we just need well-\n"}
+,{"stream_name":"stdout","time":18.923618947,"data":"calibrated *relative* ordering of predicted probabilities. class_weight/scale_pos_weight can still\n"}
+,{"stream_name":"stdout","time":18.923622965,"data":"help gradient boosters converge a little faster, so we'll try it, but it is not mandatory here.\n"}
+,{"stream_name":"stdout","time":20.313400319,"data":"'Annual_Income_USD': 9.2% of train sits exactly at 30000.0 (test: 9.2%) — a generation artifact, not a real spike.\n"}
+,{"stream_name":"stdout","time":20.313452002,"data":"'Daily_Commute_km': 21.6% of train sits exactly at 5.0 (test: 21.5%) — a generation artifact, not a real spike.\n"}
+,{"stream_name":"stdout","time":22.717731162,"data":"Largest drift: 'Charging_Stations_Near_Work' at 0.0030 (numeric (ECDF))\n"}
+,{"stream_name":"stdout","time":22.717795488,"data":"For reference, a same-distribution split of train against itself typically lands well under 0.01 —\n"}
+,{"stream_name":"stdout","time":22.71780322,"data":"use that as your own rule of thumb for what counts as 'small' on this run.\n"}
+,{"stream_name":"stdout","time":51.44189649,"data":"Top 3: ['Environmental_Concern_Level', 'Subsidy_Available', 'Annual_Income_USD']\n"}
+,{"stream_name":"stdout","time":51.849631139,"data":"Engineered features: ['Total_Charging_Stations', 'No_Charging_Access', 'Income_per_Age', 'Commute_per_Car', 'Concern_x_Charging', 'Subsidy_Flag', 'Home_Charging_Flag', 'Concern_x_Subsidy', 'Concern_x_Income', 'Subsidy_x_Income', 'HomeCharging_x_Subsidy', 'Income_per_Concern', 'Commute_per_Concern', 'Range_Anxiety_Ordinal', 'Anxiety_x_Subsidy']\n"}
+,{"stream_name":"stdout","time":94.924348506,"data":"baseline (raw features only):        AUC = 0.94125\n"}
+,{"stream_name":"stdout","time":138.140088507,"data":"baseline + random noise column:      AUC = 0.94119   (bar = 0.00006)\n"}
+,{"stream_name":"stdout","time":196.207771592,"data":"baseline + engineered features:      AUC = 0.94135   (gain = +0.00010)\n"}
+,{"stream_name":"stdout","time":196.207808995,"data":"\n"}
+,{"stream_name":"stdout","time":196.207815979,"data":"-\u003e Gain (0.00010) clears the noise bar (0.00006). Keeping the engineered features.\n"}
+,{"stream_name":"stdout","time":200.16872553,"data":"Added 56 digit features from 7 numeric columns\n"}
+,{"stream_name":"stdout","time":279.503054228,"data":"+ digit features:                    AUC = 0.94282   (gain = +0.00146)\n"}
+,{"stream_name":"stdout","time":279.503092028,"data":"-\u003e Clears the noise bar (0.00006). Keeping digit features.\n"}
+,{"stream_name":"stdout","time":326.809728369,"data":"Added 84 frequency features\n"}
+,{"stream_name":"stdout","time":457.298138371,"data":"+ frequency features:                AUC = 0.94372   (gain = +0.00090)\n"}
+,{"stream_name":"stdout","time":457.298211809,"data":"-\u003e Clears the noise bar (0.00006). Keeping frequency features.\n"}
+,{"stream_name":"stdout","time":474.689068259,"data":"Dropping 60 constant + 21 perfectly-duplicate columns: ['Age_digit-1', 'Age_digit-1_freq', 'Age_digit-2', 'Age_digit-2_freq', 'Age_digit-3', 'Age_digit-3_freq', 'Age_digit-4', 'Age_digit-4_freq', 'Age_digit2', 'Age_digit2_freq', 'Age_digit3', 'Age_digit3_freq', 'Annual_Income_USD_digit-1', 'Annual_Income_USD_digit-1_freq', 'Annual_Income_USD_digit-2', 'Annual_Income_USD_digit-2_freq', 'Annual_Income_USD_digit-3', 'Annual_Income_USD_digit-3_freq', 'Annual_Income_USD_digit-4', 'Annual_Income_USD_digit-4_freq', 'Charging_Stations_Near_Home_digit-1', 'Charging_Stations_Near_Home_digit-1_freq', 'Charging_Stations_Near_Home_digit-2', 'Charging_Stations_Near_Home_digit-2_freq', 'Charging_Stations_Near_Home_digit-3', 'Charging_Stations_Near_Home_digit-3_freq', 'Charging_Stations_Near_Home_digit2', 'Charging_Stations_Near_Home_digit2_freq', 'Charging_Stations_Near_Home_digit3', 'Charging_Stations_Near_Home_digit3_freq', 'Charging_Stations_Near_Work_digit-1', 'Charging_Stations_Near_Work_digit-1_freq', 'Charging_Stations_Near_Work_digit-2', 'Charging_Stations_Near_Work_digit-2_freq', 'Charging_Stations_Near_Work_digit-3', 'Charging_Stations_Near_Work_digit-3_freq', 'Charging_Stations_Near_Work_digit2', 'Charging_Stations_Near_Work_digit2_freq', 'Charging_Stations_Near_Work_digit3', 'Charging_Stations_Near_Work_digit3_freq', 'Daily_Commute_km_digit-2', 'Daily_Commute_km_digit-2_freq', 'Daily_Commute_km_digit2', 'Daily_Commute_km_digit2_freq', 'Daily_Commute_km_digit3', 'Daily_Commute_km_digit3_freq', 'Environmental_Concern_Level_digit-1', 'Environmental_Concern_Level_digit-1_freq', 'Environmental_Concern_Level_digit-2', 'Environmental_Concern_Level_digit-2_freq', 'Environmental_Concern_Level_digit-3', 'Environmental_Concern_Level_digit-3_freq', 'Environmental_Concern_Level_digit-4', 'Environmental_Concern_Level_digit-4_freq', 'Environmental_Concern_Level_digit0', 'Environmental_Concern_Level_digit0_freq', 'Environmental_Concern_Level_digit1', 'Environmental_Concern_Level_digit1_freq', 'Environmental_Concern_Level_digit2', 'Environmental_Concern_Level_digit2_freq', 'Environmental_Concern_Level_digit3', 'Environmental_Concern_Level_digit3_freq', 'Home_Charging_Flag_freq', 'Number_of_Cars_Owned_digit-1', 'Number_of_Cars_Owned_digit-1_freq', 'Number_of_Cars_Owned_digit-2', 'Number_of_Cars_Owned_digit-2_freq', 'Number_of_Cars_Owned_digit-3', 'Number_of_Cars_Owned_digit-3_freq', 'Number_of_Cars_Owned_digit-4', 'Number_of_Cars_Owned_digit-4_freq', 'Number_of_Cars_Owned_digit0', 'Number_of_Cars_Owned_digit0_freq', 'Number_of_Cars_Owned_digit1', 'Number_of_Cars_Owned_digit1_freq', 'Number_of_Cars_Owned_digit2', 'Number_of_Cars_Owned_digit2_freq', 'Number_of_Cars_Owned_digit3', 'Number_of_Cars_Owned_digit3_freq', 'Range_Anxiety_Ordinal_freq', 'Subsidy_Flag_freq']\n"}
+,{"stream_name":"stdout","time":475.383534168,"data":"87 final features\n"}
+,{"stream_name":"stdout","time":476.02251688,"data":"5-fold StratifiedKFold(shuffle=True, random_state=42)\n"}
+,{"stream_name":"stdout","time":1641.235638926,"data":"Best CV AUC during search: 0.94245\n"}
+,{"stream_name":"stdout","time":1641.235699663,"data":"Best params: {'learning_rate': 0.03971440322932568, 'num_leaves': 172, 'max_depth': 4, 'min_child_samples': 99, 'subsample': 0.7998200394642513, 'colsample_bytree': 0.8865434140148407, 'reg_alpha': 0.009364769250054052, 'reg_lambda': 0.38935314727041004}\n"}
+,{"stream_name":"stdout","time":1652.879599321,"data":"Target-encoded 6 categorical columns, cached for all 5 folds.\n"}
+,{"stream_name":"stderr","time":1655.820666485,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1655.98233535,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1656.023301322,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1656.023337605,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1656.02334262,"data":"\n"}
+,{"stream_name":"stderr","time":1656.023346828,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1656.023350561,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1656.087792117,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1656.202769099,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1656.290416262,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1656.290445967,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1656.290452084,"data":"\n"}
+,{"stream_name":"stderr","time":1656.290457482,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1656.29046243,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1656.349362043,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1656.438277755,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1656.551773047,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1656.551801198,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1656.551807273,"data":"\n"}
+,{"stream_name":"stderr","time":1656.551811875,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1656.551816764,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1656.552940241,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1656.653789999,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1656.755408241,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1656.755433082,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1656.755439303,"data":"\n"}
+,{"stream_name":"stderr","time":1656.755444376,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1656.755449494,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1656.766743889,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1656.853047081,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1656.953328504,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1656.968863001,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1656.968887663,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1656.96889346,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1656.968898069,"data":"\n"}
+,{"stream_name":"stderr","time":1656.968913713,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1656.968917844,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1656.968921666,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1657.061819275,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1657.180651255,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1657.264030256,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1657.26405584,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1657.264060249,"data":"\n"}
+,{"stream_name":"stderr","time":1657.264063571,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1657.264066691,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1657.295869968,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1657.406138834,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1657.49868066,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1657.498706794,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1657.498711659,"data":"\n"}
+,{"stream_name":"stderr","time":1657.498715508,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1657.498719437,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1657.518584184,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1657.626875849,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1657.721396597,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1657.721420148,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1657.72142434,"data":"\n"}
+,{"stream_name":"stderr","time":1657.72142786,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1657.72143129,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1657.729921161,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1657.830146498,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1657.932569906,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1657.932595678,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1657.932599301,"data":"\n"}
+,{"stream_name":"stderr","time":1657.932601822,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1657.932604166,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1657.950759337,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1658.048605488,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1658.15339187,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1658.153414001,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1658.153418517,"data":"\n"}
+,{"stream_name":"stderr","time":1658.153422068,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1658.153425465,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1658.157935214,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1658.267594132,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1658.360559874,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1658.360588218,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1658.360594055,"data":"\n"}
+,{"stream_name":"stderr","time":1658.360602703,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1658.360606556,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1658.386736938,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1658.499141152,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1658.589293702,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1658.589318009,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1658.589322302,"data":"\n"}
+,{"stream_name":"stderr","time":1658.589326039,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1658.589329566,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1658.59995621,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1658.714997765,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1658.802596833,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1658.802626584,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1658.802630454,"data":"\n"}
+,{"stream_name":"stderr","time":1658.802633033,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1658.802635339,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1658.832327384,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1658.933171193,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1659.034676949,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1659.034704459,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1659.034709061,"data":"\n"}
+,{"stream_name":"stderr","time":1659.034712474,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1659.034716176,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1659.046577667,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1659.163631333,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1659.248940775,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1659.248966015,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1659.248970978,"data":"\n"}
+,{"stream_name":"stderr","time":1659.248974824,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1659.248978347,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1659.264433893,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1659.376881984,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1659.467100684,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1659.467124102,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1659.46712779,"data":"\n"}
+,{"stream_name":"stderr","time":1659.467130768,"data":"1 warning generated.\n"}
+,{"stream_name":"stderr","time":1659.467133845,"data":"1 warning generated.\n"}
+,{"stream_name":"stdout","time":1740.043370719,"data":"  fold 0: AUC = 0.94345  (best_iteration=1973)\n"}
+,{"stream_name":"stdout","time":1833.09426925,"data":"  fold 1: AUC = 0.94435  (best_iteration=2274)\n"}
+,{"stream_name":"stdout","time":1898.634104078,"data":"  fold 2: AUC = 0.94543  (best_iteration=1527)\n"}
+,{"stream_name":"stdout","time":1965.62504157,"data":"  fold 3: AUC = 0.94486  (best_iteration=1572)\n"}
+,{"stream_name":"stdout","time":2041.953217181,"data":"  fold 4: AUC = 0.94448  (best_iteration=1850)\n"}
+,{"stream_name":"stdout","time":2041.953254886,"data":"\n"}
+,{"stream_name":"stdout","time":2041.953261055,"data":"LightGBM OOF AUC: 0.94451\n"}
+,{"stream_name":"stdout","time":2073.343752431,"data":"  fold 0: AUC = 0.94363  (best_iteration=1439)\n"}
+,{"stream_name":"stdout","time":2106.836821274,"data":"  fold 1: AUC = 0.94438  (best_iteration=1622)\n"}
+,{"stream_name":"stdout","time":2139.153885106,"data":"  fold 2: AUC = 0.94542  (best_iteration=1554)\n"}
+,{"stream_name":"stdout","time":2168.519372228,"data":"  fold 3: AUC = 0.94482  (best_iteration=1358)\n"}
+,{"stream_name":"stdout","time":2198.456424483,"data":"  fold 4: AUC = 0.94460  (best_iteration=1395)\n"}
+,{"stream_name":"stdout","time":2198.456466536,"data":"\n"}
+,{"stream_name":"stdout","time":2198.456471308,"data":"XGBoost OOF AUC: 0.94457\n"}
+,{"stream_name":"stderr","time":2202.249584371,"data":"Default metric period is 5 because AUC is/are not implemented for GPU\n"}
+,{"stream_name":"stderr","time":2202.249614984,"data":"\n"}
+,{"stream_name":"stderr","time":2202.249620477,"data":"Default metric period is 5 because AUC is/are not implemented for GPU\n"}
+,{"stream_name":"stdout","time":2454.09223952,"data":"  fold 0: AUC = 0.94320  (best_iteration=3572)\n"}
+,{"stream_name":"stderr","time":2456.695581486,"data":"Default metric period is 5 because AUC is/are not implemented for GPU\n"}
+,{"stream_name":"stderr","time":2456.695614251,"data":"\n"}
+,{"stream_name":"stderr","time":2456.695619224,"data":"Default metric period is 5 because AUC is/are not implemented for GPU\n"}
+,{"stream_name":"stdout","time":2671.177038898,"data":"  fold 1: AUC = 0.94384  (best_iteration=3459)\n"}
+,{"stream_name":"stderr","time":2673.955421015,"data":"Default metric period is 5 because AUC is/are not implemented for GPU\n"}
+,{"stream_name":"stderr","time":2673.955462679,"data":"\n"}
+,{"stream_name":"stderr","time":2673.955469333,"data":"Default metric period is 5 because AUC is/are not implemented for GPU\n"}
+,{"stream_name":"stdout","time":2862.694668378,"data":"  fold 2: AUC = 0.94512  (best_iteration=3013)\n"}
+,{"stream_name":"stderr","time":2865.327009217,"data":"Default metric period is 5 because AUC is/are not implemented for GPU\n"}
+,{"stream_name":"stderr","time":2865.327057471,"data":"\n"}
+,{"stream_name":"stderr","time":2865.327064616,"data":"Default metric period is 5 because AUC is/are not implemented for GPU\n"}
+,{"stream_name":"stdout","time":3053.613425768,"data":"  fold 3: AUC = 0.94450  (best_iteration=2994)\n"}
+,{"stream_name":"stderr","time":3056.39732421,"data":"Default metric period is 5 because AUC is/are not implemented for GPU\n"}
+,{"stream_name":"stderr","time":3056.397361784,"data":"\n"}
+,{"stream_name":"stderr","time":3056.397366745,"data":"Default metric period is 5 because AUC is/are not implemented for GPU\n"}
+,{"stream_name":"stdout","time":3260.572934897,"data":"  fold 4: AUC = 0.94404  (best_iteration=3274)\n"}
+,{"stream_name":"stdout","time":3260.572974799,"data":"\n"}
+,{"stream_name":"stdout","time":3260.572980867,"data":"CatBoost OOF AUC: 0.94413\n"}
+,{"stream_name":"stdout","time":3270.649792893,"data":"  fold 0: AUC = 0.93674\n"}
+,{"stream_name":"stdout","time":3283.00172509,"data":"  fold 1: AUC = 0.93815\n"}
+,{"stream_name":"stdout","time":3297.23402802,"data":"  fold 2: AUC = 0.93925\n"}
+,{"stream_name":"stdout","time":3310.237241884,"data":"  fold 3: AUC = 0.93881\n"}
+,{"stream_name":"stdout","time":3323.751324236,"data":"  fold 4: AUC = 0.93822\n"}
+,{"stream_name":"stdout","time":3323.751370722,"data":"\n"}
+,{"stream_name":"stdout","time":3323.751376528,"data":"Logistic Regression OOF AUC: 0.93823\n"}
+,{"stream_name":"stdout","time":3380.473674572,"data":"  LightGBM               weight = 0.416\n"}
+,{"stream_name":"stdout","time":3380.473712916,"data":"  XGBoost                weight = 0.527\n"}
+,{"stream_name":"stdout","time":3380.473718597,"data":"  CatBoost               weight = 0.057\n"}
+,{"stream_name":"stdout","time":3380.473723152,"data":"  LogReg                 weight = 0.000\n"}
+,{"stream_name":"stdout","time":3380.581021497,"data":"\n"}
+,{"stream_name":"stdout","time":3380.581064441,"data":"Simple average AUC : 0.94392\n"}
+,{"stream_name":"stdout","time":3380.581084981,"data":"Best single model  : 0.94457 (XGBoost)\n"}
+,{"stream_name":"stdout","time":3380.581088093,"data":"Optimized blend    : 0.94467\n"}
+,{"stream_name":"stdout","time":3387.10885446,"data":"Optimized blend AUC     : 0.94467\n"}
+,{"stream_name":"stdout","time":3387.108921567,"data":"Stacking meta-model AUC : 0.94301\n"}
+,{"stream_name":"stdout","time":3387.108929155,"data":"meta-model coefficients: {'LightGBM': np.float64(1.725), 'XGBoost': np.float64(3.872), 'CatBoost': np.float64(-2.272), 'LogReg': np.float64(3.36)}\n"}
+,{"stream_name":"stdout","time":3387.108934926,"data":"\n"}
+,{"stream_name":"stdout","time":3387.108940037,"data":"-\u003e The blend wins (or ties). Using it for the final submission.\n"}
+,{"stream_name":"stdout","time":3388.843984922,"data":"ROC-AUC only cares about ranking, so calibration doesn't change your leaderboard score — but a\n"}
+,{"stream_name":"stdout","time":3388.844026369,"data":"well-calibrated model is more trustworthy if you ever use these probabilities for anything besides\n"}
+,{"stream_name":"stdout","time":3388.84403145,"data":"submission (e.g. picking a threshold, or explaining a prediction to someone).\n"}
+,{"stream_name":"stdout","time":3391.502966272,"data":"Weakest segment: Subsidy_Available = No  (AUC 0.8759, n=248,756)\n"}
+,{"stream_name":"stdout","time":3401.431432628,"data":"Added 4 windowed target-rate features (fold-safe): ['Annual_Income_USD_win3000', 'Annual_Income_USD_win15000', 'Daily_Commute_km_win2', 'Daily_Commute_km_win8']\n"}
+,{"stream_name":"stdout","time":3467.511884436,"data":"  fold 0: AUC = 0.94347\n"}
+,{"stream_name":"stdout","time":3521.912383329,"data":"  fold 1: AUC = 0.94412\n"}
+,{"stream_name":"stdout","time":3585.474735118,"data":"  fold 2: AUC = 0.94537\n"}
+,{"stream_name":"stdout","time":3637.720555703,"data":"  fold 3: AUC = 0.94470\n"}
+,{"stream_name":"stdout","time":3709.235873973,"data":"  fold 4: AUC = 0.94447\n"}
+,{"stream_name":"stdout","time":3709.235912836,"data":"\n"}
+,{"stream_name":"stdout","time":3709.235919152,"data":"Alternate-view LightGBM OOF AUC: 0.94442   (main ensemble so far: 0.94467)\n"}
+,{"stream_name":"stdout","time":3709.533071318,"data":"Correlation between the main ensemble and the alternate view: 0.99801\n"}
+,{"stream_name":"stdout","time":3709.533113414,"data":"(the public analysis this idea comes from found ~0.999 correlation means basically no gain --\n"}
+,{"stream_name":"stdout","time":3709.533120281,"data":" the lower this number, the more real diversity the second view is likely adding)\n"}
+,{"stream_name":"stdout","time":3713.461995023,"data":"\n"}
+,{"stream_name":"stdout","time":3713.462036885,"data":"Best alternate-view weight on OOF: 0.25  -\u003e  AUC = 0.94470\n"}
+,{"stream_name":"stdout","time":3713.462043424,"data":"Main ensemble alone was:                          AUC = 0.94467\n"}
+,{"stream_name":"stdout","time":3713.462053664,"data":"\n"}
+,{"stream_name":"stdout","time":3713.462057413,"data":"-\u003e The second view earns a place at weight 0.25. Updating the final prediction.\n"}
+,{"stream_name":"stdout","time":3713.932600891,"data":"Submitting the optimized blend + alternate view (rank blend, w=0.25) (OOF AUC = 0.94470)\n"}
+,{"stream_name":"stderr","time":3718.286209024,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":3718.286257309,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":3718.434376547,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":3718.434401322,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":3719.044870663,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":3719.401101499,"data":"[NbConvertApp] Writing 1148224 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":3721.769623366,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":3722.818276103,"data":"[NbConvertApp] Support files will be in __results___files/\n"}
+,{"stream_name":"stderr","time":3722.818309454,"data":"[NbConvertApp] Making directory __results___files\n"}
+,{"stream_name":"stderr","time":3722.818603691,"data":"[NbConvertApp] Making directory __results___files\n"}
+,{"stream_name":"stderr","time":3722.818826019,"data":"[NbConvertApp] Making directory __results___files\n"}
+,{"stream_name":"stderr","time":3722.819131733,"data":"[NbConvertApp] Making directory __results___files\n"}
+,{"stream_name":"stderr","time":3722.819392896,"data":"[NbConvertApp] Making directory __results___files\n"}
+,{"stream_name":"stderr","time":3722.819596233,"data":"[NbConvertApp] Making directory __results___files\n"}
+,{"stream_name":"stderr","time":3722.81979542,"data":"[NbConvertApp] Making directory __results___files\n"}
+,{"stream_name":"stderr","time":3722.820001385,"data":"[NbConvertApp] Making directory __results___files\n"}
+,{"stream_name":"stderr","time":3722.820118455,"data":"[NbConvertApp] Making directory __results___files\n"}
+,{"stream_name":"stderr","time":3722.820387139,"data":"[NbConvertApp] Making directory __results___files\n"}
+,{"stream_name":"stderr","time":3722.820567349,"data":"[NbConvertApp] Making directory __results___files\n"}
+,{"stream_name":"stderr","time":3722.820827951,"data":"[NbConvertApp] Making directory __results___files\n"}
+,{"stream_name":"stderr","time":3722.821086915,"data":"[NbConvertApp] Writing 625464 bytes to __results__.html\n"}
+]

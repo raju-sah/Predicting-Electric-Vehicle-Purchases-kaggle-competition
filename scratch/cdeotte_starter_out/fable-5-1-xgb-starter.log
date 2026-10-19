@@ -1,0 +1,38 @@
+[{"stream_name":"stderr","time":11.081204812,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":11.081287176,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":11.081295104,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":11.081299607,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":11.889035235,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":11.889072132999999,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":11.889075793,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":11.889078539,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":21.03519332,"data":"train 668,665 rows, test 286,571 rows, buyers 17.5%\n"}
+,{"stream_name":"stdout","time":23.407337165,"data":"GPU found - training will be quick\n"}
+,{"stream_name":"stdout","time":24.535736543,"data":"17 features: ['Age', 'Annual_Income_USD', 'Daily_Commute_km', 'Number_of_Cars_Owned', 'Charging_Stations_Near_Home', 'Charging_Stations_Near_Work', 'Environmental_Concern_Level', 'Gender', 'City_Type', 'Current_Car_Type', 'Home_Charging_Possible', 'Subsidy_Available', 'Range_Anxiety_Level', 'worry_score', 'chargers_total', 'income_x_subsidy', 'concern_x_subsidy']\n"}
+,{"stream_name":"stdout","time":25.416008143,"data":"recipe alone, AUC on train: 0.9377  (that is the head start before any tree is grown)\n"}
+,{"stream_name":"stdout","time":44.968087381,"data":"Model 1 - baseline: CV AUC = 0.94193 | folds [0.94078, 0.94165, 0.94295, 0.94246, 0.94187] | boosting rounds [589, 503, 458, 452, 444] | 19s\n"}
+,{"stream_name":"stdout","time":61.963495575,"data":"Model 2 - recipe as base margin: CV AUC = 0.94198 | folds [0.94086, 0.9417, 0.94302, 0.94247, 0.94188] | boosting rounds [486, 401, 386, 414, 446] | 17s\n"}
+,{"stream_name":"stdout","time":80.993452152,"data":"Model 3 - recipe as a feature: CV AUC = 0.94198 | folds [0.94077, 0.9417, 0.94307, 0.94249, 0.94193] | boosting rounds [513, 509, 481, 481, 476] | 19s\n"}
+,{"stream_name":"stdout","time":82.369775179,"data":"correlation between the models' predictions:\n"}
+,{"stream_name":"stdout","time":82.369821988,"data":"        M1      M2      M3\n"}
+,{"stream_name":"stdout","time":82.369829596,"data":"M1  1.0000  0.9991  0.9989\n"}
+,{"stream_name":"stdout","time":82.369835504,"data":"M2  0.9991  1.0000  0.9988\n"}
+,{"stream_name":"stdout","time":82.369841366,"data":"M3  0.9989  0.9988  1.0000\n"}
+,{"stream_name":"stdout","time":82.369847841,"data":"\n"}
+,{"stream_name":"stdout","time":82.36985377,"data":"equal-weight blend of the three: CV AUC = 0.94207\n"}
+,{"stream_name":"stderr","time":88.932372157,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":88.932428998,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":89.134947397,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":89.135014538,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":90.097471957,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":90.446755218,"data":"[NbConvertApp] Writing 463456 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":93.289282587,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":94.258849527,"data":"[NbConvertApp] Support files will be in __results___files/\n"}
+,{"stream_name":"stderr","time":94.258910524,"data":"[NbConvertApp] Making directory __results___files\n"}
+,{"stream_name":"stderr","time":94.259281387,"data":"[NbConvertApp] Making directory __results___files\n"}
+,{"stream_name":"stderr","time":94.259593227,"data":"[NbConvertApp] Making directory __results___files\n"}
+,{"stream_name":"stderr","time":94.259798974,"data":"[NbConvertApp] Making directory __results___files\n"}
+,{"stream_name":"stderr","time":94.260122688,"data":"[NbConvertApp] Making directory __results___files\n"}
+,{"stream_name":"stderr","time":94.260407352,"data":"[NbConvertApp] Making directory __results___files\n"}
+,{"stream_name":"stderr","time":94.260721574,"data":"[NbConvertApp] Writing 351378 bytes to __results__.html\n"}
+]

@@ -1,0 +1,95 @@
+[{"stream_name":"stderr","time":8.828052024,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":8.828121318,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":8.828128567,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":8.828133181,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":9.507615672,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":9.507673267,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":9.507679548,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":9.507683956,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":18.038885171,"data":"PyTorch  version: 2.8.0+cu126\n"}
+,{"stream_name":"stdout","time":19.800099895,"data":"Train shape: (668665, 15)\n"}
+,{"stream_name":"stdout","time":19.800160272,"data":"Test shape : (286571, 14)\n"}
+,{"stream_name":"stdout","time":19.80018876,"data":"Orig shape : (10000, 15)\n"}
+,{"stream_name":"stdout","time":20.027204508,"data":"X      init shape: (668665, 13)\n"}
+,{"stream_name":"stdout","time":20.027264845,"data":"X_test init shape: (286571, 13) \n"}
+,{"stream_name":"stdout","time":20.027272275,"data":"\n"}
+,{"stream_name":"stdout","time":20.198215281,"data":"init len(cat_cols): 6\n"}
+,{"stream_name":"stdout","time":20.198280958,"data":"init len(num_cols): 7 \n"}
+,{"stream_name":"stdout","time":20.198321245,"data":"\n"}
+,{"stream_name":"stdout","time":23.711367032,"data":"len(new_cat_cols): 19\n"}
+,{"stream_name":"stdout","time":23.711423143,"data":"len(new_num_cols): 4 \n"}
+,{"stream_name":"stdout","time":23.711430829,"data":"\n"}
+,{"stream_name":"stdout","time":23.711436615,"data":"prep len(cat_cols): 25\n"}
+,{"stream_name":"stdout","time":23.711442066,"data":"prep len(num_cols): 11 \n"}
+,{"stream_name":"stdout","time":23.711447597,"data":"\n"}
+,{"stream_name":"stdout","time":23.711452612,"data":"X      prep shape: (668665, 36)\n"}
+,{"stream_name":"stdout","time":23.711457856,"data":"X_test prep shape: (286571, 36) \n"}
+,{"stream_name":"stdout","time":23.711463968,"data":"\n"}
+,{"stream_name":"stdout","time":23.71146916,"data":"CPU times: user 3.46 s, sys: 396 ms, total: 3.86 s\n"}
+,{"stream_name":"stdout","time":23.711474296,"data":"Wall time: 3.88 s\n"}
+,{"stream_name":"stdout","time":24.678064293,"data":"len(FEATURES): 38 \n"}
+,{"stream_name":"stdout","time":24.6781395,"data":"\n"}
+,{"stream_name":"stdout","time":24.678148228,"data":"################\n"}
+,{"stream_name":"stdout","time":24.678161081,"data":"### Fold 1/5 ...\n"}
+,{"stream_name":"stdout","time":24.678166964,"data":"################\n"}
+,{"stream_name":"stdout","time":88.066879036,"data":"  epoch 1/2  score = 0.94442  best = 0.94442  ls = 0.0200  drop = 0.0068 ✓\n"}
+,{"stream_name":"stdout","time":143.433766107,"data":"  epoch 2/2  score = 0.94491  best = 0.94491  ls = 0.0000  drop = 0.0009 ✓\n"}
+,{"stream_name":"stdout","time":143.433804706,"data":"  → best score: 0.94491  (epoch 2)\n"}
+,{"stream_name":"stdout","time":144.549347276,"data":"\n"}
+,{"stream_name":"stdout","time":144.54939888,"data":"Fold 1 | Score: 0.94491\n"}
+,{"stream_name":"stdout","time":144.549406303,"data":"\n"}
+,{"stream_name":"stdout","time":145.109177269,"data":"################\n"}
+,{"stream_name":"stdout","time":145.10922365,"data":"### Fold 2/5 ...\n"}
+,{"stream_name":"stdout","time":145.109230007,"data":"################\n"}
+,{"stream_name":"stdout","time":201.378808186,"data":"  epoch 1/2  score = 0.94520  best = 0.94520  ls = 0.0200  drop = 0.0068 ✓\n"}
+,{"stream_name":"stdout","time":256.257969319,"data":"  epoch 2/2  score = 0.94575  best = 0.94575  ls = 0.0000  drop = 0.0009 ✓\n"}
+,{"stream_name":"stdout","time":256.258020663,"data":"  → best score: 0.94575  (epoch 2)\n"}
+,{"stream_name":"stdout","time":257.377089085,"data":"\n"}
+,{"stream_name":"stdout","time":257.377135532,"data":"Fold 2 | Score: 0.94575\n"}
+,{"stream_name":"stdout","time":257.377142186,"data":"\n"}
+,{"stream_name":"stdout","time":257.885257901,"data":"################\n"}
+,{"stream_name":"stdout","time":257.885309079,"data":"### Fold 3/5 ...\n"}
+,{"stream_name":"stdout","time":257.885316431,"data":"################\n"}
+,{"stream_name":"stdout","time":313.670682968,"data":"  epoch 1/2  score = 0.94635  best = 0.94635  ls = 0.0200  drop = 0.0068 ✓\n"}
+,{"stream_name":"stdout","time":368.332571813,"data":"  epoch 2/2  score = 0.94678  best = 0.94678  ls = 0.0000  drop = 0.0009 ✓\n"}
+,{"stream_name":"stdout","time":368.332612251,"data":"  → best score: 0.94678  (epoch 2)\n"}
+,{"stream_name":"stdout","time":369.493219173,"data":"\n"}
+,{"stream_name":"stdout","time":369.493270295,"data":"Fold 3 | Score: 0.94678\n"}
+,{"stream_name":"stdout","time":369.493277709,"data":"\n"}
+,{"stream_name":"stdout","time":370.022884867,"data":"################\n"}
+,{"stream_name":"stdout","time":370.02292867,"data":"### Fold 4/5 ...\n"}
+,{"stream_name":"stdout","time":370.022936435,"data":"################\n"}
+,{"stream_name":"stdout","time":425.83419706,"data":"  epoch 1/2  score = 0.94574  best = 0.94574  ls = 0.0200  drop = 0.0068 ✓\n"}
+,{"stream_name":"stdout","time":480.322621608,"data":"  epoch 2/2  score = 0.94603  best = 0.94603  ls = 0.0000  drop = 0.0009 ✓\n"}
+,{"stream_name":"stdout","time":480.322665859,"data":"  → best score: 0.94603  (epoch 2)\n"}
+,{"stream_name":"stdout","time":481.505859546,"data":"\n"}
+,{"stream_name":"stdout","time":481.505911393,"data":"Fold 4 | Score: 0.94603\n"}
+,{"stream_name":"stdout","time":481.505918846,"data":"\n"}
+,{"stream_name":"stdout","time":482.039524093,"data":"################\n"}
+,{"stream_name":"stdout","time":482.039573773,"data":"### Fold 5/5 ...\n"}
+,{"stream_name":"stdout","time":482.039582318,"data":"################\n"}
+,{"stream_name":"stdout","time":538.189607195,"data":"  epoch 1/2  score = 0.94546  best = 0.94546  ls = 0.0200  drop = 0.0068 ✓\n"}
+,{"stream_name":"stdout","time":592.809116216,"data":"  epoch 2/2  score = 0.94594  best = 0.94594  ls = 0.0000  drop = 0.0009 ✓\n"}
+,{"stream_name":"stdout","time":592.80917257,"data":"  → best score: 0.94594  (epoch 2)\n"}
+,{"stream_name":"stdout","time":593.937135387,"data":"\n"}
+,{"stream_name":"stdout","time":593.937178743,"data":"Fold 5 | Score: 0.94594\n"}
+,{"stream_name":"stdout","time":593.937186456,"data":"\n"}
+,{"stream_name":"stdout","time":593.937190825,"data":"==========================\n"}
+,{"stream_name":"stdout","time":593.937197214,"data":"Overall OOF Score: \u001b[1m0.94587\u001b[0m\n"}
+,{"stream_name":"stdout","time":593.937202095,"data":"========================== \n"}
+,{"stream_name":"stdout","time":593.937207392,"data":"\n"}
+,{"stream_name":"stdout","time":593.93721185,"data":"CPU times: user 9min 24s, sys: 3.08 s, total: 9min 27s\n"}
+,{"stream_name":"stdout","time":593.937233115,"data":"Wall time: 9min 30s\n"}
+,{"stream_name":"stderr","time":600.468337221,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":600.468378885,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":600.646949906,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":600.64698986,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":601.421769274,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"remove_papermill_header.RemovePapermillHeader\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":601.42181775,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":601.464738966,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":601.775826097,"data":"[NbConvertApp] Writing 58806 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":604.284004971,"data":"/usr/local/lib/python3.12/dist-packages/traitlets/traitlets.py:2915: FutureWarning: --Exporter.preprocessors=[\"nbconvert.preprocessors.ExtractOutputPreprocessor\"] for containers is deprecated in traitlets 5.0. You can pass `--Exporter.preprocessors item` ... multiple times to add items to a list.\n"}
+,{"stream_name":"stderr","time":604.284066611,"data":"  warn(\n"}
+,{"stream_name":"stderr","time":604.314482237,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":605.283067018,"data":"[NbConvertApp] Writing 459388 bytes to __results__.html\n"}
+]
