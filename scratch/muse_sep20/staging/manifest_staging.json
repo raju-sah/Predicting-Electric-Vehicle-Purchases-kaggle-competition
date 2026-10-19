@@ -1,0 +1,113 @@
+{
+  "outer_split": "StratifiedKFold(5, shuffle=True, random_state=42)",
+  "gate": 0.9422999999999999,
+  "components": [
+    "memory",
+    "lgb6",
+    "xgb5",
+    "hgbB"
+  ],
+  "candidates": [
+    {
+      "stage": "p75",
+      "name": "muse_hgbB_solo",
+      "method": "probability",
+      "weights": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "pooled_oof_auc": 0.9432322528022163,
+      "mean_fold_auc": 0.943239858987004,
+      "fold_auc": [
+        0.9421089081792495,
+        0.9429781424839492,
+        0.9441677334007408,
+        0.9436504704082872,
+        0.9432940404627927
+      ],
+      "qualifies": true,
+      "test_rho_vs_v57": 0.9875420774121085,
+      "test_rho_vs_v68": 0.9885885537726831,
+      "test_rho_vs_memory": 0.9882777886601104,
+      "sha256": "5966cffec7f87e7f20746744f7d4a5fd464c2c24d9788aba8cc515daf1c1ebef"
+    },
+    {
+      "stage": "p76",
+      "name": "muse_prob4_fixed",
+      "method": "probability",
+      "weights": [
+        0.45,
+        0.2,
+        0.2,
+        0.15
+      ],
+      "pooled_oof_auc": 0.9462151224386199,
+      "mean_fold_auc": 0.9462198049503383,
+      "fold_auc": [
+        0.9452361125720994,
+        0.9458943175995036,
+        0.9471326589801942,
+        0.9465158127975547,
+        0.9463201228023401
+      ],
+      "qualifies": true,
+      "test_rho_vs_v57": 0.9976347040823113,
+      "test_rho_vs_v68": 0.9992667767851652,
+      "test_rho_vs_memory": 0.9989501742148887,
+      "sha256": "903f5f2386f6dca1ef5af2603083b0845eb95be9488841bf781de2dcbc304941"
+    },
+    {
+      "stage": "p77",
+      "name": "muse_rank4_fixed",
+      "method": "rank",
+      "weights": [
+        0.45,
+        0.2,
+        0.2,
+        0.15
+      ],
+      "pooled_oof_auc": 0.9462240229756791,
+      "mean_fold_auc": 0.9462286905208861,
+      "fold_auc": [
+        0.9452471305480884,
+        0.9459032857189695,
+        0.947129513864053,
+        0.946527992558497,
+        0.9463355299148234
+      ],
+      "qualifies": true,
+      "test_rho_vs_v57": 0.9979722250458719,
+      "test_rho_vs_v68": 0.9997268051118394,
+      "test_rho_vs_memory": 0.9994242831990439,
+      "sha256": "c0ef7e34ae50f9109625102c45b4b0073612bba932f52483d54c397b4770f5e0"
+    },
+    {
+      "stage": "p78",
+      "name": "muse_logit4_fixed",
+      "method": "logit",
+      "weights": [
+        0.45,
+        0.2,
+        0.2,
+        0.15
+      ],
+      "pooled_oof_auc": 0.9462450440684402,
+      "mean_fold_auc": 0.9462496508136242,
+      "fold_auc": [
+        0.9452704299422309,
+        0.945922604249634,
+        0.9471535083693752,
+        0.9465399275527538,
+        0.9463617839541275
+      ],
+      "qualifies": true,
+      "test_rho_vs_v57": 0.9979798558023455,
+      "test_rho_vs_v68": 0.9997596989169598,
+      "test_rho_vs_memory": 0.999477187427923,
+      "sha256": "718da05378bce01b2b130765c166f574e33abb3b7780f157431c7b2fe7e7e0d2"
+    }
+  ],
+  "weight_note": "fixed a priori; OOF confirmatory, not selected"
+}

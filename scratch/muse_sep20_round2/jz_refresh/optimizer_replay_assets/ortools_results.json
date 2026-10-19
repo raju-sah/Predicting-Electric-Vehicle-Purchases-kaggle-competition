@@ -1,0 +1,47 @@
+{
+  "weights": {
+    "Current best proxy": 0.25,
+    "Optuna TPE": 0.7,
+    "Google Vizier Eagle": 0.05
+  },
+  "solver_statuses": [
+    "OPTIMAL",
+    "OPTIMAL",
+    "OPTIMAL"
+  ],
+  "feasible_blends": 129,
+  "enumerated_blends": 136,
+  "worst_tuning_gain": 1.81832e-07,
+  "total_tuning_gain": 5.4789e-07,
+  "spec": {
+    "units": 20,
+    "minimum_baseline_units": 5,
+    "max_mean_test_change": 3e-05,
+    "max_test_change": 0.0002,
+    "objective": "Maximize worst tuning-fold AUC gain, then total tuning gain, then baseline weight",
+    "score_integer_scale": 1000000000000,
+    "tuning_folds": [
+      0,
+      1
+    ],
+    "evaluation_fold": 2,
+    "note": "CP-SAT uses exact AUC evaluations of the discrete blends, not a weighted average of component AUCs. No holdout label enters the solver. This evaluation fold was used in earlier research and is not untouched."
+  },
+  "evaluation_baseline_auc": 0.946853851968949,
+  "evaluation_auc": 0.9468539998467356,
+  "evaluation_delta": 1.478777865715486e-07,
+  "paired_standard_error": 2.9917889027822847e-07,
+  "approximate_95pct_interval": [
+    -4.3851283837377923e-07,
+    7.342684115168764e-07
+  ],
+  "candidate_file": "submission_optimizer_ortools_unsubmitted.csv",
+  "sha256": "73564f554125ceb9f13cd84384405e4ffc7c92c2a0b1d94d4fbf931b6a5a3017",
+  "mean_absolute_change": 2.6505650522589004e-05,
+  "max_absolute_change": 0.00017178467022543995,
+  "raised": 113658,
+  "lowered": 20017,
+  "unchanged": 152896,
+  "submission_status": "unsubmitted",
+  "note": "Optimal means best feasible blend on this discrete tuning grid, not optimal true AUC or hidden Kaggle score. No new public gain has been measured."
+}

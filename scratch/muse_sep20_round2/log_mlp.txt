@@ -1,0 +1,7 @@
+features 72
+fold 0: AUC 0.9370363 iters 22 elapsed 7.3min
+fold 1: AUC 0.9386333 iters 22 elapsed 14.4min
+fold 2: AUC 0.9393924 iters 21 elapsed 21.5min
+fold 3: AUC 0.9390497 iters 17 elapsed 25.7min
+fold 4: AUC 0.9381040 iters 27 elapsed 33.1min
+MLP DONE pooled=0.9383752

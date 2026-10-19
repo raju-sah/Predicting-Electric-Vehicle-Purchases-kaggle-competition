@@ -1,0 +1,88 @@
+features: 82 | train (668665, 82) test (286571, 82)
+0:	learn: 0.6491509	test: 0.6492774	best: 0.6492774 (0)	total: 479ms	remaining: 19m 56s
+250:	learn: 0.2275449	test: 0.2308949	best: 0.2308949 (250)	total: 1m 30s	remaining: 13m 28s
+500:	learn: 0.2251268	test: 0.2290394	best: 0.2290394 (500)	total: 3m 4s	remaining: 12m 15s
+750:	learn: 0.2232908	test: 0.2277696	best: 0.2277696 (750)	total: 4m 32s	remaining: 10m 35s
+1000:	learn: 0.2218282	test: 0.2270308	best: 0.2270295 (998)	total: 6m 11s	remaining: 9m 16s
+1250:	learn: 0.2207436	test: 0.2266113	best: 0.2266110 (1249)	total: 7m 50s	remaining: 7m 49s
+1500:	learn: 0.2196971	test: 0.2262996	best: 0.2262996 (1500)	total: 9m 24s	remaining: 6m 15s
+1750:	learn: 0.2186430	test: 0.2260458	best: 0.2260458 (1750)	total: 10m 57s	remaining: 4m 41s
+2000:	learn: 0.2176957	test: 0.2259105	best: 0.2259063 (1985)	total: 12m 30s	remaining: 3m 7s
+2250:	learn: 0.2167841	test: 0.2257526	best: 0.2257523 (2249)	total: 14m 3s	remaining: 1m 33s
+2499:	learn: 0.2159138	test: 0.2256764	best: 0.2256684 (2486)	total: 15m 36s	remaining: 0us
+
+bestTest = 0.2256683948
+bestIteration = 2486
+
+Shrink model to first 2487 iterations.
+fold 0: AUC 0.9422183 trees 2487 elapsed 15.7min
+0:	learn: 0.6490623	test: 0.6490499	best: 0.6490499 (0)	total: 319ms	remaining: 13m 18s
+250:	learn: 0.2279611	test: 0.2290933	best: 0.2290933 (250)	total: 1m 28s	remaining: 13m 12s
+500:	learn: 0.2253828	test: 0.2272010	best: 0.2272010 (500)	total: 2m 58s	remaining: 11m 53s
+750:	learn: 0.2234597	test: 0.2259667	best: 0.2259667 (750)	total: 4m 26s	remaining: 10m 20s
+1000:	learn: 0.2221212	test: 0.2253700	best: 0.2253700 (1000)	total: 6m 7s	remaining: 9m 10s
+1250:	learn: 0.2209994	test: 0.2250051	best: 0.2250051 (1250)	total: 7m 45s	remaining: 7m 45s
+1500:	learn: 0.2199864	test: 0.2247580	best: 0.2247560 (1496)	total: 9m 17s	remaining: 6m 10s
+1750:	learn: 0.2189358	test: 0.2245014	best: 0.2245012 (1705)	total: 11m 17s	remaining: 4m 49s
+2000:	learn: 0.2180083	test: 0.2243333	best: 0.2243333 (2000)	total: 13m 9s	remaining: 3m 16s
+2250:	learn: 0.2170829	test: 0.2241896	best: 0.2241886 (2246)	total: 15m 5s	remaining: 1m 40s
+2499:	learn: 0.2162114	test: 0.2240927	best: 0.2240913 (2496)	total: 16m 59s	remaining: 0us
+
+bestTest = 0.2240913255
+bestIteration = 2496
+
+Shrink model to first 2497 iterations.
+fold 1: AUC 0.9430667 trees 2497 elapsed 32.8min
+0:	learn: 0.6507147	test: 0.6506463	best: 0.6506463 (0)	total: 635ms	remaining: 26m 25s
+250:	learn: 0.2284346	test: 0.2270204	best: 0.2270204 (250)	total: 1m 54s	remaining: 17m 7s
+500:	learn: 0.2258581	test: 0.2251806	best: 0.2251806 (500)	total: 4m 9s	remaining: 16m 34s
+750:	learn: 0.2239913	test: 0.2240825	best: 0.2240825 (750)	total: 6m 26s	remaining: 14m 59s
+1000:	learn: 0.2226566	test: 0.2234859	best: 0.2234859 (1000)	total: 8m 36s	remaining: 12m 53s
+1250:	learn: 0.2214723	test: 0.2230287	best: 0.2230287 (1250)	total: 10m 46s	remaining: 10m 45s
+1500:	learn: 0.2204322	test: 0.2227664	best: 0.2227664 (1498)	total: 12m 55s	remaining: 8m 36s
+1750:	learn: 0.2194243	test: 0.2225711	best: 0.2225711 (1750)	total: 14m 59s	remaining: 6m 24s
+2000:	learn: 0.2184385	test: 0.2224125	best: 0.2224125 (2000)	total: 17m 1s	remaining: 4m 14s
+2250:	learn: 0.2175575	test: 0.2223055	best: 0.2223055 (2250)	total: 18m 56s	remaining: 2m 5s
+2499:	learn: 0.2166647	test: 0.2222251	best: 0.2222232 (2490)	total: 20m 46s	remaining: 0us
+
+bestTest = 0.222223217
+bestIteration = 2490
+
+Shrink model to first 2491 iterations.
+fold 2: AUC 0.9442164 trees 2491 elapsed 53.7min
+0:	learn: 0.6494390	test: 0.6493706	best: 0.6493706 (0)	total: 424ms	remaining: 17m 39s
+250:	learn: 0.2282942	test: 0.2276320	best: 0.2276320 (250)	total: 1m 46s	remaining: 15m 51s
+500:	learn: 0.2257298	test: 0.2258370	best: 0.2258370 (500)	total: 3m 33s	remaining: 14m 12s
+750:	learn: 0.2240782	test: 0.2248568	best: 0.2248568 (750)	total: 5m 10s	remaining: 12m 2s
+1000:	learn: 0.2225920	test: 0.2241270	best: 0.2241270 (1000)	total: 6m 28s	remaining: 9m 41s
+1250:	learn: 0.2213687	test: 0.2236888	best: 0.2236881 (1247)	total: 7m 47s	remaining: 7m 46s
+1500:	learn: 0.2202386	test: 0.2233968	best: 0.2233942 (1495)	total: 9m 6s	remaining: 6m 3s
+1750:	learn: 0.2192114	test: 0.2232057	best: 0.2232009 (1726)	total: 10m 25s	remaining: 4m 27s
+2000:	learn: 0.2182155	test: 0.2230409	best: 0.2230403 (1999)	total: 11m 44s	remaining: 2m 55s
+2250:	learn: 0.2172477	test: 0.2229391	best: 0.2229391 (2250)	total: 13m 4s	remaining: 1m 26s
+Stopped by overfitting detector  (150 iterations wait)
+
+bestTest = 0.2229230865
+bestIteration = 2310
+
+Shrink model to first 2311 iterations.
+fold 3: AUC 0.9437160 trees 2311 elapsed 68.0min
+0:	learn: 0.6499696	test: 0.6500329	best: 0.6500329 (0)	total: 338ms	remaining: 14m 5s
+250:	learn: 0.2282345	test: 0.2287428	best: 0.2287428 (250)	total: 1m 33s	remaining: 14m
+500:	learn: 0.2258421	test: 0.2269043	best: 0.2269043 (500)	total: 3m 8s	remaining: 12m 31s
+750:	learn: 0.2241309	test: 0.2257934	best: 0.2257934 (750)	total: 4m 43s	remaining: 11m
+1000:	learn: 0.2227283	test: 0.2250852	best: 0.2250852 (1000)	total: 7m	remaining: 10m 29s
+1250:	learn: 0.2214463	test: 0.2245209	best: 0.2245209 (1250)	total: 9m 9s	remaining: 9m 8s
+1500:	learn: 0.2203111	test: 0.2241312	best: 0.2241305 (1491)	total: 11m 19s	remaining: 7m 32s
+1750:	learn: 0.2192832	test: 0.2239684	best: 0.2239657 (1739)	total: 13m 28s	remaining: 5m 45s
+2000:	learn: 0.2183337	test: 0.2238644	best: 0.2238639 (1999)	total: 15m 35s	remaining: 3m 53s
+2250:	learn: 0.2174297	test: 0.2238107	best: 0.2238074 (2244)	total: 17m 43s	remaining: 1m 57s
+2499:	learn: 0.2165719	test: 0.2236969	best: 0.2236962 (2496)	total: 19m 54s	remaining: 0us
+
+bestTest = 0.2236962087
+bestIteration = 2496
+
+Shrink model to first 2497 iterations.
+fold 4: AUC 0.9433355 trees 2497 elapsed 88.0min
+CATA DONE pooled=0.9433034 folds=[0.9422182585748942, 0.9430667197071548, 0.9442163760276528, 0.9437160112461594, 0.943335528997821]
+EXIT:0

@@ -1,0 +1,15 @@
+{
+  "teacher_oof_auc": 0.9460654479188958,
+  "candidate_oof_auc": 0.9461334072001011,
+  "delta": 6.79592812052876e-05,
+  "fold_deltas": [
+    6.517356043089784e-05,
+    5.7519007358841634e-05,
+    6.439982169936798e-05,
+    5.956500083292848e-05,
+    7.009481709030485e-05
+  ],
+  "wins": 5,
+  "accepted": true,
+  "folds": "StratifiedKFold(5, shuffle=True, random_state=42)"
+}

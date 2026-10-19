@@ -1,0 +1,141 @@
+{
+  "components": [
+    "memory",
+    "lgb6",
+    "xgb5",
+    "catA",
+    "hgbB"
+  ],
+  "weights5": [
+    0.4,
+    0.15,
+    0.15,
+    0.15,
+    0.15
+  ],
+  "outer_split": "StratifiedKFold(5, shuffle=True, random_state=42)",
+  "gate": 0.9422999999999999,
+  "candidates": [
+    {
+      "version": "v75",
+      "file": "subs/v75_muse_catA_solo.csv",
+      "method": "probability",
+      "weights": [
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      "pooled_oof_auc": 0.9433033550795582,
+      "mean_fold_auc": 0.9433105789107366,
+      "fold_auc": [
+        0.9422182585748942,
+        0.9430667197071548,
+        0.9442163760276528,
+        0.9437160112461594,
+        0.943335528997821
+      ],
+      "qualifies": true,
+      "test_spearman_vs_components": {
+        "memory": 0.9889961036096615,
+        "lgb6": 0.9871574896608536,
+        "xgb5": 0.987542310764914,
+        "catA": 0.9999999999999998,
+        "hgbB": 0.9930713434270668
+      },
+      "sha256": "8c445f849c631abfb98ebe7fd61e3319b225ad8da3145f3fbc9158b98e2d5aed"
+    },
+    {
+      "version": "v76",
+      "file": "subs/v76_muse_hgbB_solo.csv",
+      "method": "probability",
+      "weights": [
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "pooled_oof_auc": 0.9432322528022163,
+      "mean_fold_auc": 0.943239858987004,
+      "fold_auc": [
+        0.9421089081792495,
+        0.9429781424839492,
+        0.9441677334007408,
+        0.9436504704082872,
+        0.9432940404627927
+      ],
+      "qualifies": true,
+      "test_spearman_vs_components": {
+        "memory": 0.9882777886601104,
+        "lgb6": 0.9881120669716127,
+        "xgb5": 0.988091404518503,
+        "catA": 0.9930713434270668,
+        "hgbB": 0.9999999999999998
+      },
+      "sha256": "5966cffec7f87e7f20746744f7d4a5fd464c2c24d9788aba8cc515daf1c1ebef"
+    },
+    {
+      "version": "v77",
+      "file": "subs/v77_muse_prob5_fixed.csv",
+      "method": "probability",
+      "weights": [
+        0.4,
+        0.15,
+        0.15,
+        0.15,
+        0.15
+      ],
+      "pooled_oof_auc": 0.9460407304828763,
+      "mean_fold_auc": 0.9460456147461553,
+      "fold_auc": [
+        0.9450357807635588,
+        0.9457338072876991,
+        0.9469632385403965,
+        0.9463623518438695,
+        0.9461328952952527
+      ],
+      "qualifies": true,
+      "test_spearman_vs_components": {
+        "memory": 0.9980670102878433,
+        "lgb6": 0.9974454809397607,
+        "xgb5": 0.9976479005608214,
+        "catA": 0.994429915765256,
+        "hgbB": 0.994611238954744
+      },
+      "sha256": "efb3f24a4f5bd6c3a3f180542d489c597a2b3c77a4a35276b140016ca74ce61a"
+    },
+    {
+      "version": "v78",
+      "file": "subs/v78_muse_rank5_fixed.csv",
+      "method": "rank",
+      "weights": [
+        0.4,
+        0.15,
+        0.15,
+        0.15,
+        0.15
+      ],
+      "pooled_oof_auc": 0.9460654479188958,
+      "mean_fold_auc": 0.9460702618106385,
+      "fold_auc": [
+        0.9450630621146613,
+        0.9457649973905079,
+        0.946970528980125,
+        0.9463886741540716,
+        0.9461640464138272
+      ],
+      "qualifies": true,
+      "test_spearman_vs_components": {
+        "memory": 0.9989471689059386,
+        "lgb6": 0.9983361512216042,
+        "xgb5": 0.9984458504969641,
+        "catA": 0.9935461765109285,
+        "hgbB": 0.9934654857335647
+      },
+      "sha256": "48449671ad874de442fdd465e3ee3c3f1813f256cac04a682d8ac36b1d159c98"
+    }
+  ],
+  "diversity_note": "weights fixed a priori; OOF confirmatory, not selected"
+}

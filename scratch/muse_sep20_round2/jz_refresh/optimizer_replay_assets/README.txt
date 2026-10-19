@@ -1,0 +1,1 @@
+The small fixed-round labeled validation pools reproduce the optimizer proxy study. They do not provide full champion OOF or hidden test labels. Fold 2 was excluded from optimizer selection but appeared in earlier development. Frozen test direction is included for numerical replay verification; the notebook also rebuilds it from the scored history.

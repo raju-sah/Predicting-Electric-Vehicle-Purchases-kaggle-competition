@@ -1,0 +1,22 @@
+{
+  "file": "submission_public_score_normalized_shrink075.csv",
+  "strength": -0.75,
+  "previous_strength": -0.25,
+  "anchor_ref": 56070794,
+  "previous_best_ref": 56071642,
+  "cap": 0.002,
+  "rows": 286571,
+  "sha256": "4ba01083acd9d9e7a4fc947c4e0b4afb8ddd67835f6dbea061d41776d850c0cd",
+  "mean_absolute_change_from_anchor": 0.0002802528319164951,
+  "max_absolute_change_from_anchor": 0.0013095310204916943,
+  "mean_absolute_change_from_previous_best": 0.00018683522127778177,
+  "spearman_to_previous_best": 0.9999994805135197,
+  "status": "complete",
+  "note": "User explicitly requested larger risk using last slot. Same frozen anchor, direction, confidence and clipping cap as successful -0.25 probe; only strength tripled. No new validation or guaranteed AUC gain claimed.",
+  "submission_ref": 56071722,
+  "submissions_remaining": 0,
+  "public_score": 0.94635,
+  "public_score_sort_position": 4,
+  "best_ref": 56071642,
+  "outcome": "Regression in public-score ordering; retain -0.25 as best"
+}

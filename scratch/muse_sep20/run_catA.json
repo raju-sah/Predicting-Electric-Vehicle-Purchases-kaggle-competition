@@ -1,0 +1,13 @@
+{
+  "pooled_oof_auc": 0.9433033550795582,
+  "fold_auc": [
+    0.9422182585748942,
+    0.9430667197071548,
+    0.9442163760276528,
+    0.9437160112461594,
+    0.943335528997821
+  ],
+  "mean_fold_auc": 0.9433105789107366,
+  "folds": "StratifiedKFold(5, shuffle=True, random_state=42)",
+  "model": "CatBoostClassifier(iter=2500, lr=0.03, depth=6, l2=5, seeds 42+k)"
+}

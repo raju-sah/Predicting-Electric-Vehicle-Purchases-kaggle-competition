@@ -1,0 +1,61 @@
+{
+  "search_space": {
+    "strength": [
+      0.0,
+      0.5
+    ],
+    "up_weight": [
+      0.5,
+      1.5
+    ],
+    "confidence_power": [
+      0.5,
+      2.0
+    ],
+    "tail_balance": [
+      -0.5,
+      0.5
+    ]
+  },
+  "baseline": {
+    "strength": 0.25,
+    "up_weight": 1.0,
+    "confidence_power": 1.0,
+    "tail_balance": 0.0
+  },
+  "trials_per_engine": 96,
+  "winner": "Optuna TPE",
+  "optimizers": {
+    "Optuna TPE": {
+      "params": {
+        "strength": 0.4429405129026964,
+        "up_weight": 1.3973091649123626,
+        "confidence_power": 1.7633731520019276,
+        "tail_balance": 0.11683616389528881
+      },
+      "objective": 0.32062000093757703,
+      "evaluation_auc": 0.9468539634833455,
+      "evaluation_delta": 1.1151439649470518e-07,
+      "candidate_file": "submission_optimizer_optuna_unsubmitted.csv",
+      "sha256": "2df767ed3a1429ecc0505b0299ae15d8f758c93fe5bae6327547d841a84601fd"
+    },
+    "Google Vizier Eagle": {
+      "params": {
+        "strength": 0.41352651686355457,
+        "up_weight": 1.4586159985780047,
+        "confidence_power": 1.688753400395562,
+        "tail_balance": 0.24092376001994964
+      },
+      "objective": 0.29758647812627714,
+      "evaluation_auc": 0.946853866514305,
+      "evaluation_delta": 1.4545356030737366e-08,
+      "candidate_file": "submission_optimizer_vizier_unsubmitted.csv",
+      "sha256": "3e9c8b8f2d554edb26515424f6e9bdcc674bc0d68ae2b3fa5cb4aa604fbf576b"
+    }
+  },
+  "selection": "Mean minus 0.5 standard deviation of AUC gain across tuning folds 0 and 1; fold 2 excluded from search.",
+  "change_cap": 0.0005,
+  "evaluation_baseline_auc": 0.946853851968949,
+  "selected_candidate_passed": true,
+  "note": "Same historical folds/features used earlier; fold 2 withheld from this optimizer run, not an untouched final holdout. Baseline is a proxy for the successful shrinkage method, not full champion OOF. Local AUC cannot establish target .94672 or public-score gains."
+}

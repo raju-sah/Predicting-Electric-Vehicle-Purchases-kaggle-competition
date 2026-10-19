@@ -1,0 +1,13 @@
+{
+  "pooled_oof_auc": 0.9436045038606404,
+  "fold_auc": [
+    0.9424563962814705,
+    0.9433364591888062,
+    0.9444976459209102,
+    0.9439814294902906,
+    0.9438142278546775
+  ],
+  "mean_fold_auc": 0.9436172317472309,
+  "folds": "StratifiedKFold(5, shuffle=True, random_state=42)",
+  "mechanism": "LGBM custom focal objective gamma=2 alpha=0.25 (a priori)"
+}

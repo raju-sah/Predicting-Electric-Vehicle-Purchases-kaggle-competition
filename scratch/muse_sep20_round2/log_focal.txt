@@ -1,0 +1,6 @@
+fold 0: AUC 0.9424564 trees 604 elapsed 2.0min
+fold 1: AUC 0.9433365 trees 532 elapsed 3.5min
+fold 2: AUC 0.9444976 trees 614 elapsed 5.1min
+fold 3: AUC 0.9439814 trees 703 elapsed 6.9min
+fold 4: AUC 0.9438142 trees 1320 elapsed 9.8min
+FOCAL DONE pooled=0.9436045

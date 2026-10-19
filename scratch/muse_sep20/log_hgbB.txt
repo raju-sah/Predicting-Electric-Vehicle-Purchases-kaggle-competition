@@ -1,0 +1,7 @@
+features: 82 | train (668665, 82) test (286571, 82)
+fold 0: AUC 0.9421089 iters 534 elapsed 1.9min
+fold 1: AUC 0.9429781 iters 637 elapsed 3.6min
+fold 2: AUC 0.9441677 iters 597 elapsed 5.2min
+fold 3: AUC 0.9436505 iters 642 elapsed 7.0min
+fold 4: AUC 0.9432940 iters 410 elapsed 8.4min
+HGBB DONE pooled=0.9432323 folds=[0.9421089081792495, 0.9429781424839492, 0.9441677334007408, 0.9436504704082872, 0.9432940404627927]

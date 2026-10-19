@@ -1,0 +1,13 @@
+{
+  "pooled_oof_auc": 0.9432322528022163,
+  "fold_auc": [
+    0.9421089081792495,
+    0.9429781424839492,
+    0.9441677334007408,
+    0.9436504704082872,
+    0.9432940404627927
+  ],
+  "mean_fold_auc": 0.943239858987004,
+  "folds": "StratifiedKFold(5, shuffle=True, random_state=42)",
+  "model": "HGB(max_iter=800, lr=0.05, leaves=63, minleaf=40, seeds 42+k)"
+}
