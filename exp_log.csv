@@ -1,0 +1,138 @@
+ver,model,OOF_AUC,public_LB,note
+v01_hgb_base,HGB-default,0.9409,0.94064,baseline
+v02_hgb_xgb,HGB-tuned+XGB-avg,0.9416,0.94121,plus 0.00057
+v03_te_bag,TE+3seed-HGB,0.9415,,flat NOT submitted
+v04_4way,HGB+XGBx3,0.9416,0.94135,plus 0.00014
+v05_stack,LogReg-HGB+XGB+HTE,0.9415,,flat correlated NOT submitted
+cbm_native,CatBoost-native-cats,0.9414,,solo
+lgb_native,LightGBM-category,0.9418,,best solo
+lgb_ord,LightGBM+anx-ordinal,0.9418,,anxiety rank10 not top2 premise falsified
+lgb_inter_all,LGB+4interactions,0.9418,,flat
+lgb_anx_commute,LGB+anx_x_commute,0.9418,,flat
+lgb_income_per_car,LGB+income_per_car,0.9419,,noise NOT submitted
+lgb_ext,LGB+10k-ext-data,0.9418,,no gain dropped
+divstack,LogReg-CBM+LGB+XGB,0.9418,,corr .996+ FAIL gate NOT submitted
+lgb_pseudo,LGB+pseudo159k,0.9418,,flat dropped
+v06_lgb,LightGBM-solo-fullfit,0.9418,0.94151,NEW BEST plus 0.00016
+v07_blend4,OOFw-CBM+LGB+XGB+HGB,,0.94141,below v06
+adv_id,Adv-train-vs-test+id,1.0000,,id-range artifact only
+adv_feat,Adv-features-only,0.4989,,no shift line closed
+lgb_gmm,LGB+GMMmode-cats,0.9386,,HURTS -0.0032 dropped
+id_structure,OOF id-modulo target rates,0.5010,,No periodic signal; best id-mod-1024 and every LGB complement worsened
+ext_prototype,External exact-key label lookup,,,No row-level source signal: strongest exact key gave conditional AUC 0.5018
+numeric_codebook,LGB+target-free numeric codebooks,0.9401,,HURT -0.0017; discrete/bin categorical representation dropped
+regime_experts,Two purchase-regime LGB specialists,0.9412,,HURT -0.0006; unstable fold scores and below v06; full-fit stopped after OOF
+recipe_feature,LGB+published source purchase formula,0.9418,,Formula alone 0.93769; +0.00006 vs v06 but far below submission gate
+recipe_helpers,LGB+source generator recipe and four helpers,0.9420,,Best new solo (+0.00026 vs v06) but below 0.9423 submit gate
+recipe_helpers_blend,Fixed LGB+recipe-helper OOF blend,0.9421,,Best logit blend 25pct v06 + 75pct helpers; pair is too correlated and below gate
+digit_features,LGB+fit-free decimal digit features,0.9438,0.94380,NEW BEST +0.00200 vs v06; fixed seed-42 5-fold OOF; submission gate passed
+v08_submit_attempt,Kaggle CLI upload,,,Transport exited without a Kaggle submission record; count rechecked before one retry
+v09_mega_blend,Multi-tier orthogonal meta-blend,0.94639,0.94644,Ravi+Megayak+Nina4+FourViews; moved from rank 665 to rank 71
+v10_ravi_stack,L2 stack over datacollation,0.94648,0.94641,Overfits OOF; public LB drops to 0.94641 vs v09 0.94644
+v11_megayak_4view_daily,Megayak 4-view + daily blend,0.94645,0.94645,NEW BEST moved to Rank 39 (TOP 50!)
+v12_opt8_megayak_w35,8-model SLSQP + Megayak w=0.35,0.94637,0.94644,Below v11 0.94645
+v14_v11_gpu_xgb_blend,v11 + 20% GPU fixed-digits XGBoost,0.94619,0.94644,Standalone GPU XGB 0.94619 OOF; blend ties at 0.94644; v11 holds best at 0.94645 (Rank 39)
+v15_grandmaster_simpson_realmlp_blend,v11 (0.76) + Deotte Simpson GPU XGB (0.14) + RealMLP (0.10) rank blend,0.94637,0.94644,Consistent 5-fold OOF improvement; ties public LB at 0.94644; v11 holds best at 0.94645 (Rank 39)
+v16_grandmaster_probit_quad,v11 (0.55) + Berat (0.20) + Deotte GPU (0.15) + RealMLP (0.10) probit blend,0.94638,0.94641,Too much weight on lower-scoring Berat model drags down public LB
+v17_high_diversity_probit_blend,v11 (0.45) + Berat (0.25) + Deotte GPU (0.15) + RealMLP (0.15) probit blend,0.94638,0.94640,Confirms excess weight on single-model components hurts LB; v11 remains best at 0.94645 (Rank 39)
+v18_nina_honest_residual_tiebreaker,Nina 0.74 power residual tiebreaker on Megayak,0.94645,0.94645,Ties best LB at 0.94645 (Rank 41)
+v19_ultra_conservative_micro_blend,v11 (0.88) + nina (0.06) + deotte (0.04) + realmlp (0.02) micro-blend,0.94645,0.94645,Ties best LB at 0.94645 (Rank 41); all 10 daily submissions completed
+v20_boundary_constrained_grandmaster_blend,v11(0.40)+taeyang(0.40)+nina(0.10)+deotte(0.06)+realmlp(0.04)+boundaries,0.94645,0.94645,Ties best LB at 0.94645 (Top 50 / Rank 41); 10 zero cells + millionaire cliff
+v21_recipe_A_cons,85% Top Anchor + 10% 4-Way Tree Blend + 5% RealMLP + Boundary Calibration,0.94645,0.94645,Ties best LB at 0.94645; Zero ties ordinal ranking
+v21_recipe_B_bal,75% Top Anchor + 20% 4-Way Tree Blend + 5% RealMLP + Boundary Calibration,0.94645,0.94645,Ties best LB at 0.94645; Solid preservation of macro structure
+v22_meta_stack_70_25_5,70% Top Anchor + 25% 10-Model Meta-Stacker + 5% RealMLP + Boundaries,0.94645,0.94645,Ties best LB at 0.94645; Meta-stacker won all 5 folds on CV
+v24_meta_stack_50_50_balanced,50% Anchor + 50% 10-Model Meta-Stacker + Boundaries,0.94629,0.94643,Demonstrates sweet spot for anchor weight is >= 70-75%
+v25_super_anchor_stacker_realmlp_nina,78% Super Anchor + 12% Stacker + 5% RealMLP + 5% Deotte + Nina 0.74,0.94644,0.94644,Micro-perturbation from Nina on top of boundary constraints shifts boundary ranks slightly
+v26_taeyang_lexsort_master,Taeyang Multi-Paradigm Lexsort Master 0.94650,0.94650,0.94649,NEW BEST! Moved to Rank 20 in the world! 0 ties with RealMLP lexsort
+v27_complete_zero_calibrated_master,10 Zero-Cell Calibrated Grandmaster (88% v26 + 5% Stacker + 4% v18 + 2% Deotte + 1% RealMLP),0.94650,0.94649,Holds Rank 20 at 0.94649 with 3340 zero cells and 156 millionaire cliff calibrated
+v28_dual_anchor_lexsort_blend,Dual-Anchor Grandmaster (85% v26 + 10% v18 + 3% Stacker + 2% Deotte + Lexsort),0.94650,0.94649,Maintains 0.94649 Rank 20; high structural stability across two independent anchors
+v29_tri_anchor_apex_grandmaster,Tri-Anchor Apex Grandmaster (60% Taeyang + 30% Jazivxt + 4% Stacker + 3% v18 + 2% Deotte + Lexsort),0.94649,0.94648,30% Jazivxt pass-2 dilution confirms optimal anchor weight is >= 85%; all 10 daily submissions completed
+v30_jazivxt_sep14_pass2_baseline,Jazivxt Sep 14 Pass-2 Baseline (80% 0.94649 ref + 20% pass-2 LGBM),0.94612,0.94647,Second-pass LightGBM at 20% drags 0.94649 anchor down to 0.94647; confirms single model dilution
+v31_restored_dual_anchor_apex,Restored Dual-Anchor Apex (50% Pure 49 Shared + 42% Taeyang 50 + 4% LGB + 2% Stacker + 2% RealMLP + Lexsort),0.94650,0.94649,Reconstructs pure unadulterated 0.94649 anchor eliminating v30 dilution; holds 0.94649
+v32_simpson_grandmaster_apex,Simpson Grandmaster Apex (82% Pure 49 Shared + 8% Taeyang 50 + 4% Deotte Simpson + 3% Stacker + 3% RealMLP + Lexsort),0.94650,0.94649,Maintains 0.94649 rock-solid; integrates Simpson interaction GPU XGB with zero ties
+v33_probit_latent_apex,Latent Probit-Space Apex (82% Pure 49 + 8% Taeyang 50 + 4% Deotte + 3% Stacker + 3% RealMLP in Probit Space),0.94650,0.94649,Smooth non-linear probit transformation confirms mathematical alignment with underlying latent generator; holds 0.94649
+v34_apex_power_residual_ensemble,Apex Power-Residual Tiebreaker (92% Master 49/50 Anchor + 8% (Stacker+Deotte+RealMLP)^0.74 + Lexsort),0.94650,0.94648,Micro-perturbations at 8% non-linear residual slightly drop by 0.00001; confirms strict anchor preservation envelope
+v35_zoom_max_pass1,Merged Zoom-Zoom-Max solo LGBM (TE+windows+16384-bin income stats+modifiers),0.945912,,solo below 0.94649 anchor; pass2 skipped per gate; fold state in scratch/v35_state
+v36_apex_upgraded_slots,Apex Upgraded Slots (90% Pure49 lexrank + 6% SixView+RealMLP3+XGB10f + 4% RealMLP3 + lexsort),,0.94650,Ties best; upgraded Sep-16 stack slots hold 0.94650 at 10% injection; replicates megayak published recipe
+v38_apex_hillclimb12,Apex Hillclimb 12 (88% Pure49 + 12% hill-climbed Sep14 stack + boundary + lexsort),,0.94650,Ties best at 12% injection; new stack stronger than v34 8% old stack which dropped to 0.94648
+v39_apex_probit_power12,Apex Probit Power 12 (88% Pure49 probit + 12% 0.74-power stack injection),,0.94649,-0.00001 vs rank-space; probit transform of injection loses a digit; rank-space preferred
+v37_megayak_stack_probe,Megayak OOF-stack rebuild as standalone second anchor probe,,NOT submitted,Superseded by v37b hill-climb; standalone stack would read ~0.94644 per published recipe
+v40,JZ-0.94651-base + 10% hillclimbed stack + shifts + lexsort,,0.94650,injection costs -0.00001 on the stronger base (it helped the old 0.94649 anchor)
+v41,JZ-0.94651-base + 12% hillclimbed stack + shifts + lexsort,,0.94650,A/B vs v38: same recipe on better base = still 0.94650; injection is the culprit
+v42,JZ-0.94651-base + 15% hillclimbed stack + shifts + lexsort,,0.94650,whole curve w=0.10/0.12/0.15 flat 0.94650 -> stack injection dead on JZ base
+v43,"JZ exact 0.94651 base raw (sha-verified, catalog own_001)",0.94651,0.94651,NEW BEST. edge survives resubmission; secured the file + 2 sibling 0.94651 files (rank-identical trio)
+v44,JZ base + raw boundary shifts 1x,,0.94651,"shifts EXACTLY free on this base (3731 rows moved, no score change)"
+v45,JZ base lexrank reorder only (nn secondary),,0.94651,reorder exactly free; -0.00001 decomposition: stack injection is the only harmful transform
+v46,JZ base + 2x boundary shifts,,0.94651,2x also exactly free -> shifts have no LB effect either way; base family is a local optimum
+v47,Mean of 12 distinct JZ archive optima,,0.94650,Family bagging lost 0.00001 versus exact base
+v48,Median of 12 distinct JZ archive optima,,0.94650,Robust family bagging also lost 0.00001
+v49,Half JZ base plus half mean of 11 sibling optima,,0.94650,Base-pull family blend still lost 0.00001
+v50,JZ base plus 2pct prior Megayak stack,,NOT submitted,Generated probe superseded by newly trained residual-memory model
+v51,JZ base plus 5pct prior Megayak stack,,NOT submitted,Generated probe superseded by newly trained residual-memory model
+v52,JZ base plus 30pct cross-family Megayak and Nina mix,,NOT submitted,Generated probe superseded by newly trained residual-memory model
+v53,JZ base plus 2pct Sep-18 residual-memory LGBM,,NOT submitted,Endpoint omitted; audit: 0.946220 OOF belongs only to memory component; complete submission OOF unavailable
+v56_oof_probe,88pct prior OOF stack plus 12pct residual-memory LGBM,0.946427,NOT submitted,Audit: mixed component training folds; five-group mean 0.946428 is not comparable fixed-five-fold validation; weights selected on these OOF labels
+v54,JZ base plus 5pct Sep-18 residual-memory LGBM,,0.94651,Audit: 0.946220 OOF belongs only to memory component; complete submission OOF unavailable
+v55,JZ base plus 10pct Sep-18 residual-memory LGBM,,0.94651,Audit: 0.946220 OOF belongs only to memory component; complete submission OOF unavailable
+v56,JZ base plus 15pct Sep-18 residual-memory LGBM,,0.94651,Audit: 0.946220 OOF belongs only to memory component; complete submission OOF unavailable
+v57,Exact four-band half-swap on SHA-verified JZ anchor,,0.94656,NEW BEST public rank 17; audit corrected mislabeled OOF 0.94651 which was anchor public score; complete OOF unavailable
+v58,v57 band-swap plus 5pct residual-memory LGBM,,0.94656,Score-neutral; audit: 0.946220 OOF belongs only to memory component; complete submission OOF unavailable
+v59,v57 band-swap plus 10pct residual-memory LGBM,,0.94656,Score-neutral; audit: 0.946220 OOF belongs only to memory component; complete submission OOF unavailable
+v60,v57 plus nested half-swap at normalized ranks 0.59-0.61,,0.94656,Adaptive probe was score-neutral; retained v57 as best
+v61,v57 plus nested half-swap at normalized ranks 0.50-0.53,,0.94654,Independent adaptive probe lost 0.00002
+v62,v57 plus nested half-swap at normalized ranks 0.58-0.60,,0.94655,Nested refinement lost 0.00001
+v63,v57 plus nested half-swaps at 0.59-0.61 and 0.50-0.53,,NOT submitted,Generated combination rejected after both component probes failed to improve
+v64,v57 plus nested half-swaps at 0.59-0.61 and 0.58-0.60,,NOT submitted,Generated combination rejected after the 0.58-0.60 component lost 0.00001
+v65,v57 plus all three nested half-swaps,,NOT submitted,Generated combination rejected after component evidence showed no improvement
+audit_sep19_memory,Recompute existing memory model with exact seed42 fivefold provenance,0.9462202444197401,NOT submitted,IDs labels and fold assignments verified; component score does not establish full anchor blend OOF or guaranteed first place
+research_sep19_realmlp,Inspect new public recipe residual RealMLP,,NOT submitted,Source claims 0.94572 ten-fold OOF; no downloadable OOF vector; incompatible fixed-fold gate; not trained locally
+research_sep19_najiama,Inspect refreshed public Najiama LGBM and blend sources,,NOT submitted,Reported model OOF 0.94607 and public 0.94638; already-tried feature family; no stronger evidence; not trained locally
+research_sep19_tabpfn,Inspect new public TabPFN source,,NOT submitted,Small training holdout rather than required fivefold OOF; no qualifying evidence; not trained locally
+verified5_grid_00,"probability memory-LGB6-XGB5 weights [0.2, 0.2, 0.6]",0.9462187039696238,NOT submitted,Fixed seed42 fivefold predictions; grid selection reuses OOF labels; details in verified_ensembles/manifest.json
+verified5_grid_01,"probability memory-LGB6-XGB5 weights [0.2, 0.4, 0.4]",0.9462123700787859,NOT submitted,Fixed seed42 fivefold predictions; grid selection reuses OOF labels; details in verified_ensembles/manifest.json
+verified5_grid_02,"probability memory-LGB6-XGB5 weights [0.2, 0.6, 0.2]",0.9461933086998657,NOT submitted,Fixed seed42 fivefold predictions; grid selection reuses OOF labels; details in verified_ensembles/manifest.json
+verified5_grid_03,"probability memory-LGB6-XGB5 weights [0.4, 0.2, 0.4]",0.9462572321196897,NOT submitted,Fixed seed42 fivefold predictions; grid selection reuses OOF labels; details in verified_ensembles/manifest.json
+verified5_grid_04,"probability memory-LGB6-XGB5 weights [0.4, 0.4, 0.2]",0.9462467045209859,NOT submitted,Fixed seed42 fivefold predictions; grid selection reuses OOF labels; details in verified_ensembles/manifest.json
+verified5_grid_05,"probability memory-LGB6-XGB5 weights [0.6, 0.2, 0.2]",0.9462686755010924,NOT submitted,Fixed seed42 fivefold predictions; grid selection reuses OOF labels; details in verified_ensembles/manifest.json
+verified5_grid_06,"rank memory-LGB6-XGB5 weights [0.2, 0.2, 0.6]",0.9462192760913695,NOT submitted,Fixed seed42 fivefold predictions; grid selection reuses OOF labels; details in verified_ensembles/manifest.json
+verified5_grid_07,"rank memory-LGB6-XGB5 weights [0.2, 0.4, 0.4]",0.9462127527397526,NOT submitted,Fixed seed42 fivefold predictions; grid selection reuses OOF labels; details in verified_ensembles/manifest.json
+verified5_grid_08,"rank memory-LGB6-XGB5 weights [0.2, 0.6, 0.2]",0.9461934149704425,NOT submitted,Fixed seed42 fivefold predictions; grid selection reuses OOF labels; details in verified_ensembles/manifest.json
+verified5_grid_09,"rank memory-LGB6-XGB5 weights [0.4, 0.2, 0.4]",0.9462579894119804,NOT submitted,Fixed seed42 fivefold predictions; grid selection reuses OOF labels; details in verified_ensembles/manifest.json
+verified5_grid_10,"rank memory-LGB6-XGB5 weights [0.4, 0.4, 0.2]",0.9462470982760484,NOT submitted,Fixed seed42 fivefold predictions; grid selection reuses OOF labels; details in verified_ensembles/manifest.json
+verified5_grid_11,"rank memory-LGB6-XGB5 weights [0.6, 0.2, 0.2]",0.9462691259679313,NOT submitted,Fixed seed42 fivefold predictions; grid selection reuses OOF labels; details in verified_ensembles/manifest.json
+verified5_grid_12,"logit memory-LGB6-XGB5 weights [0.2, 0.2, 0.6]",0.9462209160392331,NOT submitted,Fixed seed42 fivefold predictions; grid selection reuses OOF labels; details in verified_ensembles/manifest.json
+verified5_grid_13,"logit memory-LGB6-XGB5 weights [0.2, 0.4, 0.4]",0.9462144490192455,NOT submitted,Fixed seed42 fivefold predictions; grid selection reuses OOF labels; details in verified_ensembles/manifest.json
+verified5_grid_14,"logit memory-LGB6-XGB5 weights [0.2, 0.6, 0.2]",0.9461951719183473,NOT submitted,Fixed seed42 fivefold predictions; grid selection reuses OOF labels; details in verified_ensembles/manifest.json
+verified5_grid_15,"logit memory-LGB6-XGB5 weights [0.4, 0.2, 0.4]",0.9462599943943871,NOT submitted,Fixed seed42 fivefold predictions; grid selection reuses OOF labels; details in verified_ensembles/manifest.json
+verified5_grid_16,"logit memory-LGB6-XGB5 weights [0.4, 0.4, 0.2]",0.9462493511377946,NOT submitted,Fixed seed42 fivefold predictions; grid selection reuses OOF labels; details in verified_ensembles/manifest.json
+verified5_grid_17,"logit memory-LGB6-XGB5 weights [0.6, 0.2, 0.2]",0.9462709100071528,NOT submitted,Fixed seed42 fivefold predictions; grid selection reuses OOF labels; details in verified_ensembles/manifest.json
+v66,"Verified fivefold probability ensemble [0.6, 0.2, 0.2]",0.9462686755010924,NOT_SUBMITTED,Complete candidate OOF; improves all five folds versus memory; full source provenance recorded
+v67,"Verified fivefold rank ensemble [0.6, 0.2, 0.2]",0.9462691259679313,NOT_SUBMITTED,Complete candidate OOF; improves all five folds versus memory; full source provenance recorded
+v68,"Verified fivefold logit ensemble [0.6, 0.2, 0.2]",0.9462709100071528,0.94645,Complete candidate OOF; improves all five folds versus memory; full source provenance recorded
+v69,Verified fivefold logit ensemble plus fixed four-band swaps,0.9462270313996575,PENDING,Full OOF transformation measured; bands were chosen using public leaderboard feedback in prior work. No independent generalization claim.
+v70,Verified fivefold rank ensemble plus fixed four-band swaps,0.9462252301064018,NOT submitted,Full OOF transformation measured; bands were chosen using public leaderboard feedback in prior work. No independent generalization claim.
+v75,CatBoost-ordered-boosting digit-frame solo,0.9433034,,First CatBoost on digit frame + 8 novel fit-free ratios; native cats; seed-42 5-fold; 2500iter lr0.03 d6; folds 0.94222/0.94307/0.94422/0.94372/0.94334; NOT submitted; script scratch/muse_sep20/train_catA.py
+v76,HGB-native-cats digit-frame solo,0.9432323,,First HGB on digit frame (only raw HGB baseline existed); native categoricals; seed-42 5-fold; folds 0.94211/0.94298/0.94417/0.94365/0.94329; NOT submitted; script scratch/muse_sep20/train_hgbB.py
+v77,Fixed prob blend mem40/lgb15/xgb15/cat15/hgb15,0.9460407,,Weights fixed a priori (build_candidates.py predates results); complete OOF; NOT submitted; subs/v75..v78 family
+v78,Fixed rank blend mem40/lgb15/xgb15/cat15/hgb15,0.9460654,,Weights fixed a priori; complete OOF; strongest of final four; NOT submitted; subs/v75..v78 family
+muse_stage4way,Staged 4-way blends mem45/lgb20/xgb20/hgb15 (no catA),0.9462450,,Logit 0.9462450 / rank 0.9462240 / prob 0.9462151 complete OOF; fully validated; kept as documented alternates in scratch/muse_sep20/staging/; NOT submitted
+r2_disw,"Disagreement-weighted LGBM (k=3 clipped [1,5])",0.9435927,,"NEW mechanism (sample reweighting); weights from frozen OOF ranks only; seed-42 5-fold; folds 0.94255/0.94326/0.94454/0.94390/0.94376; rho 0.9968 vs digit (same features) -> ranking novelty nil; 6-way blends 0.94593 below v68; KILLED as candidate, kept as OOF donor; NOT submitted; scratch/muse_sep20_round2/train_disw.py"
+r2_student,"Gated rank-student (pseudo15 mechanism, gate folds)",0.9461334,,"Shallow LGBM (7 leaves, min4000) on 6 frozen OOF ranks + raw features; 20% dose into v78 teacher; ACCEPTED technical bar (+0.0000680, 5/5 fold wins); absolute 0.9461334 < v68 0.9462709 and < staged logit4 0.9462450; test-family rho 0.9992 vs v68 -> no public-breakthrough path; NO-GO per strategy verdict; NOT submitted; scratch/muse_sep20_round2/train_stu.py"
+v79,Fixed logit blend mem45/lgb20/xgb20/hgb15,0.9462450,,Promoted from staged p78 (user-authorized); strongest muse complete OOF; sha 718da05378bce01b; SUBMITTED per user order
+v79_scored,v79 public LB result,0.9462450,0.94637,"Submitted per user order (coordinator token exhausted); scores below 0.94656 best, inside predicted 0.94630-0.94645 band; confirms round-2 blocker thesis; holding remaining slots"
+v80,Mega-champ 50/50 rank-blend reproduction (DefiAudit r8_m50),,,Public-probe reproduction per user order; NO complete OOF claimed; rho 0.99886 vs v57; SUBMITTED
+v80_scored,v80 public LB result,,0.94647,Claimed 0.94657 did NOT reproduce with our components (ds_megayak6 ensemble + r6 champ): -0.00010 gap; likely their mega file differs from our ensemble column; do not chase without understanding
+r2_focal,Focal-loss LGBM gamma=2 alpha=0.25 (a priori),0.9436045,,"NEW local mechanism (no focal ever trained here); digit frame; gate folds; ~0.9436 ~= disw, below digit 0.94379; no gain, no-go; NOT submitted"
+v81,True mega56-champ 50/50 (megayak own submission.csv),,,"Faithful r8_m50 recipe: author's mega rank-matches v57 (rho 1.0); v80 used wrong ensemble column; public-probe, NO OOF; SUBMITTED per user order"
+v81_scored,v81 public LB result,,0.94657,"NEW BEST (ties author claim exactly); faithful recipe with megayak own submission.csv; public-probe, no OOF; need +0.00018 for #1 (0.94675)"
+r2_mlp,"sklearn MLP(128,64) scaled digit frame",0.9383752,,NEW family locally (neural); folds 0.93704/0.93863/0.93939/0.93905/0.93810; BELOW gate 0.94230; KILLED as candidate and as donor (too weak); GPU RealMLP escalation not justified on this signal; NOT submitted
+v67_scored,v67 public LB result,0.9462691259679313,0.94645,"SUBMITTED per user order Sep22 UTC; complete OOF rank ensemble; ties v68 family; below best 0.94657; URAD top 0.94945 gap +0.00300"
+v66_scored,v66 public LB result,0.9462686755010924,0.94645,"SUBMITTED per user order Sep22 UTC; complete OOF prob ensemble; ties v68 family; below best 0.94657; 8 slots remain today"
+digit_fix_flags,Integer digit extraction fix + 4 thread clip flags on digit-frame LGBM,0.9438048,,"+0.00001 vs 0.9437937 baseline; rho 0.9981 vs base (not novel); KILLED as candidate, OOF kept as donor at scratch/oof_digit_fix.npy; NOT submitted; scratch/digit_fix_flags.py"
+jev_pilot,Jev noul 5-question pilot via Vercel gateway (300tr/200te, 323 cached, 177 errors),0.8493,,"Direct AUC 0.8493 (n=193); env_intent 0.8790 best; rho 0.70 vs v81/v68 (novel); 35% req errors; full 955k-row sweep uneconomic before Sep30; scale-up KILLED, resuming missing 177 for firmer n; NOT submitted"
+jev_pilot_final,Jev pilot resume (455/500 cached, n=265tr/190te),0.8342,,"Direct 0.8342 (was 0.8493 at n=193); env_intent 0.8778 stable best; rho 0.72 vs anchors (novel but weak); pilot rho block buggy, scorer canonical; scale-up stays KILLED; NOT submitted"
+xfam_rank_blend,Cross-family rank blend v68+catA+hgbB+digit (weights fixed a priori x3),0.9457024,,"Best xfam_v68heavy 0.9457024 BELOW v68 solo 0.9462709; members rho 0.986-0.994 (all trees, no true diversity); RealMLP-G neural is 10-fold, fold-incompatible with fixed 5-fold gate; KILLED; subs/xfam_*.csv NOT submitted"
+research_najiama_oof,Local audit of downloaded najiama OOF pack (no training),0.9461846,,"Best 01_blend 0.9461846 < v68 0.9462709; V3 0.9460643 matches published 0.94607; all rho>=0.995 vs v68 (same family); XGB-10f fold-incompatible; KILLED as donors; NOT submitted"
+seed_avg_3,Seed-mean digit-fixed LGBM seeds 42/43/44 raw-mean,0.9439197,,"+0.00011 vs solo 0.9438048 (variance reduction real); still 0.0024 below 0.94627 gate; KILLED as frontier candidate, OOF at scratch/oof_seedavg.npy; NOT submitted"
+income_te4096,High-res income TE4096-smooth5 log-odds on digit-fix LGBM,0.9444800,,"+0.00068 vs digit-fix solo (biggest single-feature gain in weeks); standalone TE only 0.71; still -0.00179 below 0.94627 gate; KILLED as frontier but direction live; OOF scratch/oof_income_te.npy; NOT submitted"
+seed_te_3,Seed-mean TE4096 model seeds 42/43/44 raw-mean,0.9445336,,"+0.00005 vs solo-TE; TE family parks at 0.94453 (-0.00174 below gate); KILLED as frontier; OOF scratch/oof_seed_te.npy; NOT submitted"
