@@ -1,0 +1,166 @@
+[{"stream_name":"stderr","time":9.100228381,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":9.100324979,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":9.100330447,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":9.10033347,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":9.905384571,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":9.905433868,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":9.905438797,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":9.905444456,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":16.065193355,"data":"\u001b[?25l   \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m0.0/442.4 kB\u001b[0m \u001b[31m?\u001b[0m eta \u001b[36m-:--:--\u001b[0m\r\u001b[2K   \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m442.4/442.4 kB\u001b[0m \u001b[31m14.8 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\r\n"}
+,{"stream_name":"stdout","time":16.425227889,"data":"\u001b[?25h\u001b[?25l   \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m0.0/29.8 MB\u001b[0m \u001b[31m?\u001b[0m eta \u001b[36m-:--:--\u001b[0m\r\u001b[2K   \u001b[91m━━━━━━━━\u001b[0m\u001b[91m╸\u001b[0m\u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m6.5/29.8 MB\u001b[0m \u001b[31m195.5 MB/s\u001b[0m eta \u001b[36m0:00:01\u001b[0m\r\u001b[2K   \u001b[91m━━━━━━━━━━━━━━━━\u001b[0m\u001b[91m╸\u001b[0m\u001b[90m━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m12.4/29.8 MB\u001b[0m \u001b[31m172.4 MB/s\u001b[0m eta \u001b[36m0:00:01\u001b[0m\r\u001b[2K   \u001b[91m━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[90m╺\u001b[0m\u001b[90m━━━━━━━━━━━━━━━\u001b[0m \u001b[32m18.1/29.8 MB\u001b[0m \u001b[31m160.7 MB/s\u001b[0m eta \u001b[36m0:00:01\u001b[0m\r\u001b[2K   \u001b[91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[91m╸\u001b[0m\u001b[90m━━━━━━━━\u001b[0m \u001b[32m23.8/29.8 MB\u001b[0m \u001b[31m162.7 MB/s\u001b[0m eta \u001b[36m0:00:01\u001b[0m\r\u001b[2K   \u001b[91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[90m╺\u001b[0m\u001b[90m━\u001b[0m \u001b[32m28.5/29.8 MB\u001b[0m \u001b[31m148.6 MB/s\u001b[0m eta \u001b[36m0:00:01\u001b[0m\r\u001b[2K   \u001b[91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[91m╸\u001b[0m \u001b[32m29.8/29.8 MB\u001b[0m \u001b[31m145.6 MB/s\u001b[0m eta \u001b[36m0:00:01\u001b[0m\r\u001b[2K   \u001b[91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[91m╸\u001b[0m \u001b[32m29.8/29.8 MB\u001b[0m \u001b[31m145.6 MB/s\u001b[0m eta \u001b[36m0:00:01\u001b[0m\r\u001b[2K   \u001b[91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[91m╸\u001b[0m \u001b[32m29.8/29.8 MB\u001b[0m \u001b[31m145.6 MB/s\u001b[0m eta \u001b[36m0:00:01\u001b[0m\r\u001b[2K   \u001b[91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m\u001b[91m╸\u001b[0m \u001b[32m29.8/29.8 MB\u001b[0m \u001b[31m145.6 MB/s\u001b[0m eta \u001b[36m0:00:01\u001b[0m\r\u001b[2K   \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m29.8/29.8 MB\u001b[0m \u001b[31m48.0 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\r\n"}
+,{"stream_name":"stdout","time":16.425336335,"data":"\u001b[?25h\u001b[?25l   \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m0.0/639.0 kB\u001b[0m \u001b[31m?\u001b[0m eta \u001b[36m-:--:--\u001b[0m\r\u001b[2K   \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m639.0/639.0 kB\u001b[0m \u001b[31m22.1 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\r\n"}
+,{"stream_name":"stdout","time":16.476936675,"data":"\u001b[?25h\u001b[?25l   \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m0.0/137.4 kB\u001b[0m \u001b[31m?\u001b[0m eta \u001b[36m-:--:--\u001b[0m\r\u001b[2K   \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m137.4/137.4 kB\u001b[0m \u001b[31m6.7 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\r\n"}
+,{"stream_name":"stdout","time":16.527957626,"data":"\u001b[?25h\u001b[?25l   \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m0.0/323.4 kB\u001b[0m \u001b[31m?\u001b[0m eta \u001b[36m-:--:--\u001b[0m\r\u001b[2K   \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m323.4/323.4 kB\u001b[0m \u001b[31m16.3 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\r\n"}
+,{"stream_name":"stdout","time":16.527998469,"data":"\u001b[?25h\u001b[?25l   \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m0.0/155.6 kB\u001b[0m \u001b[31m?\u001b[0m eta \u001b[36m-:--:--\u001b[0m\r\u001b[2K   \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m155.6/155.6 kB\u001b[0m \u001b[31m7.3 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\r\n"}
+,{"stream_name":"stdout","time":23.782867761,"data":"\u001b[?25h\u001b[31mERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.\r\n"}
+,{"stream_name":"stdout","time":23.782945031,"data":"bigframes 2.39.0 requires google-cloud-bigquery-storage\u003c3.0.0,\u003e=2.30.0, which is not installed.\r\n"}
+,{"stream_name":"stdout","time":23.782954848,"data":"google-adk 1.29.0 requires google-cloud-bigquery-storage\u003e=2.0.0, which is not installed.\r\n"}
+,{"stream_name":"stdout","time":23.782961631,"data":"grpcio-tools 1.71.2 requires protobuf\u003c6.0dev,\u003e=5.26.1, but you have protobuf 6.33.6 which is incompatible.\r\n"}
+,{"stream_name":"stdout","time":23.782967615,"data":"google-colab 1.0.0 requires ipython==7.34.0, but you have ipython 9.17.1 which is incompatible.\r\n"}
+,{"stream_name":"stdout","time":23.782973338,"data":"google-colab 1.0.0 requires jupyter-server==2.14.0, but you have jupyter-server 2.12.5 which is incompatible.\r\n"}
+,{"stream_name":"stdout","time":23.782995221,"data":"google-colab 1.0.0 requires pandas==2.2.2, but you have pandas 2.3.3 which is incompatible.\r\n"}
+,{"stream_name":"stdout","time":23.782999551,"data":"dopamine-rl 4.1.2 requires gym\u003c=0.25.2, but you have gym 0.26.2 which is incompatible.\r\n"}
+,{"stream_name":"stdout","time":23.78300376,"data":"google-ai-generativelanguage 0.6.15 requires protobuf!=4.21.0,!=4.21.1,!=4.21.2,!=4.21.3,!=4.21.4,!=4.21.5,\u003c6.0.0dev,\u003e=3.20.2, but you have protobuf 6.33.6 which is incompatible.\r\n"}
+,{"stream_name":"stdout","time":23.783008587,"data":"grpcio-status 1.71.2 requires protobuf\u003c6.0dev,\u003e=5.26.1, but you have protobuf 6.33.6 which is incompatible.\u001b[0m\u001b[31m\r\n"}
+,{"stream_name":"stdout","time":33.400187606,"data":"\u001b[0mReference: 56112970 | public AUC 0.94643\n"}
+,{"stream_name":"stderr","time":43.025019515,"data":"/tmp/ipykernel_16/2405457570.py:19: FutureWarning: Downcasting object dtype arrays on .fillna, .ffill, .bfill is deprecated and will change in a future version. Call result.infer_objects(copy=False) instead. To opt-in to the future behavior, set `pd.set_option('future.no_silent_downcasting', True)`\n"}
+,{"stream_name":"stderr","time":43.025066995,"data":"  tr_keys = tr_raw.astype(\"object\").fillna(\"__NA__\").astype(str)\n"}
+,{"stream_name":"stderr","time":43.025072449,"data":"\n"}
+,{"stream_name":"stderr","time":43.025076204,"data":"/tmp/ipykernel_16/2405457570.py:19: FutureWarning: Downcasting object dtype arrays on .fillna, .ffill, .bfill is deprecated and will change in a future version. Call result.infer_objects(copy=False) instead. To opt-in to the future behavior, set `pd.set_option('future.no_silent_downcasting', True)`\n"}
+,{"stream_name":"stderr","time":43.025080401,"data":"  tr_keys = tr_raw.astype(\"object\").fillna(\"__NA__\").astype(str)\n"}
+,{"stream_name":"stderr","time":47.745278042,"data":"/tmp/ipykernel_16/2405457570.py:20: FutureWarning: Downcasting object dtype arrays on .fillna, .ffill, .bfill is deprecated and will change in a future version. Call result.infer_objects(copy=False) instead. To opt-in to the future behavior, set `pd.set_option('future.no_silent_downcasting', True)`\n"}
+,{"stream_name":"stderr","time":47.745328558,"data":"  te_keys = te_raw.astype(\"object\").fillna(\"__NA__\").astype(str)\n"}
+,{"stream_name":"stderr","time":47.745336522,"data":"\n"}
+,{"stream_name":"stderr","time":47.7453426,"data":"/tmp/ipykernel_16/2405457570.py:20: FutureWarning: Downcasting object dtype arrays on .fillna, .ffill, .bfill is deprecated and will change in a future version. Call result.infer_objects(copy=False) instead. To opt-in to the future behavior, set `pd.set_option('future.no_silent_downcasting', True)`\n"}
+,{"stream_name":"stderr","time":47.745349118,"data":"  te_keys = te_raw.astype(\"object\").fillna(\"__NA__\").astype(str)\n"}
+,{"stream_name":"stdout","time":124.025391163,"data":"\n"}
+,{"stream_name":"stdout","time":124.025452498,"data":"Pass 1 | lightgbm | fold 1/5 | 159 features\n"}
+,{"stream_name":"stdout","time":129.253437715,"data":"Training until validation scores don't improve for 120 rounds\n"}
+,{"stream_name":"stdout","time":154.176797235,"data":"[250]\tvalid_0's auc: 0.944284\tvalid_0's binary_logloss: 0.222191\n"}
+,{"stream_name":"stdout","time":176.227065437,"data":"[500]\tvalid_0's auc: 0.944867\tvalid_0's binary_logloss: 0.220587\n"}
+,{"stream_name":"stdout","time":197.65333727,"data":"[750]\tvalid_0's auc: 0.944997\tvalid_0's binary_logloss: 0.220329\n"}
+,{"stream_name":"stdout","time":218.988377044,"data":"[1000]\tvalid_0's auc: 0.945041\tvalid_0's binary_logloss: 0.220251\n"}
+,{"stream_name":"stdout","time":240.766836713,"data":"[1250]\tvalid_0's auc: 0.945049\tvalid_0's binary_logloss: 0.220247\n"}
+,{"stream_name":"stdout","time":241.588285295,"data":"Early stopping, best iteration is:\n"}
+,{"stream_name":"stdout","time":241.588327427,"data":"[1140]\tvalid_0's auc: 0.945055\tvalid_0's binary_logloss: 0.220229\n"}
+,{"stream_name":"stdout","time":259.119743887,"data":"Fold ROC AUC: 0.945054869\n"}
+,{"stream_name":"stdout","time":288.324187034,"data":"\n"}
+,{"stream_name":"stdout","time":288.32424637,"data":"Pass 1 | lightgbm | fold 2/5 | 159 features\n"}
+,{"stream_name":"stdout","time":293.769858712,"data":"Training until validation scores don't improve for 120 rounds\n"}
+,{"stream_name":"stdout","time":319.403214933,"data":"[250]\tvalid_0's auc: 0.944996\tvalid_0's binary_logloss: 0.220921\n"}
+,{"stream_name":"stdout","time":342.111990658,"data":"[500]\tvalid_0's auc: 0.945475\tvalid_0's binary_logloss: 0.219422\n"}
+,{"stream_name":"stdout","time":364.125631399,"data":"[750]\tvalid_0's auc: 0.945617\tvalid_0's binary_logloss: 0.219132\n"}
+,{"stream_name":"stdout","time":385.217075576,"data":"[1000]\tvalid_0's auc: 0.94568\tvalid_0's binary_logloss: 0.219009\n"}
+,{"stream_name":"stdout","time":407.107950515,"data":"[1250]\tvalid_0's auc: 0.945689\tvalid_0's binary_logloss: 0.218994\n"}
+,{"stream_name":"stdout","time":419.597274719,"data":"Early stopping, best iteration is:\n"}
+,{"stream_name":"stdout","time":419.597316462,"data":"[1278]\tvalid_0's auc: 0.945692\tvalid_0's binary_logloss: 0.218988\n"}
+,{"stream_name":"stdout","time":438.358387455,"data":"Fold ROC AUC: 0.945692393\n"}
+,{"stream_name":"stdout","time":467.52431082,"data":"\n"}
+,{"stream_name":"stdout","time":467.524428828,"data":"Pass 1 | lightgbm | fold 3/5 | 159 features\n"}
+,{"stream_name":"stdout","time":472.933802768,"data":"Training until validation scores don't improve for 120 rounds\n"}
+,{"stream_name":"stdout","time":498.95242589,"data":"[250]\tvalid_0's auc: 0.946063\tvalid_0's binary_logloss: 0.219193\n"}
+,{"stream_name":"stdout","time":522.000615339,"data":"[500]\tvalid_0's auc: 0.946591\tvalid_0's binary_logloss: 0.217559\n"}
+,{"stream_name":"stdout","time":546.413331519,"data":"[750]\tvalid_0's auc: 0.946748\tvalid_0's binary_logloss: 0.217229\n"}
+,{"stream_name":"stdout","time":574.542164992,"data":"[1000]\tvalid_0's auc: 0.946806\tvalid_0's binary_logloss: 0.217102\n"}
+,{"stream_name":"stdout","time":597.14478026,"data":"[1250]\tvalid_0's auc: 0.946841\tvalid_0's binary_logloss: 0.217032\n"}
+,{"stream_name":"stdout","time":619.864280207,"data":"[1500]\tvalid_0's auc: 0.946867\tvalid_0's binary_logloss: 0.216979\n"}
+,{"stream_name":"stdout","time":643.971830501,"data":"[1750]\tvalid_0's auc: 0.946878\tvalid_0's binary_logloss: 0.21696\n"}
+,{"stream_name":"stdout","time":654.24116969,"data":"Early stopping, best iteration is:\n"}
+,{"stream_name":"stdout","time":654.241249644,"data":"[1741]\tvalid_0's auc: 0.946879\tvalid_0's binary_logloss: 0.216958\n"}
+,{"stream_name":"stdout","time":680.173074588,"data":"Fold ROC AUC: 0.946879075\n"}
+,{"stream_name":"stdout","time":709.064273261,"data":"\n"}
+,{"stream_name":"stdout","time":709.064336225,"data":"Pass 1 | lightgbm | fold 4/5 | 159 features\n"}
+,{"stream_name":"stdout","time":714.385780313,"data":"Training until validation scores don't improve for 120 rounds\n"}
+,{"stream_name":"stdout","time":740.78302828,"data":"[250]\tvalid_0's auc: 0.945699\tvalid_0's binary_logloss: 0.219786\n"}
+,{"stream_name":"stdout","time":763.41027157,"data":"[500]\tvalid_0's auc: 0.946106\tvalid_0's binary_logloss: 0.218321\n"}
+,{"stream_name":"stdout","time":785.250952016,"data":"[750]\tvalid_0's auc: 0.946205\tvalid_0's binary_logloss: 0.21808\n"}
+,{"stream_name":"stdout","time":806.654301467,"data":"[1000]\tvalid_0's auc: 0.946257\tvalid_0's binary_logloss: 0.217962\n"}
+,{"stream_name":"stdout","time":828.838380816,"data":"[1250]\tvalid_0's auc: 0.94628\tvalid_0's binary_logloss: 0.217904\n"}
+,{"stream_name":"stdout","time":839.86434265,"data":"Early stopping, best iteration is:\n"}
+,{"stream_name":"stdout","time":839.864384115,"data":"[1255]\tvalid_0's auc: 0.946281\tvalid_0's binary_logloss: 0.217901\n"}
+,{"stream_name":"stdout","time":860.891665883,"data":"Fold ROC AUC: 0.946281111\n"}
+,{"stream_name":"stdout","time":891.413260333,"data":"\n"}
+,{"stream_name":"stdout","time":891.413306867,"data":"Pass 1 | lightgbm | fold 5/5 | 159 features\n"}
+,{"stream_name":"stdout","time":896.730437298,"data":"Training until validation scores don't improve for 120 rounds\n"}
+,{"stream_name":"stdout","time":922.892609534,"data":"[250]\tvalid_0's auc: 0.945187\tvalid_0's binary_logloss: 0.2207\n"}
+,{"stream_name":"stdout","time":946.679668942,"data":"[500]\tvalid_0's auc: 0.94574\tvalid_0's binary_logloss: 0.219015\n"}
+,{"stream_name":"stdout","time":969.811000083,"data":"[750]\tvalid_0's auc: 0.945869\tvalid_0's binary_logloss: 0.218735\n"}
+,{"stream_name":"stdout","time":993.321594486,"data":"[1000]\tvalid_0's auc: 0.945911\tvalid_0's binary_logloss: 0.218628\n"}
+,{"stream_name":"stdout","time":1015.835999092,"data":"[1250]\tvalid_0's auc: 0.94594\tvalid_0's binary_logloss: 0.218567\n"}
+,{"stream_name":"stdout","time":1038.366845983,"data":"[1500]\tvalid_0's auc: 0.945962\tvalid_0's binary_logloss: 0.218523\n"}
+,{"stream_name":"stdout","time":1050.41424245,"data":"Early stopping, best iteration is:\n"}
+,{"stream_name":"stdout","time":1050.414337411,"data":"[1521]\tvalid_0's auc: 0.945967\tvalid_0's binary_logloss: 0.218514\n"}
+,{"stream_name":"stdout","time":1073.254999269,"data":"Fold ROC AUC: 0.945967015\n"}
+,{"stream_name":"stdout","time":1073.313323694,"data":"\n"}
+,{"stream_name":"stdout","time":1073.313394438,"data":"OOF ROC AUC: 0.945968856\n"}
+,{"stream_name":"stdout","time":1073.31340778,"data":"Elapsed: 16.3 minutes\n"}
+,{"stream_name":"stdout","time":1102.914165372,"data":"\n"}
+,{"stream_name":"stdout","time":1102.914205125,"data":"Pass 2 | lightgbm | fold 1/5 | 159 features\n"}
+,{"stream_name":"stdout","time":1108.113326489,"data":"Training until validation scores don't improve for 120 rounds\n"}
+,{"stream_name":"stdout","time":1134.623702994,"data":"[250]\tvalid_0's auc: 0.945001\tvalid_0's binary_logloss: 0.221238\n"}
+,{"stream_name":"stdout","time":1157.977277787,"data":"[500]\tvalid_0's auc: 0.94548\tvalid_0's binary_logloss: 0.219778\n"}
+,{"stream_name":"stdout","time":1182.684427399,"data":"[750]\tvalid_0's auc: 0.945627\tvalid_0's binary_logloss: 0.21947\n"}
+,{"stream_name":"stdout","time":1206.258950764,"data":"[1000]\tvalid_0's auc: 0.945708\tvalid_0's binary_logloss: 0.219311\n"}
+,{"stream_name":"stdout","time":1229.988252947,"data":"[1250]\tvalid_0's auc: 0.945747\tvalid_0's binary_logloss: 0.219241\n"}
+,{"stream_name":"stdout","time":1252.64205252,"data":"[1500]\tvalid_0's auc: 0.945766\tvalid_0's binary_logloss: 0.219211\n"}
+,{"stream_name":"stdout","time":1260.495067405,"data":"Early stopping, best iteration is:\n"}
+,{"stream_name":"stdout","time":1260.495109859,"data":"[1466]\tvalid_0's auc: 0.945772\tvalid_0's binary_logloss: 0.219202\n"}
+,{"stream_name":"stdout","time":1282.941013953,"data":"Fold ROC AUC: 0.945772330\n"}
+,{"stream_name":"stdout","time":1312.4815969,"data":"\n"}
+,{"stream_name":"stdout","time":1312.481672848,"data":"Pass 2 | lightgbm | fold 2/5 | 159 features\n"}
+,{"stream_name":"stdout","time":1317.955829033,"data":"Training until validation scores don't improve for 120 rounds\n"}
+,{"stream_name":"stdout","time":1345.128162862,"data":"[250]\tvalid_0's auc: 0.944978\tvalid_0's binary_logloss: 0.220835\n"}
+,{"stream_name":"stdout","time":1369.034314781,"data":"[500]\tvalid_0's auc: 0.945489\tvalid_0's binary_logloss: 0.219315\n"}
+,{"stream_name":"stdout","time":1393.274739129,"data":"[750]\tvalid_0's auc: 0.945664\tvalid_0's binary_logloss: 0.218956\n"}
+,{"stream_name":"stdout","time":1415.053197618,"data":"[1000]\tvalid_0's auc: 0.94572\tvalid_0's binary_logloss: 0.218831\n"}
+,{"stream_name":"stdout","time":1436.244262277,"data":"[1250]\tvalid_0's auc: 0.945739\tvalid_0's binary_logloss: 0.218792\n"}
+,{"stream_name":"stdout","time":1439.042569432,"data":"Early stopping, best iteration is:\n"}
+,{"stream_name":"stdout","time":1439.042623444,"data":"[1165]\tvalid_0's auc: 0.945745\tvalid_0's binary_logloss: 0.21878\n"}
+,{"stream_name":"stdout","time":1455.904175515,"data":"Fold ROC AUC: 0.945745423\n"}
+,{"stream_name":"stdout","time":1484.610839506,"data":"\n"}
+,{"stream_name":"stdout","time":1484.610878653,"data":"Pass 2 | lightgbm | fold 3/5 | 159 features\n"}
+,{"stream_name":"stdout","time":1489.815328667,"data":"Training until validation scores don't improve for 120 rounds\n"}
+,{"stream_name":"stdout","time":1515.2234736,"data":"[250]\tvalid_0's auc: 0.945699\tvalid_0's binary_logloss: 0.219305\n"}
+,{"stream_name":"stdout","time":1537.589774299,"data":"[500]\tvalid_0's auc: 0.946155\tvalid_0's binary_logloss: 0.21774\n"}
+,{"stream_name":"stdout","time":1559.451261834,"data":"[750]\tvalid_0's auc: 0.946259\tvalid_0's binary_logloss: 0.217503\n"}
+,{"stream_name":"stdout","time":1580.474530802,"data":"[1000]\tvalid_0's auc: 0.946318\tvalid_0's binary_logloss: 0.217378\n"}
+,{"stream_name":"stdout","time":1601.715953601,"data":"[1250]\tvalid_0's auc: 0.946324\tvalid_0's binary_logloss: 0.217359\n"}
+,{"stream_name":"stdout","time":1611.129269991,"data":"Early stopping, best iteration is:\n"}
+,{"stream_name":"stdout","time":1611.129337315,"data":"[1241]\tvalid_0's auc: 0.946326\tvalid_0's binary_logloss: 0.217355\n"}
+,{"stream_name":"stdout","time":1628.917666367,"data":"Fold ROC AUC: 0.946325806\n"}
+,{"stream_name":"stdout","time":1657.033887118,"data":"\n"}
+,{"stream_name":"stdout","time":1657.033930915,"data":"Pass 2 | lightgbm | fold 4/5 | 159 features\n"}
+,{"stream_name":"stdout","time":1662.153735455,"data":"Training until validation scores don't improve for 120 rounds\n"}
+,{"stream_name":"stdout","time":1687.477196207,"data":"[250]\tvalid_0's auc: 0.944839\tvalid_0's binary_logloss: 0.221162\n"}
+,{"stream_name":"stdout","time":1709.936263735,"data":"[500]\tvalid_0's auc: 0.945432\tvalid_0's binary_logloss: 0.219488\n"}
+,{"stream_name":"stdout","time":1731.526853361,"data":"[750]\tvalid_0's auc: 0.945557\tvalid_0's binary_logloss: 0.219225\n"}
+,{"stream_name":"stdout","time":1752.533112783,"data":"[1000]\tvalid_0's auc: 0.945589\tvalid_0's binary_logloss: 0.219161\n"}
+,{"stream_name":"stdout","time":1773.76522821,"data":"[1250]\tvalid_0's auc: 0.945601\tvalid_0's binary_logloss: 0.219139\n"}
+,{"stream_name":"stdout","time":1779.513133909,"data":"Early stopping, best iteration is:\n"}
+,{"stream_name":"stdout","time":1779.51318736,"data":"[1196]\tvalid_0's auc: 0.945607\tvalid_0's binary_logloss: 0.219129\n"}
+,{"stream_name":"stdout","time":1796.512908151,"data":"Fold ROC AUC: 0.945607030\n"}
+,{"stream_name":"stdout","time":1825.712283375,"data":"\n"}
+,{"stream_name":"stdout","time":1825.712322491,"data":"Pass 2 | lightgbm | fold 5/5 | 159 features\n"}
+,{"stream_name":"stdout","time":1831.002178442,"data":"Training until validation scores don't improve for 120 rounds\n"}
+,{"stream_name":"stdout","time":1856.094100789,"data":"[250]\tvalid_0's auc: 0.945806\tvalid_0's binary_logloss: 0.220133\n"}
+,{"stream_name":"stdout","time":1878.317166308,"data":"[500]\tvalid_0's auc: 0.946286\tvalid_0's binary_logloss: 0.21857\n"}
+,{"stream_name":"stdout","time":1899.40875214,"data":"[750]\tvalid_0's auc: 0.946406\tvalid_0's binary_logloss: 0.218306\n"}
+,{"stream_name":"stdout","time":1920.341994621,"data":"[1000]\tvalid_0's auc: 0.946477\tvalid_0's binary_logloss: 0.218153\n"}
+,{"stream_name":"stdout","time":1941.252807873,"data":"[1250]\tvalid_0's auc: 0.9465\tvalid_0's binary_logloss: 0.218099\n"}
+,{"stream_name":"stdout","time":1950.293186884,"data":"Early stopping, best iteration is:\n"}
+,{"stream_name":"stdout","time":1950.29323845,"data":"[1238]\tvalid_0's auc: 0.946502\tvalid_0's binary_logloss: 0.218098\n"}
+,{"stream_name":"stdout","time":1968.518602696,"data":"Fold ROC AUC: 0.946501861\n"}
+,{"stream_name":"stdout","time":1968.550041649,"data":"\n"}
+,{"stream_name":"stdout","time":1968.550089836,"data":"OOF ROC AUC: 0.945976736\n"}
+,{"stream_name":"stdout","time":1968.550097756,"data":"Elapsed: 14.9 minutes\n"}
+,{"stream_name":"stdout","time":2001.674634312,"data":"Current reference 56112970 | 82 scored files | 67,661 adjusted records\n"}
+,{"stream_name":"stdout","time":2001.674691915,"data":"submission.csv: latest best + pass 2. Adjustment files: unscored experiments.\n"}
+,{"stream_name":"stderr","time":2006.683617247,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":2006.683771392,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":2006.918608611,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":2006.918655907,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":2007.882524331,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":2008.327184794,"data":"[NbConvertApp] Writing 56598 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":2011.751711493,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":2012.814470552,"data":"[NbConvertApp] Writing 428462 bytes to __results__.html\n"}
+]

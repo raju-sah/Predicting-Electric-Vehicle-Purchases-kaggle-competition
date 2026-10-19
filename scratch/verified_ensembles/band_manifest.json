@@ -1,0 +1,74 @@
+[
+  {
+    "version": "v69",
+    "parent": "v68",
+    "method": "logit",
+    "file": "subs/v69_verified5_logit_bands.csv",
+    "pooled_oof_auc": 0.9462270313996575,
+    "oof_delta_vs_parent": -4.3878607495329014e-05,
+    "fold_auc": [
+      0.9452608127306433,
+      0.9459098798731191,
+      0.9471687354949457,
+      0.9465152573207029,
+      0.9463036842562328
+    ],
+    "bands": [
+      [
+        0.54,
+        0.04
+      ],
+      [
+        0.2,
+        0.06
+      ],
+      [
+        0.58,
+        0.04
+      ],
+      [
+        0.47,
+        0.06
+      ]
+    ],
+    "test_rank_correlation_parent": 0.9991600213568583,
+    "sha256": "95c83b587b732a503f77cf9d5326b7435fb5780cf61d34dd236690f3140afb11",
+    "caveat": "Full OOF transformation measured; bands were chosen using public leaderboard feedback in prior work. No independent generalization claim."
+  },
+  {
+    "version": "v70",
+    "parent": "v67",
+    "method": "rank",
+    "file": "subs/v70_verified5_rank_bands.csv",
+    "pooled_oof_auc": 0.9462252301064018,
+    "oof_delta_vs_parent": -4.38958615295304e-05,
+    "fold_auc": [
+      0.9452650984257716,
+      0.9459100583084207,
+      0.9471649379262452,
+      0.9465083456680874,
+      0.9463012342619618
+    ],
+    "bands": [
+      [
+        0.54,
+        0.04
+      ],
+      [
+        0.2,
+        0.06
+      ],
+      [
+        0.58,
+        0.04
+      ],
+      [
+        0.47,
+        0.06
+      ]
+    ],
+    "test_rank_correlation_parent": 0.9991600213540567,
+    "sha256": "9e7108308c73a7823f12b13e1346c754321d9f3d02c5b8644b493308c49cfabe",
+    "caveat": "Full OOF transformation measured; bands were chosen using public leaderboard feedback in prior work. No independent generalization claim."
+  }
+]

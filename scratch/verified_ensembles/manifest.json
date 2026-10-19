@@ -1,0 +1,478 @@
+{
+  "components": [
+    "memory",
+    "lgb6",
+    "xgb5"
+  ],
+  "outer_split": "StratifiedKFold(5, shuffle=True, random_state=42)",
+  "reference_memory_pooled_auc": 0.9462202444197401,
+  "reference_memory_mean_fold_auc": 0.946225373809552,
+  "grid": [
+    {
+      "method": "probability",
+      "weights": [
+        0.2,
+        0.2,
+        0.6
+      ],
+      "pooled_auc": 0.9462187039696238,
+      "mean_fold_auc": 0.9462225518166179,
+      "fold_auc": [
+        0.945289300888185,
+        0.9458690891752811,
+        0.947115028796595,
+        0.9465156770315641,
+        0.9463236631914643
+      ]
+    },
+    {
+      "method": "probability",
+      "weights": [
+        0.2,
+        0.4,
+        0.4
+      ],
+      "pooled_auc": 0.9462123700787859,
+      "mean_fold_auc": 0.9462166471660154,
+      "fold_auc": [
+        0.9452787379375751,
+        0.9458689565125132,
+        0.9471030251435371,
+        0.9465135590821153,
+        0.9463189571543373
+      ]
+    },
+    {
+      "method": "probability",
+      "weights": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "pooled_auc": 0.9461933086998657,
+      "mean_fold_auc": 0.9461981112165517,
+      "fold_auc": [
+        0.9452538655443607,
+        0.9458560808538947,
+        0.9470794922425818,
+        0.9464999083936436,
+        0.9463012090482777
+      ]
+    },
+    {
+      "method": "probability",
+      "weights": [
+        0.4,
+        0.2,
+        0.4
+      ],
+      "pooled_auc": 0.9462572321196897,
+      "mean_fold_auc": 0.9462615441583259,
+      "fold_auc": [
+        0.9453180555439665,
+        0.9459136386515364,
+        0.947157885077,
+        0.9465495836178878,
+        0.9463685579012382
+      ]
+    },
+    {
+      "method": "probability",
+      "weights": [
+        0.4,
+        0.4,
+        0.2
+      ],
+      "pooled_auc": 0.9462467045209859,
+      "mean_fold_auc": 0.9462516844996293,
+      "fold_auc": [
+        0.9453032821539173,
+        0.9459102258824428,
+        0.9471426079119644,
+        0.9465429493157955,
+        0.9463593572340263
+      ]
+    },
+    {
+      "method": "probability",
+      "weights": [
+        0.6,
+        0.2,
+        0.2
+      ],
+      "pooled_auc": 0.9462686755010924,
+      "mean_fold_auc": 0.9462735160285873,
+      "fold_auc": [
+        0.9453217935018099,
+        0.9459329825898364,
+        0.947174972196638,
+        0.9465553005297885,
+        0.9463825313248643
+      ],
+      "version": "v66",
+      "delta_vs_memory": 4.843108135232921e-05,
+      "paired_auc_delta_se": 9.508798876174818e-06,
+      "descriptive_delta_95ci": [
+        2.9793835555026563e-05,
+        6.706832714963185e-05
+      ],
+      "fold_deltas_vs_memory": [
+        5.5497579580787715e-05,
+        3.8595943628871865e-05,
+        3.501521261040086e-05,
+        5.8456568497677885e-05,
+        5.3145790859687736e-05
+      ],
+      "selection_caveat": "Weights and pooling method assessed on existing OOF; interval does not adjust for selection or training dependence.",
+      "file": "subs/v66_verified5_probability.csv",
+      "sha256": "837c1f7df9c9bd5d07961afde2a6f06828f226c0fceb6bfd89078590ad4df38b"
+    },
+    {
+      "method": "rank",
+      "weights": [
+        0.2,
+        0.2,
+        0.6
+      ],
+      "pooled_auc": 0.9462192760913695,
+      "mean_fold_auc": 0.9462232007559803,
+      "fold_auc": [
+        0.9452917773434437,
+        0.9458695183897617,
+        0.9471167299444536,
+        0.9465157670250207,
+        0.9463222110772223
+      ]
+    },
+    {
+      "method": "rank",
+      "weights": [
+        0.2,
+        0.4,
+        0.4
+      ],
+      "pooled_auc": 0.9462127527397526,
+      "mean_fold_auc": 0.9462170527320211,
+      "fold_auc": [
+        0.9452807519970522,
+        0.9458689101581251,
+        0.9471050036419189,
+        0.9465138366265897,
+        0.9463167612364198
+      ]
+    },
+    {
+      "method": "rank",
+      "weights": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "pooled_auc": 0.9461934149704425,
+      "mean_fold_auc": 0.9461982199157072,
+      "fold_auc": [
+        0.9452551664204117,
+        0.9458553192066892,
+        0.9470815496791893,
+        0.9465006120493763,
+        0.9462984522228688
+      ]
+    },
+    {
+      "method": "rank",
+      "weights": [
+        0.4,
+        0.2,
+        0.4
+      ],
+      "pooled_auc": 0.9462579894119804,
+      "mean_fold_auc": 0.9462623690981404,
+      "fold_auc": [
+        0.9453218559562739,
+        0.9459142470771246,
+        0.9471598222637305,
+        0.9465506297918189,
+        0.9463652904017542
+      ]
+    },
+    {
+      "method": "rank",
+      "weights": [
+        0.4,
+        0.4,
+        0.2
+      ],
+      "pooled_auc": 0.9462470982760484,
+      "mean_fold_auc": 0.9462521238571096,
+      "fold_auc": [
+        0.9453060573044377,
+        0.9459098335187309,
+        0.9471446310191716,
+        0.9465444811440691,
+        0.9463556162991389
+      ]
+    },
+    {
+      "method": "rank",
+      "weights": [
+        0.6,
+        0.2,
+        0.2
+      ],
+      "pooled_auc": 0.9462691259679313,
+      "mean_fold_auc": 0.9462739670649833,
+      "fold_auc": [
+        0.9453250190227179,
+        0.9459329567942983,
+        0.9471762526638781,
+        0.9465569917861248,
+        0.9463786150578979
+      ],
+      "version": "v67",
+      "delta_vs_memory": 4.8881548191270774e-05,
+      "paired_auc_delta_se": 9.448202485494528e-06,
+      "descriptive_delta_95ci": [
+        3.03630713197015e-05,
+        6.740002506284005e-05
+      ],
+      "fold_deltas_vs_memory": [
+        5.872310048882223e-05,
+        3.857014809083292e-05,
+        3.6295679850417706e-05,
+        6.014782483398928e-05,
+        4.92295238933016e-05
+      ],
+      "selection_caveat": "Weights and pooling method assessed on existing OOF; interval does not adjust for selection or training dependence.",
+      "file": "subs/v67_verified5_rank.csv",
+      "sha256": "c828f7bd336f61c41115ae014ac1fdb170f2b02b3be2e22df7a54798b3962f5c"
+    },
+    {
+      "method": "logit",
+      "weights": [
+        0.2,
+        0.2,
+        0.6
+      ],
+      "pooled_auc": 0.9462209160392331,
+      "mean_fold_auc": 0.9462248056307485,
+      "fold_auc": [
+        0.9452924278784484,
+        0.9458702676240769,
+        0.947117223550804,
+        0.9465173143694072,
+        0.9463267947310066
+      ]
+    },
+    {
+      "method": "logit",
+      "weights": [
+        0.2,
+        0.4,
+        0.4
+      ],
+      "pooled_auc": 0.9462144490192455,
+      "mean_fold_auc": 0.9462187606336787,
+      "fold_auc": [
+        0.9452813874033357,
+        0.9458698715752879,
+        0.9471055244014673,
+        0.9465154155850571,
+        0.9463216042032456
+      ]
+    },
+    {
+      "method": "logit",
+      "weights": [
+        0.2,
+        0.6,
+        0.2
+      ],
+      "pooled_auc": 0.9461951719183473,
+      "mean_fold_auc": 0.9461999432163724,
+      "fold_auc": [
+        0.9452556930162787,
+        0.9458567492104699,
+        0.947082296780039,
+        0.9465017792489899,
+        0.9463031978260845
+      ]
+    },
+    {
+      "method": "logit",
+      "weights": [
+        0.4,
+        0.2,
+        0.4
+      ],
+      "pooled_auc": 0.9462599943943871,
+      "mean_fold_auc": 0.946264321027174,
+      "fold_auc": [
+        0.9453221515482081,
+        0.9459152628006836,
+        0.9471608699892727,
+        0.9465518109559345,
+        0.9463715098417704
+      ]
+    },
+    {
+      "method": "logit",
+      "weights": [
+        0.4,
+        0.4,
+        0.2
+      ],
+      "pooled_auc": 0.9462493511377946,
+      "mean_fold_auc": 0.9462543148898451,
+      "fold_auc": [
+        0.9453064118595921,
+        0.9459113077434343,
+        0.9471460447310335,
+        0.9465457817822563,
+        0.9463620283329099
+      ]
+    },
+    {
+      "method": "logit",
+      "weights": [
+        0.6,
+        0.2,
+        0.2
+      ],
+      "pooled_auc": 0.9462709100071528,
+      "mean_fold_auc": 0.9462756747284757,
+      "fold_auc": [
+        0.9453248510551228,
+        0.9459341319459202,
+        0.9471775114085597,
+        0.9465577466450312,
+        0.9463841325877442
+      ],
+      "version": "v68",
+      "delta_vs_memory": 5.066558741273486e-05,
+      "paired_auc_delta_se": 9.424877018565116e-06,
+      "descriptive_delta_95ci": [
+        3.219282845634723e-05,
+        6.913834636912249e-05
+      ],
+      "fold_deltas_vs_memory": [
+        5.8555132893656214e-05,
+        3.974529971273455e-05,
+        3.755442453201585e-05,
+        6.0902683740371444e-05,
+        5.47470537396455e-05
+      ],
+      "selection_caveat": "Weights and pooling method assessed on existing OOF; interval does not adjust for selection or training dependence.",
+      "file": "subs/v68_verified5_logit.csv",
+      "sha256": "c8c3d429930a420dd7e581f61a2a89dd8c3024502b0e6430853475a131ef4e8d"
+    }
+  ],
+  "candidates": [
+    {
+      "method": "probability",
+      "weights": [
+        0.6,
+        0.2,
+        0.2
+      ],
+      "pooled_auc": 0.9462686755010924,
+      "mean_fold_auc": 0.9462735160285873,
+      "fold_auc": [
+        0.9453217935018099,
+        0.9459329825898364,
+        0.947174972196638,
+        0.9465553005297885,
+        0.9463825313248643
+      ],
+      "version": "v66",
+      "delta_vs_memory": 4.843108135232921e-05,
+      "paired_auc_delta_se": 9.508798876174818e-06,
+      "descriptive_delta_95ci": [
+        2.9793835555026563e-05,
+        6.706832714963185e-05
+      ],
+      "fold_deltas_vs_memory": [
+        5.5497579580787715e-05,
+        3.8595943628871865e-05,
+        3.501521261040086e-05,
+        5.8456568497677885e-05,
+        5.3145790859687736e-05
+      ],
+      "selection_caveat": "Weights and pooling method assessed on existing OOF; interval does not adjust for selection or training dependence.",
+      "file": "subs/v66_verified5_probability.csv",
+      "sha256": "837c1f7df9c9bd5d07961afde2a6f06828f226c0fceb6bfd89078590ad4df38b"
+    },
+    {
+      "method": "rank",
+      "weights": [
+        0.6,
+        0.2,
+        0.2
+      ],
+      "pooled_auc": 0.9462691259679313,
+      "mean_fold_auc": 0.9462739670649833,
+      "fold_auc": [
+        0.9453250190227179,
+        0.9459329567942983,
+        0.9471762526638781,
+        0.9465569917861248,
+        0.9463786150578979
+      ],
+      "version": "v67",
+      "delta_vs_memory": 4.8881548191270774e-05,
+      "paired_auc_delta_se": 9.448202485494528e-06,
+      "descriptive_delta_95ci": [
+        3.03630713197015e-05,
+        6.740002506284005e-05
+      ],
+      "fold_deltas_vs_memory": [
+        5.872310048882223e-05,
+        3.857014809083292e-05,
+        3.6295679850417706e-05,
+        6.014782483398928e-05,
+        4.92295238933016e-05
+      ],
+      "selection_caveat": "Weights and pooling method assessed on existing OOF; interval does not adjust for selection or training dependence.",
+      "file": "subs/v67_verified5_rank.csv",
+      "sha256": "c828f7bd336f61c41115ae014ac1fdb170f2b02b3be2e22df7a54798b3962f5c"
+    },
+    {
+      "method": "logit",
+      "weights": [
+        0.6,
+        0.2,
+        0.2
+      ],
+      "pooled_auc": 0.9462709100071528,
+      "mean_fold_auc": 0.9462756747284757,
+      "fold_auc": [
+        0.9453248510551228,
+        0.9459341319459202,
+        0.9471775114085597,
+        0.9465577466450312,
+        0.9463841325877442
+      ],
+      "version": "v68",
+      "delta_vs_memory": 5.066558741273486e-05,
+      "paired_auc_delta_se": 9.424877018565116e-06,
+      "descriptive_delta_95ci": [
+        3.219282845634723e-05,
+        6.913834636912249e-05
+      ],
+      "fold_deltas_vs_memory": [
+        5.8555132893656214e-05,
+        3.974529971273455e-05,
+        3.755442453201585e-05,
+        6.0902683740371444e-05,
+        5.47470537396455e-05
+      ],
+      "selection_caveat": "Weights and pooling method assessed on existing OOF; interval does not adjust for selection or training dependence.",
+      "file": "subs/v68_verified5_logit.csv",
+      "sha256": "c8c3d429930a420dd7e581f61a2a89dd8c3024502b0e6430853475a131ef4e8d"
+    }
+  ],
+  "submission_order": [
+    "v68",
+    "v67",
+    "v66"
+  ]
+}

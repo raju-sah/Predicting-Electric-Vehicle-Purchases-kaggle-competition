@@ -1,0 +1,50 @@
+[{"stream_name":"stderr","time":8.743453432,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":8.743535629,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":8.743542925,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":8.743548288,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":9.547570799,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":9.547617015,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":9.547624203,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":9.547629759,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":13.536171236,"data":"Competition sample: /kaggle/input/competitions/playground-series-s6e9/sample_submission.csv\n"}
+,{"stream_name":"stdout","time":13.536232266,"data":"0.94643 reference: /kaggle/input/datasets/jazivxt/s6e9-zoom-zoom-baseline/submission_latest_best.csv\n"}
+,{"stream_name":"stdout","time":13.536239624,"data":"Prediction archive: /kaggle/input/datasets/jazivxt/s6e9-zoom-zoom-baseline/ranked_predictions_latest.zip.bin\n"}
+,{"stream_name":"stdout","time":13.536245620999999,"data":"Output directory: /kaggle/working\n"}
+,{"stream_name":"stdout","time":15.025942654,"data":"Loaded and verified 4 prediction files for 286,571 test rows.\n"}
+,{"stream_name":"stdout","time":15.356580128,"data":"Derived Transformer weight: 5.5960%\n"}
+,{"stream_name":"stdout","time":15.356622281,"data":"Locked primary weight: 5.5%\n"}
+,{"stream_name":"stdout","time":17.368477543,"data":"Primary submission: /kaggle/working/submission_ref43_transformer055.csv\n"}
+,{"stream_name":"stdout","time":17.393272942,"data":"{\n"}
+,{"stream_name":"stdout","time":17.393322394,"data":"  \"target_public_auc\": 0.94644,\n"}
+,{"stream_name":"stdout","time":17.393330242,"data":"  \"reference_reported_public_auc\": 0.94643,\n"}
+,{"stream_name":"stdout","time":17.393336634,"data":"  \"transformer_reported_public_auc\": 0.94608,\n"}
+,{"stream_name":"stdout","time":17.393342482,"data":"  \"reference_transformer_rank_correlation\": 0.9977608646869167,\n"}
+,{"stream_name":"stdout","time":17.393348315,"data":"  \"derived_transformer_weight\": 0.055959987037563795,\n"}
+,{"stream_name":"stdout","time":17.393353965,"data":"  \"primary_transformer_weight\": 0.055,\n"}
+,{"stream_name":"stdout","time":17.393359103,"data":"  \"recommended_submission_order\": [\n"}
+,{"stream_name":"stdout","time":17.393369114,"data":"    \"submission_ref43_transformer055.csv\",\n"}
+,{"stream_name":"stdout","time":17.393374713,"data":"    \"submission_consensus43_transformer050.csv\",\n"}
+,{"stream_name":"stdout","time":17.393380007,"data":"    \"submission_ref43_transformer030.csv\"\n"}
+,{"stream_name":"stdout","time":17.393385636,"data":"  ],\n"}
+,{"stream_name":"stdout","time":17.393390969,"data":"  \"source_hashes\": {\n"}
+,{"stream_name":"stdout","time":17.393396164,"data":"    \"reference_94643_a\": \"416ebd9d73c6464d2c55c12a34846eddb6687f2dec808c4111b9681ce59cb4e7\",\n"}
+,{"stream_name":"stdout","time":17.393402045,"data":"    \"reference_94643_b\": \"683d761ca77fdd5bc07a0fb1b62678d80c927111cebbfd8c9b6778ce31c8a5e6\",\n"}
+,{"stream_name":"stdout","time":17.393407856,"data":"    \"megayak_94643\": \"93f2d0ff1e3f2284769a772e61b04c171b19dfe5732d1ff2548715d8f3188ac8\",\n"}
+,{"stream_name":"stdout","time":17.393436487,"data":"    \"transformer_94608\": \"f11c5d3b6057436b802360a054eadac974792e5d2b9ab8d0acb9878258ee5969\"\n"}
+,{"stream_name":"stdout","time":17.39344211,"data":"  },\n"}
+,{"stream_name":"stdout","time":17.393446683,"data":"  \"output_hashes\": {\n"}
+,{"stream_name":"stdout","time":17.393451433,"data":"    \"submission_ref43_transformer055.csv\": \"537f3363686b46cb584ae2dc1a9d77b2d4d0da75b79869c8a3146de9b6c30fe5\",\n"}
+,{"stream_name":"stdout","time":17.393464119,"data":"    \"submission_consensus43_transformer050.csv\": \"a5198f2897c14b1c58ff551be47ce664b34d1fac8e248a90a4e852f550cc9c12\",\n"}
+,{"stream_name":"stdout","time":17.393469362,"data":"    \"submission_ref43_transformer030.csv\": \"014aee438e49120bd1ecb4a328bac8534445c71cbab5411a4fa51850c5c48168\"\n"}
+,{"stream_name":"stdout","time":17.393474298,"data":"  },\n"}
+,{"stream_name":"stdout","time":17.39347856,"data":"  \"score_status\": \"Unmeasured until submitted to Kaggle\"\n"}
+,{"stream_name":"stdout","time":17.393483483,"data":"}\n"}
+,{"stream_name":"stderr","time":20.984604858,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":20.984660116,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":21.188319223,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":21.188359216,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":22.109776972,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":22.532725308,"data":"[NbConvertApp] Writing 24693 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":25.900843156,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":27.029332408,"data":"[NbConvertApp] Writing 317937 bytes to __results__.html\n"}
+]

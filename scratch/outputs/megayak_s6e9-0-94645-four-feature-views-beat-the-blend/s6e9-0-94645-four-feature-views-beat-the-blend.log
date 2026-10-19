@@ -1,0 +1,31 @@
+[{"stream_name":"stderr","time":6.174740278,"data":"/usr/local/lib/python3.12/dist-packages/nbformat/__init__.py:96: MissingIDFieldWarning: Cell is missing an id field, this will become a hard error in future nbformat versions. You may want to use `normalize()` on your notebooks before validations (available since nbformat 5.1.4). Previous versions of nbformat are fixing this issue transparently, and will stop doing so in the future.\n"}
+,{"stream_name":"stderr","time":6.174809498,"data":"  validate(nb)\n"}
+,{"stream_name":"stderr","time":7.08625746,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":7.08629063,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":7.08629429,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":7.08629693,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":7.678392979,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":7.678427939,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":7.678432699,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":7.678436469,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":11.595016623,"data":"sources:\n"}
+,{"stream_name":"stdout","time":11.595072733,"data":"   /kaggle/input/notebooks/nina2025/ps-s6e9-h-blend-1/submission.csv\n"}
+,{"stream_name":"stdout","time":11.595078192999999,"data":"   /kaggle/input/datasets/jazivxt/s6e9-zoom-zoom-baseline/submission_curvature9_lgbpair05.csv\n"}
+,{"stream_name":"stdout","time":11.905702513,"data":"   /kaggle/input/notebooks/kospintr/evehicle-stacked-lgbm-catb-xgb-hgbc-baseline/submission.csv\n"}
+,{"stream_name":"stdout","time":11.905741613,"data":"   /kaggle/input/notebooks/mikhailnaumov/electric-vehicle-purchases-single-xgb/submission.csv\n"}
+,{"stream_name":"stdout","time":12.244238422,"data":"   /kaggle/input/notebooks/najiama/pure-lgbm-model-cv-0-94606-lb-0-94637/submission_LIGHTGBM.csv\n"}
+,{"stream_name":"stdout","time":12.244297482,"data":"   /kaggle/input/notebooks/yekenot/ps-s6-e9-realmlp-pytorch/submission.csv\n"}
+,{"stream_name":"stdout","time":12.594697193,"data":"   /kaggle/input/datasets/megayak/s6e9-four-feature-views-one-ensemble-oof/test_four_views.csv\n"}
+,{"stream_name":"stdout","time":13.466638822,"data":"\n"}
+,{"stream_name":"stdout","time":13.466669422,"data":"four-view ensemble vs daily blend  spearman = 0.99907\n"}
+,{"stream_name":"stdout","time":13.466675332,"data":"final vs daily blend               spearman = 0.99992\n"}
+,{"stream_name":"stdout","time":13.684514077,"data":"wrote submission.csv  (70% daily + 30% four-view ensemble)\n"}
+,{"stream_name":"stderr","time":16.383964517,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":16.384001748,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":16.53561142,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":16.53563959,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":17.183267989,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":17.438878207,"data":"[NbConvertApp] Writing 11199 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":19.833871074,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":20.563396985,"data":"[NbConvertApp] Writing 291682 bytes to __results__.html\n"}
+]

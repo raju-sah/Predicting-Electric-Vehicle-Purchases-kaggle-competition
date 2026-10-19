@@ -1,0 +1,32 @@
+[{"stream_name":"stderr","time":10.618838381,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":10.618964604,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":10.61897272,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":10.618976747,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":11.460683268,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":11.460735082,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":11.460741396,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":11.460745671,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":55.09003466,"data":"\n"}
+,{"stream_name":"stdout","time":55.090089466,"data":"==================================================\n"}
+,{"stream_name":"stdout","time":55.090096082,"data":"🚀 GENERATING FINAL SUBMISSION\n"}
+,{"stream_name":"stdout","time":55.090100853,"data":"==================================================\n"}
+,{"stream_name":"stdout","time":55.090104077,"data":"Optimal Notebook1 Weight: 77.00% (0.7700)\n"}
+,{"stream_name":"stdout","time":55.090107329,"data":"Optimal Notebook2 Weight: 23.00% (0.2300)\n"}
+,{"stream_name":"stdout","time":55.090110516,"data":"----------------------------------------\n"}
+,{"stream_name":"stdout","time":55.090113659,"data":"Notebook1 Baseline AUC: 0.946064\n"}
+,{"stream_name":"stdout","time":55.090116793,"data":"Notebook2 Baseline AUC: 0.945329\n"}
+,{"stream_name":"stdout","time":55.090119858,"data":"Final Blend CV Score  : 0.946134\n"}
+,{"stream_name":"stdout","time":55.090122948,"data":"Improvement over best :+0.000070\n"}
+,{"stream_name":"stdout","time":55.090126261,"data":"\n"}
+,{"stream_name":"stdout","time":55.777241014,"data":"✅ Saved to submission.csv\n"}
+,{"stream_name":"stderr","time":59.692789962,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":59.692854824,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":59.919173474,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":59.919216149,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":60.771050688,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":61.201413212,"data":"[NbConvertApp] Writing 76746 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":64.612766421,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":65.734494345,"data":"[NbConvertApp] Support files will be in __results___files/\n"}
+,{"stream_name":"stderr","time":65.734545154,"data":"[NbConvertApp] Making directory __results___files\n"}
+,{"stream_name":"stderr","time":65.735102042,"data":"[NbConvertApp] Writing 301090 bytes to __results__.html\n"}
+]

@@ -1,0 +1,38 @@
+[{"stream_name":"stderr","time":11.68874302,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":11.688858279,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":11.6888669,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":11.688872596,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":12.610664336,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":12.610712611,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":12.610721085,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":12.610731136,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":18.720125894,"data":"Launching Stratospheric High-Speed Blend Core (No Re-ranking)...\n"}
+,{"stream_name":"stdout","time":18.720199161,"data":"Initializing Multi-Profile Visual Diagnostic Core...\n"}
+,{"stream_name":"stdout","time":23.416857734,"data":"Execution complete! Flagship submission.csv written to disk successfully.\n"}
+,{"stream_name":"stdout","time":23.416917732,"data":"        id  Will_Buy_EV\n"}
+,{"stream_name":"stdout","time":23.416923895,"data":"0   668665     0.561783\n"}
+,{"stream_name":"stdout","time":23.416927638,"data":"1   668666     0.469107\n"}
+,{"stream_name":"stdout","time":23.416931548,"data":"2   668667     0.301000\n"}
+,{"stream_name":"stdout","time":23.41693504,"data":"3   668668     0.253515\n"}
+,{"stream_name":"stdout","time":23.416938501,"data":"4   668669     0.535073\n"}
+,{"stream_name":"stdout","time":23.416969769,"data":"5   668670     0.305189\n"}
+,{"stream_name":"stdout","time":23.416975848,"data":"6   668671     0.809535\n"}
+,{"stream_name":"stdout","time":23.41698174,"data":"7   668672     0.070432\n"}
+,{"stream_name":"stdout","time":23.416987077,"data":"8   668673     0.871713\n"}
+,{"stream_name":"stdout","time":23.416992606,"data":"9   668674     0.403378\n"}
+,{"stream_name":"stdout","time":23.416999348,"data":"10  668675     0.744365\n"}
+,{"stream_name":"stdout","time":23.417016886,"data":"11  668676     0.821818\n"}
+,{"stream_name":"stdout","time":23.417023248,"data":"12  668677     0.572384\n"}
+,{"stream_name":"stdout","time":23.417029065,"data":"13  668678     0.767269\n"}
+,{"stream_name":"stdout","time":23.417034418,"data":"14  668679     0.430461\n"}
+,{"stream_name":"stderr","time":27.282113967,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":27.282162366,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":27.510496994,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":27.510541884,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":28.413377662,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":28.803924333,"data":"[NbConvertApp] Writing 172055 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":32.173278608,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":33.332258132,"data":"[NbConvertApp] Support files will be in __results___files/\n"}
+,{"stream_name":"stderr","time":33.332320518,"data":"[NbConvertApp] Making directory __results___files\n"}
+,{"stream_name":"stderr","time":33.332638372,"data":"[NbConvertApp] Writing 312257 bytes to __results__.html\n"}
+]

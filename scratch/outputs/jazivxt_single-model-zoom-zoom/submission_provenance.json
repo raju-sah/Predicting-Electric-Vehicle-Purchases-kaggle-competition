@@ -1,0 +1,12 @@
+{
+  "reference_file": "submission_latest_best.csv",
+  "reference_submission": 56112970,
+  "reference_public_score": 0.94643,
+  "reference_sha256": "416ebd9d73c6464d2c55c12a34846eddb6687f2dec808c4111b9681ce59cb4e7",
+  "scored_files": 82,
+  "adjustment_step": -0.25,
+  "changed_records": 67661,
+  "main_output": "submission.csv",
+  "model_pass": 2,
+  "adjustment_score": "unmeasured"
+}

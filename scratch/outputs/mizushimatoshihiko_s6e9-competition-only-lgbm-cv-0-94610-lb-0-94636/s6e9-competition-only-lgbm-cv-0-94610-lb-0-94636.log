@@ -1,0 +1,67 @@
+[{"stream_name":"stderr","time":10.443734047,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":10.443824125999999,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":10.443831872,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":10.44383488,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":11.32774445,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":11.327787468,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":11.32779297,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":11.327797547,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":20.122535666,"data":"Python       : 3.12.13\n"}
+,{"stream_name":"stdout","time":20.122617565,"data":"NumPy        : 2.0.2\n"}
+,{"stream_name":"stdout","time":20.122625548,"data":"pandas       : 2.3.3\n"}
+,{"stream_name":"stdout","time":20.122630582,"data":"scikit-learn : 1.6.1\n"}
+,{"stream_name":"stdout","time":20.122635643,"data":"LightGBM     : 4.6.0\n"}
+,{"stream_name":"stdout","time":20.149313718,"data":"Target      : Will_Buy_EV\n"}
+,{"stream_name":"stdout","time":20.149367707,"data":"Positive    : Yes\n"}
+,{"stream_name":"stdout","time":20.149375166,"data":"Outer CV    : 5 folds\n"}
+,{"stream_name":"stdout","time":20.149380036,"data":"TE inner CV : 5 folds\n"}
+,{"stream_name":"stdout","time":20.149384526,"data":"Trees       : 1460\n"}
+,{"stream_name":"stdout","time":22.137404515,"data":"Data directory: /kaggle/input/competitions/playground-series-s6e9\n"}
+,{"stream_name":"stdout","time":22.137456525,"data":"Train: (668665, 15)\n"}
+,{"stream_name":"stdout","time":22.137464075,"data":"Test : (286571, 14)\n"}
+,{"stream_name":"stdout","time":22.547849293,"data":"Will_Buy_EV\n"}
+,{"stream_name":"stdout","time":22.547919924,"data":"No     551886\n"}
+,{"stream_name":"stdout","time":22.547928916,"data":"Yes    116779\n"}
+,{"stream_name":"stdout","time":22.547934053,"data":"Name: count, dtype: int64\n"}
+,{"stream_name":"stdout","time":22.547938794,"data":"Positive rate: 0.174645\n"}
+,{"stream_name":"stdout","time":26.632371233,"data":"Row-local features: 35\n"}
+,{"stream_name":"stdout","time":26.632425911,"data":"Encoding keys: 15\n"}
+,{"stream_name":"stdout","time":26.707970647,"data":"LGBMClassifier(colsample_bytree=0.3, feature_pre_filter=False,\n"}
+,{"stream_name":"stdout","time":26.708023634,"data":"               learning_rate=0.02, max_bin=1024, max_depth=5,\n"}
+,{"stream_name":"stdout","time":26.708031194,"data":"               min_child_samples=10, n_estimators=1460, n_jobs=-1,\n"}
+,{"stream_name":"stdout","time":26.708036593,"data":"               num_leaves=32, random_state=42, reg_alpha=0.071, reg_lambda=2.0,\n"}
+,{"stream_name":"stdout","time":26.708041062,"data":"               subsample=0.8, subsample_freq=1, verbose=-1)\n"}
+,{"stream_name":"stdout","time":26.909501379,"data":"\n"}
+,{"stream_name":"stdout","time":26.909543664,"data":"===== Fold 1/5 =====\n"}
+,{"stream_name":"stdout","time":130.209963261,"data":"AUC=0.945136 | LogLoss=0.220103 | 103.1s\n"}
+,{"stream_name":"stdout","time":130.210016162,"data":"\n"}
+,{"stream_name":"stdout","time":130.210023993,"data":"===== Fold 2/5 =====\n"}
+,{"stream_name":"stdout","time":233.864923245,"data":"AUC=0.945800 | LogLoss=0.218779 | 103.5s\n"}
+,{"stream_name":"stdout","time":233.865017971,"data":"\n"}
+,{"stream_name":"stdout","time":233.865031845,"data":"===== Fold 3/5 =====\n"}
+,{"stream_name":"stdout","time":336.897018969,"data":"AUC=0.946975 | LogLoss=0.216740 | 102.9s\n"}
+,{"stream_name":"stdout","time":336.897087933,"data":"\n"}
+,{"stream_name":"stdout","time":336.897093531,"data":"===== Fold 4/5 =====\n"}
+,{"stream_name":"stdout","time":439.677465333,"data":"AUC=0.946436 | LogLoss=0.217623 | 102.7s\n"}
+,{"stream_name":"stdout","time":439.677998646,"data":"\n"}
+,{"stream_name":"stdout","time":439.678021797,"data":"===== Fold 5/5 =====\n"}
+,{"stream_name":"stdout","time":542.506110313,"data":"AUC=0.946167 | LogLoss=0.218190 | 102.8s\n"}
+,{"stream_name":"stdout","time":542.506160085,"data":"\n"}
+,{"stream_name":"stdout","time":542.506166858,"data":"Total minutes: 8.59\n"}
+,{"stream_name":"stdout","time":542.861962286,"data":"\n"}
+,{"stream_name":"stdout","time":542.862011913,"data":"OOF ROC AUC : 0.946098984\n"}
+,{"stream_name":"stdout","time":542.862019818,"data":"OOF LogLoss : 0.218287182\n"}
+,{"stream_name":"stdout","time":542.862025018,"data":"Fold AUC mean/std: 0.946102856 / 0.000616731\n"}
+,{"stream_name":"stdout","time":546.018892601,"data":"Saved:\n"}
+,{"stream_name":"stdout","time":546.018945066,"data":"  /kaggle/working/oof_predictions.csv\n"}
+,{"stream_name":"stdout","time":546.018951133,"data":"  /kaggle/working/test_predictions.csv\n"}
+,{"stream_name":"stdout","time":546.018955817,"data":"  /kaggle/working/submission.csv\n"}
+,{"stream_name":"stderr","time":550.002535807,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":550.002591462,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":550.223948879,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":550.223989676,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":551.037770744,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":551.466714614,"data":"[NbConvertApp] Writing 80131 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":554.536094609,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":555.734024926,"data":"[NbConvertApp] Writing 411715 bytes to __results__.html\n"}
+]

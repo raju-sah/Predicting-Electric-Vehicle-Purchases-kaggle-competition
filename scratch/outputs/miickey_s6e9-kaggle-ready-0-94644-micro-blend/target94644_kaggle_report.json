@@ -1,0 +1,25 @@
+{
+  "target_public_auc": 0.94644,
+  "reference_reported_public_auc": 0.94643,
+  "transformer_reported_public_auc": 0.94608,
+  "reference_transformer_rank_correlation": 0.9977608646869167,
+  "derived_transformer_weight": 0.055959987037563795,
+  "primary_transformer_weight": 0.055,
+  "recommended_submission_order": [
+    "submission_ref43_transformer055.csv",
+    "submission_consensus43_transformer050.csv",
+    "submission_ref43_transformer030.csv"
+  ],
+  "source_hashes": {
+    "reference_94643_a": "416ebd9d73c6464d2c55c12a34846eddb6687f2dec808c4111b9681ce59cb4e7",
+    "reference_94643_b": "683d761ca77fdd5bc07a0fb1b62678d80c927111cebbfd8c9b6778ce31c8a5e6",
+    "megayak_94643": "93f2d0ff1e3f2284769a772e61b04c171b19dfe5732d1ff2548715d8f3188ac8",
+    "transformer_94608": "f11c5d3b6057436b802360a054eadac974792e5d2b9ab8d0acb9878258ee5969"
+  },
+  "output_hashes": {
+    "submission_ref43_transformer055.csv": "537f3363686b46cb584ae2dc1a9d77b2d4d0da75b79869c8a3146de9b6c30fe5",
+    "submission_consensus43_transformer050.csv": "a5198f2897c14b1c58ff551be47ce664b34d1fac8e248a90a4e852f550cc9c12",
+    "submission_ref43_transformer030.csv": "014aee438e49120bd1ecb4a328bac8534445c71cbab5411a4fa51850c5c48168"
+  },
+  "score_status": "Unmeasured until submitted to Kaggle"
+}

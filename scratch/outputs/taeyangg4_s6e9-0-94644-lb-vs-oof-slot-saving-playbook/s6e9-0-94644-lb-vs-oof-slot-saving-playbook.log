@@ -1,0 +1,30 @@
+[{"stream_name":"stderr","time":9.146304038,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":9.146398249,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":9.146406772,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":9.146411534,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":9.948850174,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":9.94892499,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":9.948936492,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":9.948953397,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":16.481673559,"data":"train: (668665, 15) test: (286571, 14)\n"}
+,{"stream_name":"stdout","time":16.481751193,"data":"positive rate: 17.465%\n"}
+,{"stream_name":"stdout","time":21.239155164,"data":"locked tree core OOF AUC: 0.946361365\n"}
+,{"stream_name":"stdout","time":38.83143035,"data":"core OOF AUC:          0.946361365\n"}
+,{"stream_name":"stdout","time":38.83150253,"data":"nested candidate AUC:  0.946368866\n"}
+,{"stream_name":"stdout","time":38.831511736,"data":"nested gain:           +0.000007501\n"}
+,{"stream_name":"stdout","time":42.393935991,"data":"final locked OOF AUC: 0.946369374\n"}
+,{"stream_name":"stdout","time":42.393988269,"data":"final effective weights: {'raw_lgbm': 0.54468, 'naji_power_two': 0.34532, 'realmlp': 0.11}\n"}
+,{"stream_name":"stdout","time":43.191817402,"data":"wrote submission.csv\n"}
+,{"stream_name":"stdout","time":43.191860562,"data":"{'rows': 286571, 'min': 1.7447683122158209e-06, 'max': 0.9999982552316878, 'OOF_AUC_locked_blend': 0.946369374064197, 'nested_AUC_weight_selection': 0.9463688662494166}\n"}
+,{"stream_name":"stderr","time":46.852734588,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":46.85280735,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":47.063191944,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":47.063234121,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":47.961259537,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":48.37972929,"data":"[NbConvertApp] Writing 137949 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":51.815737319,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":52.994638407,"data":"[NbConvertApp] Support files will be in __results___files/\n"}
+,{"stream_name":"stderr","time":52.994716154,"data":"[NbConvertApp] Making directory __results___files\n"}
+,{"stream_name":"stderr","time":52.995015144,"data":"[NbConvertApp] Making directory __results___files\n"}
+,{"stream_name":"stderr","time":52.995494743,"data":"[NbConvertApp] Writing 338864 bytes to __results__.html\n"}
+]

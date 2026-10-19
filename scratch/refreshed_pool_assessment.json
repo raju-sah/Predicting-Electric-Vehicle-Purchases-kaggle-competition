@@ -1,0 +1,146 @@
+[
+  {
+    "name": "01_blend_oof.csv",
+    "columns": [
+      "id",
+      "Will_Buy_EV"
+    ],
+    "same_as_sep16": true,
+    "auc": 0.9461845832633258,
+    "diagnostic_group_auc": [
+      0.9453119877630836,
+      0.9458838706005005,
+      0.9470797071407494,
+      0.946439700055968,
+      0.9462475904038692
+    ],
+    "rank_corr_memory": 0.9978062023600485,
+    "memory_half_rank_blend_auc": 0.9463021927428844
+  },
+  {
+    "name": "Pure LGBM_V1_oof.csv",
+    "columns": [
+      "id",
+      "OOF_Pred"
+    ],
+    "same_as_sep16": true,
+    "auc": 0.9458660241607995,
+    "diagnostic_group_auc": [
+      0.9449631392397171,
+      0.9455368127752687,
+      0.9467767804385717,
+      0.9461082873216056,
+      0.9459686605344308
+    ],
+    "rank_corr_memory": 0.9962976370077828,
+    "memory_half_rank_blend_auc": 0.9461872736824177
+  },
+  {
+    "name": "Pure LGBM_V3_oof.csv",
+    "columns": [
+      "id",
+      "OOF_Pred"
+    ],
+    "same_as_sep16": true,
+    "auc": 0.9460642523865462,
+    "diagnostic_group_auc": [
+      0.9451244393359021,
+      0.9457258075676468,
+      0.9469430128989652,
+      0.9463887534802002,
+      0.9461678005374108
+    ],
+    "rank_corr_memory": 0.9971541535772989,
+    "memory_half_rank_blend_auc": 0.9462405970428001
+  },
+  {
+    "name": "Pure LGBM_V5_oof.csv",
+    "columns": [
+      "id",
+      "OOF_Pred"
+    ],
+    "same_as_sep16": false,
+    "auc": 0.9461696392679958,
+    "diagnostic_group_auc": [
+      0.9452533015146073,
+      0.9458739119711598,
+      0.9470344064906643,
+      0.9464732592753079,
+      0.9462366697755112
+    ],
+    "rank_corr_memory": 0.9969492374973474,
+    "memory_half_rank_blend_auc": 0.9463151660311331
+  },
+  {
+    "name": "Pure LGBM_V6_oof.csv",
+    "columns": [
+      "id",
+      "OOF_Pred"
+    ],
+    "same_as_sep16": false,
+    "auc": 0.9460677414641657,
+    "diagnostic_group_auc": [
+      0.9451282994872616,
+      0.9457328006798564,
+      0.9469418144731737,
+      0.9463954219177416,
+      0.9461670561518811
+    ],
+    "rank_corr_memory": 0.9971621590712365,
+    "memory_half_rank_blend_auc": 0.9462428726280474
+  },
+  {
+    "name": "Sergey_LGBM_oof.csv",
+    "columns": [
+      "id",
+      "Will_Buy_EV"
+    ],
+    "same_as_sep16": true,
+    "auc": 0.9453293105873767,
+    "diagnostic_group_auc": [
+      0.9444092946067402,
+      0.9450959577184551,
+      0.9461364558553244,
+      0.9457423070144981,
+      0.9452986609968265
+    ],
+    "rank_corr_memory": 0.9953675500521176,
+    "memory_half_rank_blend_auc": 0.9460724801559122
+  },
+  {
+    "name": "XGBoost_Triple_TE_10folds_oof.csv",
+    "columns": [
+      "id",
+      "OOF_Pred"
+    ],
+    "same_as_sep16": true,
+    "auc": 0.9462428307575332,
+    "diagnostic_group_auc": [
+      0.945305198846498,
+      0.9459526801015654,
+      0.9471123955182371,
+      0.9465539015582338,
+      0.9463073144448622
+    ],
+    "rank_corr_memory": 0.9975523147225911,
+    "memory_half_rank_blend_auc": 0.946336239087708
+  },
+  {
+    "name": "XGBoost_Triple_TE_5folds_oof.csv",
+    "columns": [
+      "id",
+      "OOF_Pred"
+    ],
+    "same_as_sep16": true,
+    "auc": 0.9461421757639686,
+    "diagnostic_group_auc": [
+      0.9452294066695215,
+      0.9457810947760764,
+      0.9470388708643288,
+      0.9464409894449732,
+      0.9462381189804823
+    ],
+    "rank_corr_memory": 0.9977552197315557,
+    "memory_half_rank_blend_auc": 0.9462671216992707
+  }
+]

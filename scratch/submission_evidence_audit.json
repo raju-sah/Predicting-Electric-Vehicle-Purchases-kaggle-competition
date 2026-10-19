@@ -1,0 +1,98 @@
+{
+  "threshold": 0.9423,
+  "sources": {
+    "memory": {
+      "row_count": 668665,
+      "id_order_matches": true,
+      "labels_match": true,
+      "folds_present": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "fold_assignment_matches_seed42_5fold": true
+    },
+    "six_views": {
+      "row_count": 668665,
+      "id_order_matches": true,
+      "labels_match": true,
+      "folds_present": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "fold_assignment_matches_seed42_5fold": false
+    }
+  },
+  "metrics": {
+    "oof_plain": {
+      "pooled_auc": 0.9461352248241761,
+      "fold_auc": [
+        0.9451836139705267,
+        0.945822222367522,
+        0.9470336999256607,
+        0.9464501850694484,
+        0.9462250672139791
+      ],
+      "mean_fold_auc": 0.9461429577094276
+    },
+    "oof_residual": {
+      "pooled_auc": 0.9462001452540998,
+      "fold_auc": [
+        0.9452466122924139,
+        0.9458686741192535,
+        0.947130632963716,
+        0.9464595564139056,
+        0.946316546338252
+      ],
+      "mean_fold_auc": 0.9462044044255082
+    },
+    "oof_final": {
+      "pooled_auc": 0.9462202444197401,
+      "fold_auc": [
+        0.9452662959222291,
+        0.9458943866462075,
+        0.9471399569840276,
+        0.9464968439612909,
+        0.9463293855340046
+      ],
+      "mean_fold_auc": 0.946225373809552
+    },
+    "v37b_stack": {
+      "pooled_auc": 0.9464232800740789,
+      "auc_on_seed42_row_groups": [
+        0.9454879912304933,
+        0.9461703058078348,
+        0.9472823419542715,
+        0.9466943008538938,
+        0.946486648323321
+      ],
+      "caution": "Row-group scoring does not establish component training-fold provenance or independent ensemble selection."
+    },
+    "v56_memory_stack": {
+      "pooled_auc": 0.9464273265718274,
+      "auc_on_seed42_row_groups": [
+        0.9454882953565779,
+        0.9461652931335212,
+        0.9472941035559637,
+        0.9466981928769332,
+        0.9464958365776427
+      ],
+      "caution": "Row-group scoring does not establish component training-fold provenance or independent ensemble selection."
+    }
+  },
+  "submission_evidence": {
+    "v57": "Public score 0.94656; no matching full-submission OOF artifact established.",
+    "v58_v59": "Memory component OOF is available; complete blended-submission OOF is not established.",
+    "guaranteed_first_place_candidates": 0
+  }
+}
