@@ -1,0 +1,25 @@
+{
+  "id": "denpugovkin/when-an-oof-gain-does-not-transfer-0-94649-guard",
+  "id_no": 134999610,
+  "title": "When an OOF Gain Does Not Transfer | 0.94649 Guard",
+  "code_file": "when-an-oof-gain-does-not-transfer-0-94649-guard.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": false,
+  "enable_gpu": false,
+  "enable_tpu": false,
+  "enable_internet": false,
+  "keywords": [],
+  "dataset_sources": [
+    "najiama/s6e9-oof",
+    "megayak/s6e9-six-feature-views-oof-library",
+    "jazivxt/s6e9-zoom-zoom-baseline"
+  ],
+  "kernel_sources": [],
+  "competition_sources": [
+    "playground-series-s6e9"
+  ],
+  "model_sources": [],
+  "docker_image": "gcr.io/kaggle-images/python@sha256:dafd4ce5668bbf1ad422e4c109e0f18c9623c3a7c7f48b0235f13142755c40b9",
+  "machine_shape": "None"
+}

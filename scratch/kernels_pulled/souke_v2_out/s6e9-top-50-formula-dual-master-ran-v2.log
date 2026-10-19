@@ -1,0 +1,65 @@
+[{"stream_name":"stderr","time":9.415294344,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":9.415357824,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":9.415362977000001,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":9.41536621,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":10.285305529,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":10.285360779,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":10.28536747,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":10.285372333,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":15.407890933000001,"data":"[INFO] Libraries imported successfully!\n"}
+,{"stream_name":"stdout","time":15.455187946,"data":"[INFO] Submission 1 Path: /kaggle/input/datasets/soukeaizenz/ev-blend/ev-blend-1.csv\n"}
+,{"stream_name":"stdout","time":15.455232447,"data":"[INFO] Submission 2 Path: /kaggle/input/datasets/soukeaizenz/ev-blend/ev-blend-2.csv\n"}
+,{"stream_name":"stdout","time":15.908727924,"data":"Submission 1 shape: (286571, 2)\n"}
+,{"stream_name":"stdout","time":15.908785396,"data":"Submission 2 shape: (286571, 2)\n"}
+,{"stream_name":"stdout","time":15.908794176,"data":"[PASS] Data validation passed! 286,571 test records matching from id=668665 to id=955235.\n"}
+,{"stream_name":"stdout","time":16.101863163,"data":"      Metric Submission 1 (Prob Space) Submission 2 (Rank Space)\n"}
+,{"stream_name":"stdout","time":16.101905685,"data":"       Count                   286,571                   286,571\n"}
+,{"stream_name":"stdout","time":16.101911876,"data":"        Mean                  0.434963                  0.500002\n"}
+,{"stream_name":"stdout","time":16.101917202,"data":"     Std Dev                  0.277365                  0.288672\n"}
+,{"stream_name":"stdout","time":16.101922423,"data":"         Min              4.010336e-06              8.566812e-06\n"}
+,{"stream_name":"stdout","time":16.101927688,"data":"25% Quantile                  0.200498                  0.249994\n"}
+,{"stream_name":"stdout","time":16.101932945,"data":"Median (50%)                  0.403239                  0.499999\n"}
+,{"stream_name":"stdout","time":16.101937985,"data":"75% Quantile                  0.651626                  0.750006\n"}
+,{"stream_name":"stdout","time":16.101943196,"data":"90% Quantile                  0.859058                  0.899981\n"}
+,{"stream_name":"stdout","time":16.101948315,"data":"99% Quantile                  0.974948                  0.989995\n"}
+,{"stream_name":"stdout","time":16.101953416,"data":"         Max                  0.999830                  0.999998\n"}
+,{"stream_name":"stdout","time":16.202573223999998,"data":"\n"}
+,{"stream_name":"stdout","time":16.202625724,"data":"Pearson Linear Correlation:      0.9924202\n"}
+,{"stream_name":"stdout","time":16.202633893,"data":"Spearman Rank-Order Correlation: 0.9990997\n"}
+,{"stream_name":"stdout","time":17.595266299,"data":"Mean Rank Difference:         0.002599\n"}
+,{"stream_name":"stdout","time":17.595369948,"data":"Median Rank Difference:       0.001336\n"}
+,{"stream_name":"stdout","time":17.595378725,"data":"90th Percentile Difference:   0.004502\n"}
+,{"stream_name":"stdout","time":17.595384262,"data":"99th Percentile Difference:   0.011812\n"}
+,{"stream_name":"stdout","time":17.595412505,"data":"Maximum Rank Difference:      0.662457\n"}
+,{"stream_name":"stdout","time":18.089402719,"data":"[PASS] All 6 blend variations generated successfully!\n"}
+,{"stream_name":"stdout","time":20.346236375,"data":"Model / Blend Strategy Spearman vs Sub1 Spearman vs Sub2     Mean  Std Dev          Min      Max\n"}
+,{"stream_name":"stdout","time":20.346288929,"data":"          Sub 1 (Prob)        1.0000000        0.9990997 0.434963 0.277364 4.010336e-06 0.999830\n"}
+,{"stream_name":"stdout","time":20.34629671,"data":"          Sub 2 (Rank)        0.9990997        1.0000000 0.500002 0.288671 8.566812e-06 0.999998\n"}
+,{"stream_name":"stdout","time":20.346301234,"data":"      Rank Avg (50/50)        0.9997748        0.9997727 0.500002 0.288610 7.328027e-05 0.999990\n"}
+,{"stream_name":"stdout","time":20.346306205,"data":"      Rank Avg (55/45)        0.9998178        0.9997251 0.500002 0.288611 8.025934e-05 0.999990\n"}
+,{"stream_name":"stdout","time":20.346310782,"data":"      Rank Avg (45/55)        0.9997271        0.9998158 0.500002 0.288611 6.630120e-05 0.999989\n"}
+,{"stream_name":"stdout","time":20.346314947,"data":"   Logit Blend (50/50)        0.9994030        0.9999598 0.499774 0.288949 2.234507e-05 0.999995\n"}
+,{"stream_name":"stdout","time":20.346319025,"data":"   Logit Blend (55/45)        0.9994604        0.9999435 0.499768 0.288950 2.690432e-05 0.999996\n"}
+,{"stream_name":"stdout","time":20.346322853,"data":"    Power Rank (p=1.5)        0.9998643        0.9996590 0.400002 0.299979 8.589118e-07 0.999984\n"}
+,{"stream_name":"stdout","time":21.294646228,"data":"[PRIMARY] Saved: submission.csv (286,571 rows)\n"}
+,{"stream_name":"stdout","time":21.9442846,"data":"[VARIANT] Saved: submission_rank_55_45.csv (286,571 rows)\n"}
+,{"stream_name":"stdout","time":22.595444909,"data":"[VARIANT] Saved: submission_logit_50_50.csv (286,571 rows)\n"}
+,{"stream_name":"stdout","time":23.054870895,"data":"[VARIANT] Saved: submission_power_rank.csv (286,571 rows)\n"}
+,{"stream_name":"stdout","time":23.255668053,"data":"[PASS] Verified submission.csv: 286,571 rows | Min: 0.000073 | Max: 0.999990\n"}
+,{"stream_name":"stdout","time":23.401634276,"data":"[PASS] Verified submission_rank_55_45.csv: 286,571 rows | Min: 0.000080 | Max: 0.999990\n"}
+,{"stream_name":"stdout","time":23.401676498,"data":"[PASS] Verified submission_logit_50_50.csv: 286,571 rows | Min: 0.000022 | Max: 0.999995\n"}
+,{"stream_name":"stdout","time":23.486892335,"data":"[PASS] Verified submission_power_rank.csv: 286,571 rows | Min: 0.000001 | Max: 0.999984\n"}
+,{"stream_name":"stdout","time":23.486942378,"data":"\n"}
+,{"stream_name":"stdout","time":23.486950643,"data":"[SUCCESS] ALL VERIFICATION CHECKS PASSED SUCCESSFULLY! Ready to submit!\n"}
+,{"stream_name":"stderr","time":27.210481631,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":27.210547297,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":27.429016083,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":27.429074977,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":28.359753287,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":28.769379192,"data":"[NbConvertApp] Writing 156439 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":32.16137145,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":33.347217769,"data":"[NbConvertApp] Support files will be in __results___files/\n"}
+,{"stream_name":"stderr","time":33.347293286,"data":"[NbConvertApp] Making directory __results___files\n"}
+,{"stream_name":"stderr","time":33.347985387,"data":"[NbConvertApp] Making directory __results___files\n"}
+,{"stream_name":"stderr","time":33.348290643,"data":"[NbConvertApp] Writing 348077 bytes to __results__.html\n"}
+]

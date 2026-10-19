@@ -1,0 +1,30 @@
+{
+  "id": "nina2025/ps-s6e9-top-subm-will-buy-ev-round-5",
+  "id_no": 132724456,
+  "title": "PS-s6e9 | Top_subm['Will_Buy_EV'].round(5)",
+  "code_file": "ps-s6e9-top-subm-will-buy-ev-round-5.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": false,
+  "enable_gpu": false,
+  "enable_tpu": false,
+  "enable_internet": true,
+  "keywords": [],
+  "dataset_sources": [],
+  "kernel_sources": [
+    "nina2025/ps-s6e9-h-blend-3",
+    "yekenot/ps-s6-e9-realmlp-pytorch",
+    "najiama/xgboost-triple-te-dynamic-pruning-lb-0-94639",
+    "mikhailnaumov/electric-vehicle-purchases-single-xgb",
+    "yekenot/ps-s6-e9-realmlp-pytabkit",
+    "najiama/pure-lgbm-model-cv-0-94607-lb-0-94638",
+    "megayak/s6e9-0-94656-reading-the-public-split",
+    "amanatar/s6e9-samart-sota-meta-blend-lb-0-94656-champion"
+  ],
+  "competition_sources": [
+    "playground-series-s6e9"
+  ],
+  "model_sources": [],
+  "docker_image": "gcr.io/kaggle-images/python@sha256:dafd4ce5668bbf1ad422e4c109e0f18c9623c3a7c7f48b0235f13142755c40b9",
+  "machine_shape": "None"
+}

@@ -1,0 +1,97 @@
+[{"stream_name":"stderr","time":8.010418847,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":8.01051867,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":8.010527934,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":8.010533644,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":8.755410448,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":8.75548076,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":8.755486742,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":8.755491313,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":66.391786882,"data":"shape: (286_571, 2)\n"}
+,{"stream_name":"stdout","time":66.391880052,"data":"┌────────┬─────────────┐\n"}
+,{"stream_name":"stdout","time":66.391890911,"data":"│ id     ┆ Will_Buy_EV │\n"}
+,{"stream_name":"stdout","time":66.391897394,"data":"│ ---    ┆ ---         │\n"}
+,{"stream_name":"stdout","time":66.391903397,"data":"│ i64    ┆ f32         │\n"}
+,{"stream_name":"stdout","time":66.391909424,"data":"╞════════╪═════════════╡\n"}
+,{"stream_name":"stdout","time":66.391915516,"data":"│ 668665 ┆ 0.033213    │\n"}
+,{"stream_name":"stdout","time":66.391920724,"data":"│ 668666 ┆ 0.014111    │\n"}
+,{"stream_name":"stdout","time":66.391925724,"data":"│ 668667 ┆ 0.00397     │\n"}
+,{"stream_name":"stdout","time":66.391930834,"data":"│ 668668 ┆ 0.002547    │\n"}
+,{"stream_name":"stdout","time":66.391938083,"data":"│ 668669 ┆ 0.028003    │\n"}
+,{"stream_name":"stdout","time":66.391947113,"data":"│ …      ┆ …           │\n"}
+,{"stream_name":"stdout","time":66.391950779,"data":"│ 955231 ┆ 0.000428    │\n"}
+,{"stream_name":"stdout","time":66.391954248,"data":"│ 955232 ┆ 0.328067    │\n"}
+,{"stream_name":"stdout","time":66.391972855,"data":"│ 955233 ┆ 0.000653    │\n"}
+,{"stream_name":"stdout","time":66.39197891,"data":"│ 955234 ┆ 0.000676    │\n"}
+,{"stream_name":"stdout","time":66.391984818,"data":"│ 955235 ┆ 0.000244    │\n"}
+,{"stream_name":"stdout","time":66.391990216,"data":"└────────┴─────────────┘\n"}
+,{"stream_name":"stdout","time":66.391996146,"data":"CPU times: user 53 s, sys: 781 ms, total: 53.7 s\n"}
+,{"stream_name":"stdout","time":66.392002475,"data":"Wall time: 51.6 s\n"}
+,{"stream_name":"stdout","time":66.771355323,"data":"id\n"}
+,{"stream_name":"stdout","time":66.771397307,"data":"668665    0.033213\n"}
+,{"stream_name":"stdout","time":66.771405075,"data":"668666    0.014111\n"}
+,{"stream_name":"stdout","time":66.771411115,"data":"668667    0.003970\n"}
+,{"stream_name":"stdout","time":66.771417053,"data":"668668    0.002547\n"}
+,{"stream_name":"stdout","time":66.771422597,"data":"668669    0.028003\n"}
+,{"stream_name":"stdout","time":66.771427592,"data":"            ...   \n"}
+,{"stream_name":"stdout","time":66.771432556,"data":"955231    0.000428\n"}
+,{"stream_name":"stdout","time":66.771437501,"data":"955232    0.328067\n"}
+,{"stream_name":"stdout","time":66.771463832,"data":"955233    0.000653\n"}
+,{"stream_name":"stdout","time":66.771467924,"data":"955234    0.000676\n"}
+,{"stream_name":"stdout","time":66.771471691,"data":"955235    0.000244\n"}
+,{"stream_name":"stdout","time":66.771475381,"data":"Name: Will_Buy_EV, Length: 286571, dtype: float64 \n"}
+,{"stream_name":"stdout","time":66.771479511,"data":"\n"}
+,{"stream_name":"stdout","time":66.77148505,"data":" id\n"}
+,{"stream_name":"stdout","time":66.771488861,"data":"668665    0.568545\n"}
+,{"stream_name":"stdout","time":66.771502814,"data":"668666    0.478242\n"}
+,{"stream_name":"stdout","time":66.771507633,"data":"668667    0.309533\n"}
+,{"stream_name":"stdout","time":66.771511931,"data":"668668    0.250027\n"}
+,{"stream_name":"stdout","time":66.771516523,"data":"668669    0.555650\n"}
+,{"stream_name":"stdout","time":66.771521115,"data":"            ...   \n"}
+,{"stream_name":"stdout","time":66.771525876,"data":"955231    0.045040\n"}
+,{"stream_name":"stdout","time":66.771529645,"data":"955232    0.775709\n"}
+,{"stream_name":"stdout","time":66.771550864,"data":"955233    0.082054\n"}
+,{"stream_name":"stdout","time":66.771554843,"data":"955234    0.108705\n"}
+,{"stream_name":"stdout","time":66.771558838,"data":"955235    0.019690\n"}
+,{"stream_name":"stdout","time":66.771563017,"data":"Name: Will_Buy_EV, Length: 286571, dtype: float64 \n"}
+,{"stream_name":"stdout","time":66.771567011,"data":"\n"}
+,{"stream_name":"stdout","time":66.771570644,"data":"-------\n"}
+,{"stream_name":"stdout","time":66.771574369,"data":"\n"}
+,{"stream_name":"stdout","time":66.771577995,"data":" id\n"}
+,{"stream_name":"stdout","time":66.771581795,"data":"668665    0.577054\n"}
+,{"stream_name":"stdout","time":66.771585614,"data":"668666    0.478028\n"}
+,{"stream_name":"stdout","time":66.77158954,"data":"668667    0.294349\n"}
+,{"stream_name":"stdout","time":66.771593381,"data":"668668    0.244212\n"}
+,{"stream_name":"stdout","time":66.771597269,"data":"668669    0.559006\n"}
+,{"stream_name":"stdout","time":66.771602991,"data":"            ...   \n"}
+,{"stream_name":"stdout","time":66.771612085,"data":"955231    0.049653\n"}
+,{"stream_name":"stdout","time":66.771615731,"data":"955232    0.777835\n"}
+,{"stream_name":"stdout","time":66.771618313,"data":"955233    0.101074\n"}
+,{"stream_name":"stdout","time":66.771638802,"data":"955234    0.104770\n"}
+,{"stream_name":"stdout","time":66.771643405,"data":"955235    0.012517\n"}
+,{"stream_name":"stdout","time":66.771647728,"data":"Length: 286571, dtype: float64 \n"}
+,{"stream_name":"stdout","time":66.771651354,"data":"\n"}
+,{"stream_name":"stdout","time":66.771655236,"data":" id\n"}
+,{"stream_name":"stdout","time":66.771659578,"data":"668665    0.568543\n"}
+,{"stream_name":"stdout","time":66.771663977,"data":"668666    0.478244\n"}
+,{"stream_name":"stdout","time":66.771668447,"data":"668667    0.309539\n"}
+,{"stream_name":"stdout","time":66.771672703,"data":"668668    0.250032\n"}
+,{"stream_name":"stdout","time":66.771676826,"data":"668669    0.555656\n"}
+,{"stream_name":"stdout","time":66.77168063,"data":"            ...   \n"}
+,{"stream_name":"stdout","time":66.771684221,"data":"955231    0.045046\n"}
+,{"stream_name":"stdout","time":66.771687761,"data":"955232    0.775710\n"}
+,{"stream_name":"stdout","time":66.77169145,"data":"955233    0.082056\n"}
+,{"stream_name":"stdout","time":66.771695178,"data":"955234    0.108706\n"}
+,{"stream_name":"stdout","time":66.771698601,"data":"955235    0.019695\n"}
+,{"stream_name":"stdout","time":66.771709671,"data":"Length: 286571, dtype: float64\n"}
+,{"stream_name":"stderr","time":71.356341279,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":71.356393704,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":71.563886596,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":71.564002871,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":72.44132222,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":72.851332905,"data":"[NbConvertApp] Writing 180055 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":76.073780927,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":77.211441177,"data":"[NbConvertApp] Support files will be in __results___files/\n"}
+,{"stream_name":"stderr","time":77.211499547,"data":"[NbConvertApp] Making directory __results___files\n"}
+,{"stream_name":"stderr","time":77.211953187,"data":"[NbConvertApp] Making directory __results___files\n"}
+,{"stream_name":"stderr","time":77.212233032,"data":"[NbConvertApp] Writing 390809 bytes to __results__.html\n"}
+]

@@ -1,0 +1,151 @@
+[{"stream_name":"stderr","time":8.959597981,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":8.959680911,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":8.959685591,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":8.959687951,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":9.66468583,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":9.66472845,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":9.66473318,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":9.66473693,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":23.23650038,"data":"Reference: jazivxt | submission 56197564 | public 0.94649 | own/own_001_56197564.csv\n"}
+,{"stream_name":"stdout","time":23.309103609,"data":"\n"}
+,{"stream_name":"stdout","time":23.30914476,"data":"Pass 1 | lightgbm | fold 1/5: preparing features\n"}
+,{"stream_name":"stdout","time":36.179729909,"data":"111 features | 534,932 fit / 133,733 validation\n"}
+,{"stream_name":"stdout","time":39.165630354,"data":"Training until validation scores don't improve for 100 rounds\n"}
+,{"stream_name":"stdout","time":56.251208823,"data":"[250]\tvalid_0's auc: 0.944351\n"}
+,{"stream_name":"stdout","time":72.133660891,"data":"[500]\tvalid_0's auc: 0.944988\n"}
+,{"stream_name":"stdout","time":86.711181078,"data":"[750]\tvalid_0's auc: 0.945102\n"}
+,{"stream_name":"stdout","time":101.224554689,"data":"[1000]\tvalid_0's auc: 0.945161\n"}
+,{"stream_name":"stdout","time":109.437978769,"data":"Early stopping, best iteration is:\n"}
+,{"stream_name":"stdout","time":109.438025009,"data":"[1043]\tvalid_0's auc: 0.945172\n"}
+,{"stream_name":"stdout","time":109.438032549,"data":"Evaluated only: auc\n"}
+,{"stream_name":"stdout","time":119.82595299,"data":"Fold ROC AUC: 0.945171724 | elapsed 1.6 min\n"}
+,{"stream_name":"stdout","time":119.852089879,"data":"\n"}
+,{"stream_name":"stdout","time":119.852131259,"data":"Pass 1 | lightgbm | fold 2/5: preparing features\n"}
+,{"stream_name":"stdout","time":132.451098969,"data":"111 features | 534,932 fit / 133,733 validation\n"}
+,{"stream_name":"stdout","time":135.354188145,"data":"Training until validation scores don't improve for 100 rounds\n"}
+,{"stream_name":"stdout","time":151.41926068,"data":"[250]\tvalid_0's auc: 0.945084\n"}
+,{"stream_name":"stdout","time":166.467541703,"data":"[500]\tvalid_0's auc: 0.945642\n"}
+,{"stream_name":"stdout","time":181.301008501,"data":"[750]\tvalid_0's auc: 0.945768\n"}
+,{"stream_name":"stdout","time":195.704074102,"data":"[1000]\tvalid_0's auc: 0.945822\n"}
+,{"stream_name":"stdout","time":209.660099458,"data":"[1250]\tvalid_0's auc: 0.945853\n"}
+,{"stream_name":"stdout","time":218.171702856,"data":"Early stopping, best iteration is:\n"}
+,{"stream_name":"stdout","time":218.171750766,"data":"[1301]\tvalid_0's auc: 0.945862\n"}
+,{"stream_name":"stdout","time":218.171757836,"data":"Evaluated only: auc\n"}
+,{"stream_name":"stdout","time":231.095089569,"data":"Fold ROC AUC: 0.945862151 | elapsed 3.5 min\n"}
+,{"stream_name":"stdout","time":231.124090267,"data":"\n"}
+,{"stream_name":"stdout","time":231.124127807,"data":"Pass 1 | lightgbm | fold 3/5: preparing features\n"}
+,{"stream_name":"stdout","time":243.568381825,"data":"111 features | 534,932 fit / 133,733 validation\n"}
+,{"stream_name":"stdout","time":246.461310084,"data":"Training until validation scores don't improve for 100 rounds\n"}
+,{"stream_name":"stdout","time":262.841739215,"data":"[250]\tvalid_0's auc: 0.946089\n"}
+,{"stream_name":"stdout","time":278.042625831,"data":"[500]\tvalid_0's auc: 0.946722\n"}
+,{"stream_name":"stdout","time":292.938026333,"data":"[750]\tvalid_0's auc: 0.946908\n"}
+,{"stream_name":"stdout","time":308.012093532,"data":"[1000]\tvalid_0's auc: 0.946979\n"}
+,{"stream_name":"stdout","time":322.432117337,"data":"[1250]\tvalid_0's auc: 0.947027\n"}
+,{"stream_name":"stdout","time":336.800301547,"data":"[1500]\tvalid_0's auc: 0.947053\n"}
+,{"stream_name":"stdout","time":346.780098849,"data":"Early stopping, best iteration is:\n"}
+,{"stream_name":"stdout","time":346.780146149,"data":"[1575]\tvalid_0's auc: 0.947061\n"}
+,{"stream_name":"stdout","time":346.780153599,"data":"Evaluated only: auc\n"}
+,{"stream_name":"stdout","time":363.226948736,"data":"Fold ROC AUC: 0.947061254 | elapsed 5.7 min\n"}
+,{"stream_name":"stdout","time":363.23575407,"data":"\n"}
+,{"stream_name":"stdout","time":363.23579583,"data":"Pass 1 | lightgbm | fold 4/5: preparing features\n"}
+,{"stream_name":"stdout","time":375.848124464,"data":"111 features | 534,932 fit / 133,733 validation\n"}
+,{"stream_name":"stdout","time":378.730995117,"data":"Training until validation scores don't improve for 100 rounds\n"}
+,{"stream_name":"stdout","time":395.416271656,"data":"[250]\tvalid_0's auc: 0.945739\n"}
+,{"stream_name":"stdout","time":410.43009158,"data":"[500]\tvalid_0's auc: 0.946265\n"}
+,{"stream_name":"stdout","time":425.140946067,"data":"[750]\tvalid_0's auc: 0.946391\n"}
+,{"stream_name":"stdout","time":439.760337336,"data":"[1000]\tvalid_0's auc: 0.946441\n"}
+,{"stream_name":"stdout","time":452.174688566,"data":"Early stopping, best iteration is:\n"}
+,{"stream_name":"stdout","time":452.174727206,"data":"[1111]\tvalid_0's auc: 0.94646\n"}
+,{"stream_name":"stdout","time":452.174734686,"data":"Evaluated only: auc\n"}
+,{"stream_name":"stdout","time":463.375307433,"data":"Fold ROC AUC: 0.946459702 | elapsed 7.3 min\n"}
+,{"stream_name":"stdout","time":463.409470113,"data":"\n"}
+,{"stream_name":"stdout","time":463.409513713,"data":"Pass 1 | lightgbm | fold 5/5: preparing features\n"}
+,{"stream_name":"stdout","time":476.24095604,"data":"111 features | 534,932 fit / 133,733 validation\n"}
+,{"stream_name":"stdout","time":479.090899948,"data":"Training until validation scores don't improve for 100 rounds\n"}
+,{"stream_name":"stdout","time":496.293333598,"data":"[250]\tvalid_0's auc: 0.945281\n"}
+,{"stream_name":"stdout","time":511.937608208,"data":"[500]\tvalid_0's auc: 0.945894\n"}
+,{"stream_name":"stdout","time":526.973624818,"data":"[750]\tvalid_0's auc: 0.946041\n"}
+,{"stream_name":"stdout","time":542.247621505,"data":"[1000]\tvalid_0's auc: 0.94611\n"}
+,{"stream_name":"stdout","time":555.97765111,"data":"Early stopping, best iteration is:\n"}
+,{"stream_name":"stdout","time":555.97770661,"data":"[1134]\tvalid_0's auc: 0.946124\n"}
+,{"stream_name":"stdout","time":555.97771318,"data":"Evaluated only: auc\n"}
+,{"stream_name":"stdout","time":567.691293226,"data":"Fold ROC AUC: 0.946124246 | elapsed 9.1 min\n"}
+,{"stream_name":"stdout","time":567.887107005,"data":"\n"}
+,{"stream_name":"stdout","time":567.887151295,"data":"Pass 1 OOF ROC AUC: 0.946131639\n"}
+,{"stream_name":"stdout","time":568.028115737,"data":"\n"}
+,{"stream_name":"stdout","time":568.028176437,"data":"Pass 2 | lightgbm | fold 1/5: preparing features\n"}
+,{"stream_name":"stdout","time":580.810920188,"data":"111 features | 534,932 fit / 133,733 validation\n"}
+,{"stream_name":"stdout","time":583.680437746,"data":"Training until validation scores don't improve for 100 rounds\n"}
+,{"stream_name":"stdout","time":600.662141456,"data":"[250]\tvalid_0's auc: 0.944648\n"}
+,{"stream_name":"stdout","time":616.773985089,"data":"[500]\tvalid_0's auc: 0.945275\n"}
+,{"stream_name":"stdout","time":631.886945955,"data":"[750]\tvalid_0's auc: 0.945417\n"}
+,{"stream_name":"stdout","time":646.698978771,"data":"[1000]\tvalid_0's auc: 0.945469\n"}
+,{"stream_name":"stdout","time":661.715933996,"data":"[1250]\tvalid_0's auc: 0.945507\n"}
+,{"stream_name":"stdout","time":666.964661055,"data":"Early stopping, best iteration is:\n"}
+,{"stream_name":"stdout","time":666.964711346,"data":"[1236]\tvalid_0's auc: 0.945511\n"}
+,{"stream_name":"stdout","time":666.966714634,"data":"Evaluated only: auc\n"}
+,{"stream_name":"stdout","time":679.636186538,"data":"Fold ROC AUC: 0.945510819 | elapsed 1.9 min\n"}
+,{"stream_name":"stdout","time":679.668344071,"data":"\n"}
+,{"stream_name":"stdout","time":679.668385531,"data":"Pass 2 | lightgbm | fold 2/5: preparing features\n"}
+,{"stream_name":"stdout","time":692.460404109,"data":"111 features | 534,932 fit / 133,733 validation\n"}
+,{"stream_name":"stdout","time":695.356806287,"data":"Training until validation scores don't improve for 100 rounds\n"}
+,{"stream_name":"stdout","time":712.336819054,"data":"[250]\tvalid_0's auc: 0.945443\n"}
+,{"stream_name":"stdout","time":727.71447864,"data":"[500]\tvalid_0's auc: 0.946038\n"}
+,{"stream_name":"stdout","time":743.134752363,"data":"[750]\tvalid_0's auc: 0.946187\n"}
+,{"stream_name":"stdout","time":757.703608057,"data":"[1000]\tvalid_0's auc: 0.94626\n"}
+,{"stream_name":"stdout","time":772.604471226,"data":"[1250]\tvalid_0's auc: 0.946283\n"}
+,{"stream_name":"stdout","time":777.679811898,"data":"Early stopping, best iteration is:\n"}
+,{"stream_name":"stdout","time":777.679868008,"data":"[1227]\tvalid_0's auc: 0.946287\n"}
+,{"stream_name":"stdout","time":777.679874068,"data":"Evaluated only: auc\n"}
+,{"stream_name":"stdout","time":791.061917097,"data":"Fold ROC AUC: 0.946286501 | elapsed 3.7 min\n"}
+,{"stream_name":"stdout","time":791.097758417,"data":"\n"}
+,{"stream_name":"stdout","time":791.097807547,"data":"Pass 2 | lightgbm | fold 3/5: preparing features\n"}
+,{"stream_name":"stdout","time":804.344955137,"data":"111 features | 534,932 fit / 133,733 validation\n"}
+,{"stream_name":"stdout","time":807.322263195,"data":"Training until validation scores don't improve for 100 rounds\n"}
+,{"stream_name":"stdout","time":826.33297535,"data":"[250]\tvalid_0's auc: 0.945889\n"}
+,{"stream_name":"stdout","time":843.148662595,"data":"[500]\tvalid_0's auc: 0.946519\n"}
+,{"stream_name":"stdout","time":858.587846837,"data":"[750]\tvalid_0's auc: 0.946672\n"}
+,{"stream_name":"stdout","time":872.939175707,"data":"[1000]\tvalid_0's auc: 0.946723\n"}
+,{"stream_name":"stdout","time":887.239951398,"data":"[1250]\tvalid_0's auc: 0.946743\n"}
+,{"stream_name":"stdout","time":896.393867783,"data":"Early stopping, best iteration is:\n"}
+,{"stream_name":"stdout","time":896.393914133,"data":"[1308]\tvalid_0's auc: 0.946749\n"}
+,{"stream_name":"stdout","time":896.393921413,"data":"Evaluated only: auc\n"}
+,{"stream_name":"stdout","time":909.767907003,"data":"Fold ROC AUC: 0.946749231 | elapsed 5.7 min\n"}
+,{"stream_name":"stdout","time":909.776401098,"data":"\n"}
+,{"stream_name":"stdout","time":909.776439588,"data":"Pass 2 | lightgbm | fold 4/5: preparing features\n"}
+,{"stream_name":"stdout","time":921.920085065,"data":"111 features | 534,932 fit / 133,733 validation\n"}
+,{"stream_name":"stdout","time":924.749724936,"data":"Training until validation scores don't improve for 100 rounds\n"}
+,{"stream_name":"stdout","time":940.98277515,"data":"[250]\tvalid_0's auc: 0.944437\n"}
+,{"stream_name":"stdout","time":956.057463011,"data":"[500]\tvalid_0's auc: 0.944985\n"}
+,{"stream_name":"stdout","time":970.851606494,"data":"[750]\tvalid_0's auc: 0.945121\n"}
+,{"stream_name":"stdout","time":985.240127663,"data":"[1000]\tvalid_0's auc: 0.94518\n"}
+,{"stream_name":"stdout","time":999.886077706,"data":"[1250]\tvalid_0's auc: 0.945196\n"}
+,{"stream_name":"stdout","time":1004.228325271,"data":"Early stopping, best iteration is:\n"}
+,{"stream_name":"stdout","time":1004.228372621,"data":"[1224]\tvalid_0's auc: 0.945202\n"}
+,{"stream_name":"stdout","time":1004.22837936,"data":"Evaluated only: auc\n"}
+,{"stream_name":"stdout","time":1016.828240091,"data":"Fold ROC AUC: 0.945201563 | elapsed 7.5 min\n"}
+,{"stream_name":"stdout","time":1016.83088741,"data":"\n"}
+,{"stream_name":"stdout","time":1016.83091654,"data":"Pass 2 | lightgbm | fold 5/5: preparing features\n"}
+,{"stream_name":"stdout","time":1029.766228107,"data":"111 features | 534,932 fit / 133,733 validation\n"}
+,{"stream_name":"stdout","time":1032.598767264,"data":"Training until validation scores don't improve for 100 rounds\n"}
+,{"stream_name":"stdout","time":1048.641314153,"data":"[250]\tvalid_0's auc: 0.946164\n"}
+,{"stream_name":"stdout","time":1063.348652489,"data":"[500]\tvalid_0's auc: 0.946655\n"}
+,{"stream_name":"stdout","time":1077.631186912,"data":"[750]\tvalid_0's auc: 0.946787\n"}
+,{"stream_name":"stdout","time":1091.612707635,"data":"[1000]\tvalid_0's auc: 0.946832\n"}
+,{"stream_name":"stdout","time":1102.125110695,"data":"Early stopping, best iteration is:\n"}
+,{"stream_name":"stdout","time":1102.125153695,"data":"[1089]\tvalid_0's auc: 0.946844\n"}
+,{"stream_name":"stdout","time":1102.125161595,"data":"Evaluated only: auc\n"}
+,{"stream_name":"stdout","time":1113.084053232,"data":"Fold ROC AUC: 0.946843812 | elapsed 9.1 min\n"}
+,{"stream_name":"stdout","time":1113.248647625,"data":"\n"}
+,{"stream_name":"stdout","time":1113.248691095,"data":"Pass 2 OOF ROC AUC: 0.946109332\n"}
+,{"stream_name":"stdout","time":1142.64424995,"data":"123 scored files | 8,922 adjusted records\n"}
+,{"stream_name":"stdout","time":1142.64429356,"data":"Saved submission.csv (80/20) and submission_history_adjusted.csv (experimental correction).\n"}
+,{"stream_name":"stderr","time":1146.324390127,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":1146.324432687,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":1146.511673976,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":1146.511717716,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":1147.258278685,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":1147.536160471,"data":"[NbConvertApp] Writing 52558 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":1150.151131826,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":1151.047111057,"data":"[NbConvertApp] Writing 414813 bytes to __results__.html\n"}
+]
