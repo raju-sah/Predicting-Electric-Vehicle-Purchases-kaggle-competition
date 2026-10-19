@@ -1,0 +1,50 @@
+# --- Kaggle competition data (regenerable from competition page) ---
+train.csv
+test.csv
+sample_submission.csv
+
+# --- Binary artifacts: OOF vectors, predictions, model dumps ---
+*.npy
+*.npz
+*.pkl
+*.pickle
+*.joblib
+*.pt
+*.bin
+*.parquet
+*.h5
+*.onnx
+*.zip
+*.7z
+*.tar
+*.tar.gz
+*.tgz
+
+# --- Large CSV artifacts: submission predictions + scratch outputs ---
+/subs/*.csv
+subs/**/*.csv
+/scratch/*.csv
+scratch/**/*.csv
+scratch/**/*.tsv
+scratch/**/*.parquet
+
+# --- Generated / tool dirs ---
+catboost_info/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# --- Commit-plan scratch files (local tooling, not part of the project) ---
+scratch/_commitplan/
+
+# --- External datasets + local tooling ---
+external/
+.agents/
+.commandcode/
+
+# --- OS noise ---
+.DS_Store
+Thumbs.db
