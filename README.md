@@ -10,7 +10,34 @@ Binary classification of `Will_Buy_EV` (Yes/No, 17.5% positive rate), scored by 
 | Test rows | 287,000 |
 | Features | 7 numeric + 6 categorical |
 | Metric | ROC-AUC |
-| Best public LB | **0.94656** (live rank 17) |
+
+## Leaderboard
+
+Final standings, competition completed. Both boards have the same 62 entries.
+
+| Board | Rank | Score | Entries |
+|---|---|---|---|
+| **Public** | **353** / 3,575 | **0.94657** | 62 |
+| **Private** | **506** | **0.94542** | 62 |
+
+→ https://www.kaggle.com/competitions/playground-series-s6e9/leaderboard?search=raju+sah
+
+Private is computed on ~80% of the test set. Both rows were read back from the Kaggle CLI
+leaderboard download and cross-checked against the competition UI.
+
+Best submission: `v81_mega56_champ_50_50.csv` — 0.94657 public / 0.94542 private. It is a 50/50
+rank blend of the megayak six-view pool against the champion anchor, carried over the proven
+four-band half-swap. Top of the final board is Team Alicia at 0.94945 public.
+
+Two things are worth reading off that table rather than hiding:
+
+- **Public rank 353 from a score many teams matched.** A tight cluster sits at 0.94657, so the
+  public number was never a clean separation — dozens of teams converged on the same band-swap
+  neighbourhood and tie-break by submission order alone.
+- **Private landed 153 places below public.** The band swap was tuned on the public split, and
+  that is exactly the overfit signature: it bought public score and gave it back on private.
+  The fold-42 OOF gate in `AGENTS.md` exists precisely because of this, and it should have been
+  weighted harder than it was.
 
 ## Approach
 
